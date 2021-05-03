@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "633720627691",
+    "project_id": "diechichat",
+    "storage_bucket": "diechichat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:633720627691:android:c46564a375dc4e4b2cf9ae",
+        "android_client_info": {
+          "package_name": "com.example.diechichat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "633720627691-dkbvhakvc4k1e56nhc7fu7g8tob3jfgd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.diechichat",
+            "certificate_hash": "ccb7c5a2db7ed5ec00f35ea2dae64a8677630cb2"
+          }
+        },
+        {
+          "client_id": "633720627691-4l46gm0ml1cu113942kjbagafgt0q7af.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEqcf38a8NNXt9DIxYr1pEG_oy5AvJRp8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "633720627691-4l46gm0ml1cu113942kjbagafgt0q7af.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

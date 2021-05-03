@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nuevo_cliente_nav_graph"
+    app:startDestination="@id/fragment_nuevo_cliente">
+
+    <fragment
+        android:id="@+id/fragment_nuevo_cliente"
+        android:name="com.example.diechichat.vista.fragmentos.NuevoClienteFragment"
+        android:label="@string/title_activity_nuevo_cliente"
+        tools:layout="@layout/fragment_nuevo_cliente"/>
+</navigation>
