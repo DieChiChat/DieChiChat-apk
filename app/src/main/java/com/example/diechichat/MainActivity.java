@@ -2,6 +2,8 @@ package com.example.diechichat;
 
 import android.os.Bundle;
 
+import com.example.diechichat.ui.login.LoginFragment;
+import com.example.diechichat.ui.login.LoginViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -13,7 +15,9 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragInterface {
+
+    private LoginViewModel loginVM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,5 +47,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //Métodos login
+
+    @Override
+    public void onEntrarLoginFrag(String usuario, String contrasena) {
+        loginVM.login(usuario, contrasena);
     }
 }
