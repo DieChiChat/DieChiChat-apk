@@ -1,6 +1,8 @@
 package com.example.diechichat.ui.login;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -8,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -20,12 +21,15 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.FragmentLoginBinding;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.Nutricionista;
+import com.example.diechichat.vistamodelo.ClienteViewModel;
+import com.example.diechichat.vistamodelo.NutriViewModel;
+
+import java.util.List;
 
 public class LoginFragment extends Fragment {
 
@@ -34,9 +38,12 @@ public class LoginFragment extends Fragment {
 
     private LoginFragInterface mListener;
 
+    private Cliente c;
+    private Nutricionista n;
+
     public interface LoginFragInterface {
-//        void onEntrarLoginFrag(Object obj);
-        void onEntrarLoginFrag(String usuario, String contrasena);
+        void onEntrarLoginFrag(Object obj);
+//        void onEntrarLoginFrag(String usuario, String contrasena);
     }
 
     public LoginFragment() {
@@ -79,15 +86,14 @@ public class LoginFragment extends Fragment {
         // Listeners
         binding.btEntrar.setOnClickListener(btEntrar_OnClickListener);
 
-
-        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory()).get(LoginViewModel.class);
-
         final EditText etUsuario = view.findViewById(R.id.etUsuario);
         final EditText etContrasena = view.findViewById(R.id.etContrasena);
         final Button btEntrar = view.findViewById(R.id.btEntrar);
         final ProgressBar pbLoading = view.findViewById(R.id.loading);
 
         btEntrar.setEnabled(true);
+        btEntrar.setBackgroundColor(R.string.colorFondo);
+        btEntrar.setTextColor(R.string.colorLetras);
 
 //        loginViewModel.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<LoginFormState>() {
 //            @Override
@@ -145,7 +151,7 @@ public class LoginFragment extends Fragment {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    loginViewModel.login(etUsuario.getText().toString(), etContrasena.getText().toString());
+//                    loginViewModel.login(etUsuario.getText().toString(), etContrasena.getText().toString());
                 }
                 return false;
             }
@@ -155,7 +161,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 pbLoading.setVisibility(View.VISIBLE);
-                loginViewModel.login(etUsuario.getText().toString(), etContrasena.getText().toString());
+//                loginViewModel.login(etUsuario.getText().toString(), etContrasena.getText().toString());
             }
         });
 
@@ -163,45 +169,41 @@ public class LoginFragment extends Fragment {
     }
 
     private final View.OnClickListener btEntrar_OnClickListener = new View.OnClickListener() {
+        @SuppressLint("ResourceAsColor")
         @Override
         public void onClick(View v) {
             InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             if (imm != null) imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            binding.btEntrar.setBackgroundTintList(ColorStateList.valueOf(R.color.gold));
 
             binding.loading.setVisibility(View.VISIBLE);
-            loginViewModel.login(binding.etUsuario.getText().toString(), binding.etContrasena.getText().toString());
+//            loginViewModel.login(binding.etUsuario.getText().toString(), binding.etContrasena.getText().toString());
 
-            Cliente c;
             if (!binding.etUsuario.getText().toString().isEmpty() || !binding.etContrasena.getText().toString().isEmpty()) {
-                if (mListener != null) {
-                    mListener.onEntrarLoginFrag(binding.etUsuario.getText().toString(), binding.etContrasena.getText().toString());
+                if (esAdministrador()) {
+                    if (mListener != null) {
+                        mListener.onEntrarLoginFrag(n);
+                    }
+                } else if(esCliente()) {
+                    if (mListener != null) {
+                        mListener.onEntrarLoginFrag(c);
+                    }
                 }
             } else {
                 if (mListener != null) {
-                    mListener.onEntrarLoginFrag("", "");
+                    mListener.onEntrarLoginFrag(null);
                 }
             }
-//            List<Nutricionista> nutris = ;
-//            if (!binding.etUsuario.getText().toString().isEmpty()) {
-//                Nutricionista nutri = mAdaptadorNutricionista.getItem(binding.etUsuario.getText().toString());
-//                if (nutri.getContrasena().equals(binding.etContrasena.getText().toString())) {
-//                    if (mListener != null)
-//                        mListener.onEntrarLoginFrag(nutri);
-//                } else {
-//                    if (mListener != null)
-//                        mListener.onEntrarLoginFrag(null);
-//                }
-//            }
         }
     };
 
-    private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful logged in experience
-        if (getContext() != null && getContext().getApplicationContext() != null) {
-            Toast.makeText(getContext().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-        }
-    }
+//    private void updateUiWithUser(LoggedInUserView model) {
+//        String welcome = getString(R.string.welcome) + model.getDisplayName();
+//        // TODO : initiate successful logged in experience
+//        if (getContext() != null && getContext().getApplicationContext() != null) {
+//            Toast.makeText(getContext().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+//        }
+//    }
 
     private void showLoginFailed(@StringRes Integer errorString) {
         if (getContext() != null && getContext().getApplicationContext() != null) {
@@ -225,4 +227,46 @@ public class LoginFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    /*************/
+
+
+    public boolean esAdministrador() {
+        final boolean[] esNutri = {false};
+        NutriViewModel nutriVM = null;
+        nutriVM.getNutricionistaME().observe(this, new Observer<List<Nutricionista>>() {
+            @Override
+            public void onChanged(List<Nutricionista> nutris) {
+                for (int i = 0; i < nutris.size(); i++) {
+                    if(nutris.get(i).getUsuario().equals(binding.etUsuario.getText().toString()) && nutris.get(i).getContrasena().equals(binding.etContrasena.getText().toString())) {
+                        esNutri[0] = true;
+                        n = nutris.get(i);
+                        break;
+                    }
+                }
+            }
+        });
+        return esNutri[0];
+    }
+
+    public boolean esCliente() {
+        final boolean[] esCliente = {false};
+        ClienteViewModel cliVM = null;
+        cliVM.getClientesME().observe(this, new Observer<List<Cliente>>() {
+            @Override
+            public void onChanged(List<Cliente> clientes) {
+                for (int i = 0; i < clientes.size(); i++) {
+                    if(clientes.get(i).getUsuario().equals(binding.etUsuario.getText().toString()) && clientes.get(i).getContrasena().equals(binding.etContrasena.getText().toString())) {
+                        esCliente[0] = true;
+                        c = clientes.get(i);
+                        break;
+                    }
+                }
+            }
+        });
+
+        return esCliente[0];
+    }
+
+
 }

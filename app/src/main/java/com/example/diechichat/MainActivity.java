@@ -1,30 +1,50 @@
 package com.example.diechichat;
 
 import android.os.Bundle;
-
-import com.example.diechichat.ui.login.LoginFragment;
-import com.example.diechichat.ui.login.LoginViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.View;
-
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.NavController;
+import androidx.navigation.ui.AppBarConfiguration;
+
+import com.example.diechichat.databinding.ActivityMainBinding;
+import com.example.diechichat.modelo.Cliente;
+import com.example.diechichat.modelo.Nutricionista;
+import com.example.diechichat.ui.login.LoginFragment;
+import com.example.diechichat.ui.login.LoginViewModel;
+import com.example.diechichat.vistamodelo.MainViewModel;
+import com.example.diechichat.vistamodelo.NutriViewModel;
+import com.google.android.material.snackbar.Snackbar;
+
 public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragInterface {
 
+    private MainViewModel mainVM;
     private LoginViewModel loginVM;
+    private NutriViewModel nutriVM;
+
+    private NavController mNavC;
+
+    private ActivityMainBinding bindingMain;
+//    private AppBarMainBinding bindingAppBar;
+    private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_login);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+        bindingMain = ActivityMainBinding.inflate(getLayoutInflater());
+        //bindingAppBar = bindingMain.appBarMain();
+//        setSupportActionBar(bindingAppBar.mainToolbar);
+
+//        mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragLogin)).getNavController();
+
+//        mAppBarConfiguration = new AppBarConfiguration.Builder(mNavC.getGraph()).setOpenableLayout(bindingMain.drawerLayout).build();
+//        NavigationUI.setupActionBarWithNavController(this, mNavC, mAppBarConfiguration);
+//        bindingMain.navView.setNavigationItemSelectedListener(navView_OnNavigationItemSelected);
     }
 
     @Override
@@ -51,8 +71,22 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
     //Métodos login
 
+//    @Override
+//    public void onEntrarLoginFrag(String usuario, String contrasena) {
+//        loginVM.login(usuario, contrasena);
+//    }
+
     @Override
-    public void onEntrarLoginFrag(String usuario, String contrasena) {
-        loginVM.login(usuario, contrasena);
+    public void onEntrarLoginFrag(Object obj) {
+        mainVM.setLogin(obj);
+        if (obj instanceof Nutricionista) {
+            //loginVM.login(((Nutricionista) obj).getUsuario(), ((Nutricionista) obj).getContrasena());
+            Snackbar.make(bindingMain.getRoot(), "ha entrado en login nutricionista", Snackbar.LENGTH_SHORT).show();
+        } else if (obj instanceof Cliente) {
+            //loginVM.login(((Nutricionista) obj).getUsuario(), ((Nutricionista) obj).getContrasena());
+            Snackbar.make(bindingMain.getRoot(), "ha entrado en login cliente", Snackbar.LENGTH_SHORT).show();
+        }
+        finish();
+        mNavC.navigateUp();
     }
 }

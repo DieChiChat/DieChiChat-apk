@@ -18,6 +18,9 @@
     <string name="login_failed">"Login failed"</string>
     <string name="by">Created By María - Marta</string>
 
+    <string name="colorFondo">#4A148C</string>
+    <string name="colorLetras">#ffbf00</string>
+
 
     <!-- FIREBASE -->
     <string name="Firebase_name_key">Firebase_name</string>
