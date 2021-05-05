@@ -48,11 +48,7 @@
     <string name="datos_contraseña">Contraseña: </string>
     <string name="datos_edad">Edad: </string>
     <string name="datos_peso">Peso (Kg) : </string>
-    <string name="menu_editar_perfil">Editar perfil</string>
     <string name="title_activity_mi_perfil">MiPerfilActivity</string>
-
-    <string name="msg_DlgConfirmacion_Salir">¿Desea cerrar la App?</string>
-    <string name="msg_DlgConfirmacion_Eliminar">Se va a eliminar el cliente seleccionado.\n¿Está seguro?</string>
     
     <!-- mi perfil -->
     <string name="perfil_nombre">Nombre: </string>
@@ -67,7 +63,6 @@
     <string name="Firebase_name_summary">Nombre raíz en Firebase</string>
     <string name="Firebase_name_default">DieChiChat</string>
 
-    <string name="title_activity_mis_clientes">MisClientesActivity</string>
     <string name="title_activity_nuevo_cliente">NuevoClienteActivity</string>
 
 </resources>
