@@ -37,13 +37,13 @@ public class DlgConfirmacion extends DialogFragment {
                 builder.setTitle(mTitulo);
                 builder.setMessage(mMensaje);
             }
-            builder.setPositiveButton(R.string.bt_Aceptar, new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(R.string.btn_aceptar, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     mListener.onDlgConfirmacionPositiveClick(com.example.diechichat.vista.dialogos.DlgConfirmacion.this);
                 }
             });
-            builder.setNegativeButton(R.string.bt_Cancelar, new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(R.string.btn_cancelar, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     mListener.onDlgConfirmacionNegativeClick(com.example.diechichat.vista.dialogos.DlgConfirmacion.this);
