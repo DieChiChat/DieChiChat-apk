@@ -1,12 +1,44 @@
 <resources>
-    <string name="app_name">DieChiChat</string>
+    <string name="app_name">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="menu_inicio">Inicio</string>
+    <string name="menu_miperfil">Mi perfil</string>
+    <string name="menu_misclientes">Mis clientes</string>
+    <string name="menu_nuevocli">Nuevo cliente</string>
+    <string name="menu_contacto">Contacto</string>
+    <string name="menu_login">Login</string>
+
+    <!-- mensajes-->
+    <string name="msg_DlgConfirmacion_Salir">¿Desea cerrar la App?</string>
+    <string name="msg_DlgConfirmacion_Eliminar">Se va a eliminar el elemento seleccionado.\n¿Está seguro?</string>
+    <string name="msg_LoginOK">Login correcto.</string>
+    <string name="msg_LoginKO">Login incorrecto.</string>
+    <string name="msg_NoLogin">No Login!!</string>
+    <string name="msg_LoginPermisos">No tiene permisos</string>
+
+    <!-- botones -->
+    <string name="btn_aceptar">Aceptar</string>
+    <string name="btn_cancelar">Cancelar</string>
+
+    <!-- datos -->
+    <string name="datos_nombre">Nombre: </string>
+    <string name="datos_apellidos">Apellidos: </string>
+    <string name="datos_usuario">Usuario: </string>
+    <string name="datos_contraseña">Contraseña: </string>
+    <string name="datos_edad">Edad: </string>
+    <string name="datos_peso">Peso (Kg) : </string>
+    <string name="menu_editar_perfil">Editar perfil</string>
+    <string name="title_activity_mi_perfil">MiPerfilActivity</string>
+
+
+
+    <string name="title_activity_mis_clientes">MisClientesActivity</string>
+    <string name="title_activity_nuevo_cliente">NuevoClienteActivity</string>
+
 </resources>
