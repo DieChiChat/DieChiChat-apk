@@ -2,19 +2,13 @@ package com.example.diechichat.vista;
 
 import android.os.Bundle;
 
-import com.example.diechichat.R;
-import com.example.diechichat.databinding.ActivityMiPerfilBinding;
-import com.example.diechichat.databinding.ActivityNuevoClienteBinding;
-import com.example.diechichat.vista.fragmentos.NuevoCienteFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.view.View;
+import com.example.diechichat.R;
+import com.example.diechichat.databinding.ActivityNuevoClienteBinding;
+import com.example.diechichat.vista.fragmentos.NuevoCienteFragment;
 
 public class NuevoClienteActivity extends AppCompatActivity implements NuevoCienteFragment.NuevoCliFragmentInterface {
     private ActivityNuevoClienteBinding binding;
@@ -26,13 +20,13 @@ public class NuevoClienteActivity extends AppCompatActivity implements NuevoCien
 //        setContentView(R.layout.activity_nuevo_cliente);
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
-        binding=ActivityNuevoClienteBinding.inflate(getLayoutInflater());
+        binding = ActivityNuevoClienteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
-        if(getSupportActionBar()!=null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        mNavC=((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nuevoClienteFragCV)).getNavController();
+        mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nuevoClienteFragCV)).getNavController();
 
     }
 
