@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mi_perfil_nav_graph"
+    app:startDestination="@id/fragment_perfil">
+
+    <fragment android:id="@+id/fragment_perfil"
+        android:name="com.example.diechichat.vista.fragmentos.MiPerfilFragment"
+        android:label="@string/title_activity_mi_perfil"
+        tools:layout="@layout/fragment_perfil"/>
+
+</navigation>
