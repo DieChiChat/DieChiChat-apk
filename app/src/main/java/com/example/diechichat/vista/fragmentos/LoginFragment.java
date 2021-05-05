@@ -35,7 +35,6 @@ public class LoginFragment extends Fragment {
     private NutriViewModel nutriVM;
     private ClienteViewModel cliVM;
 
-
     private LoginFragInterface mListener;
 
     private Cliente c;
