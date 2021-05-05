@@ -153,8 +153,7 @@ public class MainActivity extends AppCompatActivity implements
             } else if (obj instanceof Cliente) {
                 Snackbar.make(bindingMain.getRoot(), "Estás dentro como cliente", Snackbar.LENGTH_SHORT).show();
             }
-            finish();
-            mNavC.navigateUp();
+            mNavC.navigate(R.id.action_loginFragment_to_nav_inicio);
         } else {
             Snackbar.make(bindingMain.getRoot(), "Introduce usuario y contraseña", Snackbar.LENGTH_SHORT).show();
         }
