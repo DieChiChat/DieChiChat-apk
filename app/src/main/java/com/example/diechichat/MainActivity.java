@@ -1,4 +1,4 @@
-package com.example.diechichat;
+package com.example.diechichat.vista;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +31,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements
         LoginFragment.LoginFragInterface,
-        DlgConfirmacion.DlgConfirmacionListener {
+        DlgConfirmacion.DlgConfirmacionListener{
 
     private MainViewModel mainVM;
     private LoginViewModel loginVM;
@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            
-        bindingMain =ActivityMainBinding.inflate(getLayoutInflater());
+
+        bindingMain = ActivityMainBinding.inflate(getLayoutInflater());
         bindingAppBar=bindingMain.appBarMain;
         setContentView(bindingMain.getRoot());
         setSupportActionBar(bindingAppBar.mainToolbar);
@@ -63,10 +63,10 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
+                
     @Override
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(mNavC, mAppBarConfiguration) || super.onSupportNavigateUp();
@@ -99,12 +99,12 @@ public class MainActivity extends AppCompatActivity implements
             mostrarDlgSalir();
         }
     }
-
+                
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
-                
+         
     private final NavigationView.OnNavigationItemSelectedListener navView_OnNavigationItemSelected = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
