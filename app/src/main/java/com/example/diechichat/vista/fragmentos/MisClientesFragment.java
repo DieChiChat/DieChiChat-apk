@@ -12,12 +12,9 @@ import com.example.diechichat.R;
 
 public class MisClientesFragment extends Fragment {
 
-
-
     public MisClientesFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

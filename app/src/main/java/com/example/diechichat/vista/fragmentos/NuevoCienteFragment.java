@@ -2,43 +2,40 @@ package com.example.diechichat.vista.fragmentos;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-
 import com.example.diechichat.R;
-import com.example.diechichat.databinding.FragmentPerfilBinding;
+import com.example.diechichat.databinding.FragmentNuevoClienteBinding;
 
-public class MiPerfilFragment extends Fragment {
+public class NuevoCienteFragment extends Fragment {
+    private FragmentNuevoClienteBinding binding;
+    private NuevoCliFragmentInterface mListener;
 
-    private FragmentPerfilBinding binding;
-    private PerfilFragInterface mListener;
-
-    public interface PerfilFragInterface{
-        void onAceptarPerfilFrag();
-        void onCancelarPerfilFrag();
+    public interface NuevoCliFragmentInterface{
+        void onAceptarNuevoFrag();
+        void onCancelarNuevoFrag();
     }
 
-    public MiPerfilFragment() {
+    public NuevoCienteFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof PerfilFragInterface){
-            mListener= (PerfilFragInterface) context;
+        if (context instanceof NuevoCliFragmentInterface){
+            mListener= (NuevoCliFragmentInterface) context;
         }else {
-            throw new RuntimeException(context.toString() + " must implement PerfilFragInterface");
+            throw new RuntimeException(context.toString() + " must implement NuevoCliFragmentInterface");
         }
     }
     @Override
@@ -52,18 +49,21 @@ public class MiPerfilFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding= FragmentPerfilBinding.inflate(inflater, container, false);
+        binding= FragmentNuevoClienteBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //TODO: poner los datos del perfil
-        binding.etNombre.setEnabled(false);
-        binding.etApellidos.setEnabled(false);
-        binding.etUsuario.setEnabled(false);
-        binding.etContrasena.setEnabled(false);
+        binding.numPickerEdad.setEnabled(true);
+        binding.numPickerPeso.setEnabled(true);
+        binding.numPickerEdad.setMinValue(0);
+        binding.numPickerEdad.setMaxValue(100);
+        binding.numPickerPeso.setMinValue(20);
+        binding.numPickerPeso.setMaxValue(400);
+        binding.numPickerPeso.setWrapSelectorWheel(true);
+        binding.numPickerEdad.setWrapSelectorWheel(true);
 
         binding.btAceptar.setOnClickListener(btAceptar_onClickListener);
         binding.btCancelar.setOnClickListener(btCancelar_onClickListener);
@@ -85,43 +85,22 @@ public class MiPerfilFragment extends Fragment {
         super.onDetach();
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_perfil,menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.menuEditarPerfil){
-            binding.etNombre.setEnabled(true);
-            binding.etApellidos.setEnabled(true);
-            binding.etUsuario.setEnabled(true);
-            binding.etContrasena.setEnabled(true);
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     View.OnClickListener btAceptar_onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            binding.etNombre.setEnabled(false);
-            binding.etApellidos.setEnabled(false);
-            binding.etUsuario.setEnabled(false);
-            binding.etContrasena.setEnabled(false);
-            mListener.onAceptarPerfilFrag();
+            mListener.onAceptarNuevoFrag();
         }
     };
     View.OnClickListener btCancelar_onClickListener= new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             //Ocultamos el teclado!
-
             InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             if (imm != null) imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
             if (mListener != null) {
-                mListener.onCancelarPerfilFrag();
+                mListener.onCancelarNuevoFrag();
             }
         }
     };

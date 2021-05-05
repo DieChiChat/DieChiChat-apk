@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragment_nuevo_cliente"
-        android:name="com.example.diechichat.vista.fragmentos.NuevoClienteFragment"
+        android:name="com.example.diechichat.vista.fragmentos.NuevoCienteFragment"
         android:label="@string/title_activity_nuevo_cliente"
         tools:layout="@layout/fragment_nuevo_cliente"/>
 </navigation>

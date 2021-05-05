@@ -4,16 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -21,9 +17,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.diechichat.databinding.ActivityMainBinding;
 import com.example.diechichat.databinding.AppBarMainBinding;
 import com.example.diechichat.vista.dialogos.DlgConfirmacion;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.diechichat.vista.fragmentos.MiPerfilFragment;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements
         DlgConfirmacion.DlgConfirmacionListener {
@@ -47,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(bindingMain.getRoot());
         setSupportActionBar(bindingAppBar.mainToolbar);
 
-        mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment)).getNavController();
+        mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.mainFragCV)).getNavController();
         mAppBarConfiguration= new AppBarConfiguration.Builder(mNavC.getGraph()).
                 setOpenableLayout(bindingMain.drawerLayout).
                 build();
@@ -116,9 +111,6 @@ public class MainActivity extends AppCompatActivity implements
             }else if(item.getItemId()==R.id.menu_nuevocliente){
                 Intent i= new Intent(MainActivity.this,NuevoClienteActivity.class);
                 startActivity(i);
-
-            }else if(item.getItemId()==R.id.menu_login){
-
             }else{
                 return false;
             }

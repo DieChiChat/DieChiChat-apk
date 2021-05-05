@@ -9,7 +9,11 @@
         android:id="@+id/nav_inicio"
         android:name="com.example.diechichat.vista.fragmentos.HomeFragment"
         android:label="@string/menu_inicio"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/loginFragment"

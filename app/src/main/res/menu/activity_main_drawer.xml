@@ -10,20 +10,16 @@
             android:title="@string/menu_inicio" />
         <item
             android:id="@+id/menu_miperfil"
-            android:icon="@android:drawable/ic_menu_edit"
+            android:icon="@drawable/miperfil"
             android:title="@string/menu_miperfil" />
         <item
             android:id="@+id/menu_misclientes"
-            android:icon="@android:drawable/ic_menu_my_calendar"
+            android:icon="@drawable/misclientes"
             android:title="@string/menu_misclientes" />
         <item
             android:id="@+id/menu_nuevocliente"
-            android:icon="@android:drawable/ic_menu_add"
+            android:icon="@drawable/nuevocliente"
             android:title="@string/menu_nuevocli" />
 
-        <item
-            android:id="@+id/menu_login"
-            android:icon="@android:drawable/ic_partial_secure"
-            android:title="@string/menu_login" />
     </group>
 </menu>
