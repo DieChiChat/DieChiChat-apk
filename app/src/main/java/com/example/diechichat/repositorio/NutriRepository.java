@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import com.example.diechichat.R;
 
 import com.example.diechichat.modelo.AppDatabase;
 import com.example.diechichat.modelo.Nutricionista;
@@ -68,7 +67,7 @@ public class NutriRepository {
         @Override
         protected void onActive() {
             super.onActive();
-            reg = mAppDB.getRefFS().collection("administrador").orderBy("id").addSnapshotListener(nutrisME_EventListener);
+            reg = mAppDB.getRefFS().collection("administrador").orderBy("usuario").addSnapshotListener(nutrisME_EventListener);
         }
 
         @Override

@@ -1,10 +1,6 @@
-package com.example.diechichat.ui.login;
-
-import android.util.Patterns;
+package com.example.diechichat.vistamodelo;
 
 import androidx.lifecycle.ViewModel;
-
-import com.example.diechichat.vistamodelo.NutriViewModel;
 
 public class LoginViewModel extends ViewModel {
 
@@ -49,19 +45,19 @@ public class LoginViewModel extends ViewModel {
 //    }
 
     // A placeholder username validation check
-    private boolean isUserNameValid(String username) {
-        if (username == null) {
-            return false;
-        }
-        if (username.contains("@")) {
-            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
-        } else {
-            return !username.trim().isEmpty();
-        }
-    }
-
-    // A placeholder password validation check
-    private boolean isPasswordValid(String password) {
-        return password != null && password.trim().length() > 5;
-    }
+//    private boolean isUserNameValid(String username) {
+//        if (username == null) {
+//            return false;
+//        }
+//        if (username.contains("@")) {
+//            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
+//        } else {
+//            return !username.trim().isEmpty();
+//        }
+//    }
+//
+//    // A placeholder password validation check
+//    private boolean isPasswordValid(String password) {
+//        return password != null && password.trim().length() > 5;
+//    }
 }

@@ -10,12 +10,14 @@ public class Cliente implements Parcelable {
     private String id;
     private int idAdmin;             //pk
     @NonNull
-    private String fechaNacimiento;           //pk
+    private int edad;           //pk
     @NonNull
     private String usuario;              //pk
     private String contrasena;     //not null
-    private String Nombre;         //not null
-    private String Apellidos;      //not null
+    private String nombre;         //not null
+    private String apellidos;      //not null
+    private double peso;
+    private double altura;
 
     public Cliente() {
     }
@@ -23,21 +25,25 @@ public class Cliente implements Parcelable {
 
     protected Cliente(Parcel in) {
         idAdmin = in.readInt();
-        fechaNacimiento = in.readString();
+        edad = in.readInt();
         usuario = in.readString();
         contrasena = in.readString();
-        Nombre = in.readString();
-        Apellidos = in.readString();
+        nombre = in.readString();
+        apellidos = in.readString();
+        peso = in.readDouble();
+        altura = in.readDouble();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(idAdmin);
-        dest.writeString(fechaNacimiento);
+        dest.writeInt(edad);
         dest.writeString(usuario);
         dest.writeString(contrasena);
-        dest.writeString(Nombre);
-        dest.writeString(Apellidos);
+        dest.writeString(nombre);
+        dest.writeString(apellidos);
+        dest.writeDouble(peso);
+        dest.writeDouble(altura);
     }
 
     @Override
@@ -60,7 +66,6 @@ public class Cliente implements Parcelable {
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -68,25 +73,18 @@ public class Cliente implements Parcelable {
     public int getIdAdmin() {
         return idAdmin;
     }
-
     public void setIdAdmin(int idAdmin) {
         this.idAdmin = idAdmin;
     }
 
     @NonNull
-    public String getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(@NonNull String fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
+    public int getEdad() { return edad; }
+    public void setEdad(@NonNull int edad) { this.edad = edad; }
 
     @NonNull
     public String getUsuario() {
         return usuario;
     }
-
     public void setUsuario(@NonNull String usuario) {
         this.usuario = usuario;
     }
@@ -94,24 +92,28 @@ public class Cliente implements Parcelable {
     public String getContrasena() {
         return contrasena;
     }
-
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
-
     public void setNombre(String nombre) {
-        Nombre = nombre;
+        nombre = nombre;
     }
 
     public String getApellidos() {
-        return Apellidos;
+        return apellidos;
+    }
+    public void setApellidos(String apellidos) {
+        apellidos = apellidos;
     }
 
-    public void setApellidos(String apellidos) {
-        Apellidos = apellidos;
-    }
+    public double getPeso() { return peso; }
+    public void setPeso(double peso) { this.peso = peso; }
+
+    public double getAltura() { return altura; }
+    public void setAltura(double altura) { this.altura = altura; }
+
 }

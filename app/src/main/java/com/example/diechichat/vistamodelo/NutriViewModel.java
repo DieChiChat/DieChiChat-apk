@@ -16,7 +16,7 @@ public class NutriViewModel extends AndroidViewModel {
     /* ViewModel Dptos ****************************************************************************/
 
     private final NutriRepository mNutriRep;
-    private LiveData<List<Nutricionista>> mNutricionista;
+    private LiveData<List<Nutricionista>> mNutricionistas;
 
     private Nutricionista mLogin;
     private Nutricionista mNutriAEliminar;
@@ -24,7 +24,7 @@ public class NutriViewModel extends AndroidViewModel {
     public NutriViewModel(@NonNull Application application) {
         super(application);
         mNutriRep = new NutriRepository(application);
-        mNutricionista = null;
+        mNutricionistas = null;
         mLogin = null;
         mNutriAEliminar = null;
     }
@@ -32,13 +32,13 @@ public class NutriViewModel extends AndroidViewModel {
     /* Métodos Mantenimiento Departamentos ********************************************************/
 
     public LiveData<List<Nutricionista>> getNutricionistaME() {      // Multiple Events
-        mNutricionista = mNutriRep.recuperarNutricionistasME();
-        return mNutricionista;
+        mNutricionistas = mNutriRep.recuperarNutricionistasME();
+        return mNutricionistas;
     }
 
     public LiveData<List<Nutricionista>> getNutricionistaSE() {      // Single Event
-        mNutricionista = mNutriRep.recuperarNutricionistasSE();
-        return mNutricionista;
+        mNutricionistas = mNutriRep.recuperarNutricionistasSE();
+        return mNutricionistas;
     }
 
     public LiveData<Boolean> altaNutricionista(Nutricionista nutri) {
