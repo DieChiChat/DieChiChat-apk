@@ -7,7 +7,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <!-- Strings related to login -->
+     <!-- Strings related to login -->
     <string name="prompt_email">Email/Usuario</string>
     <string name="prompt_password">Contraseña</string>
     <string name="action_sign_in">Entrar</string>
@@ -24,7 +24,7 @@
     <string name="menu_nuevocli">Nuevo cliente</string>
     <string name="menu_contacto">Contacto</string>
     <string name="menu_login">Login</string>
-    
+
     <!-- mensajes-->
     <string name="msg_DlgConfirmacion_Salir">¿Desea cerrar la App?</string>
     <string name="msg_DlgConfirmacion_Eliminar">Se va a eliminar el elemento seleccionado.\n¿Está seguro?</string>
@@ -35,13 +35,13 @@
 
     <string name="colorFondo">#4A148C</string>
     <string name="colorLetras">#ffbf00</string>
-
+    
     <!-- botones -->
     <string name="btn_aceptar">Aceptar</string>
     <string name="btn_cancelar">Cancelar</string>
     <string name="iv_DieChiChat_contentDescription">Imagen DieChiChat</string>
 
-     <!-- datos -->
+    <!-- datos -->
     <string name="datos_nombre">Nombre: </string>
     <string name="datos_apellidos">Apellidos: </string>
     <string name="datos_usuario">Usuario: </string>
@@ -50,10 +50,10 @@
     <string name="datos_peso">Peso (Kg) : </string>
     <string name="menu_editar_perfil">Editar perfil</string>
     <string name="title_activity_mi_perfil">MiPerfilActivity</string>
-    
+
     <string name="msg_DlgConfirmacion_Salir">¿Desea cerrar la App?</string>
     <string name="msg_DlgConfirmacion_Eliminar">Se va a eliminar el cliente seleccionado.\n¿Está seguro?</string>
-
+    
     <!-- mi perfil -->
     <string name="perfil_nombre">Nombre: </string>
     <string name="perfil_apellidos">Apellidos: </string>
@@ -69,5 +69,5 @@
 
     <string name="title_activity_mis_clientes">MisClientesActivity</string>
     <string name="title_activity_nuevo_cliente">NuevoClienteActivity</string>
-    
+
 </resources>
