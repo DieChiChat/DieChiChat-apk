@@ -3,24 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/loginFragment">
+    app:startDestination="@+id/nav_inicio">
 
     <fragment
         android:id="@+id/nav_inicio"
         android:name="com.example.diechichat.vista.fragmentos.HomeFragment"
         android:label="@string/menu_inicio"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_inicio_to_logingFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.diechichat.vista.fragmentos.LoginFragment"
         android:label="@string/menu_login"
-        tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_nav_inicio"
-            app:destination="@id/nav_inicio" />
-
-    </fragment>
+        tools:layout="@layout/fragment_login"/>
 
     <dialog
         android:id="@+id/dlgConfirmacionMain"
@@ -29,10 +28,5 @@
     <action
         android:id="@+id/action_global_dlgConfirmacionMain"
         app:destination="@id/dlgConfirmacionMain" />
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.diechichat.vista.MainActivity"
-        android:label="app_bar_main"
-        tools:layout="@layout/app_bar_main" />
 
 </navigation>

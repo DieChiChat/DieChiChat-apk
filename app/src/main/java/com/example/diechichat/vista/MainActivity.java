@@ -53,11 +53,12 @@ public class MainActivity extends AppCompatActivity implements
         setSupportActionBar(bindingAppBar.mainToolbar);
 
         mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.mainFragCV)).getNavController();
-        mAppBarConfiguration= new AppBarConfiguration.Builder(mNavC.getGraph()).setOpenableLayout(bindingMain.drawerLayout).build();
-        NavigationUI.setupActionBarWithNavController(this,mNavC,mAppBarConfiguration);
-        bindingMain.navView.setNavigationItemSelectedListener(navView_OnNavigationItemSelected);
+       // mAppBarConfiguration= new AppBarConfiguration.Builder(mNavC.getGraph()).setOpenableLayout(bindingMain.drawerLayout).build();
+        //NavigationUI.setupActionBarWithNavController(this,mNavC,mAppBarConfiguration);
+
 
         mainVM = new ViewModelProvider(this).get(MainViewModel.class);
+       mNavC.navigate(R.id.action_inicio_to_logingFragment);
     }
 
     @Override
@@ -146,6 +147,9 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onEntrarLoginFrag(Object obj) {
+        mAppBarConfiguration= new AppBarConfiguration.Builder(mNavC.getGraph()).setOpenableLayout(bindingMain.drawerLayout).build();
+        NavigationUI.setupActionBarWithNavController(this,mNavC,mAppBarConfiguration);
+        bindingMain.navView.setNavigationItemSelectedListener(navView_OnNavigationItemSelected);
         if(obj != null) {
             mainVM.setLogin(obj);
             if (obj instanceof Nutricionista) {
@@ -153,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements
             } else if (obj instanceof Cliente) {
                 Snackbar.make(bindingMain.getRoot(), "Estás dentro como cliente", Snackbar.LENGTH_SHORT).show();
             }
-            mNavC.navigate(R.id.action_loginFragment_to_nav_inicio);
+            mNavC.navigate(R.id.nav_inicio);
         } else {
             Snackbar.make(bindingMain.getRoot(), "Introduce usuario y contraseña", Snackbar.LENGTH_SHORT).show();
         }
