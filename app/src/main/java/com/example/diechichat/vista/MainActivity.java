@@ -20,7 +20,6 @@ import com.example.diechichat.databinding.ActivityMainBinding;
 import com.example.diechichat.databinding.AppBarMainBinding;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.Nutricionista;
-import com.example.diechichat.modelo.Usuario;
 import com.example.diechichat.vista.dialogos.DlgConfirmacion;
 import com.example.diechichat.vista.fragmentos.MiPerfilFragment;
 import com.example.diechichat.vista.fragmentos.LoginFragment;
