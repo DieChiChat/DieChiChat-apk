@@ -20,6 +20,7 @@ import com.example.diechichat.databinding.ActivityMainBinding;
 import com.example.diechichat.databinding.AppBarMainBinding;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.Nutricionista;
+import com.example.diechichat.modelo.Usuario;
 import com.example.diechichat.vista.dialogos.DlgConfirmacion;
 import com.example.diechichat.vista.fragmentos.MiPerfilFragment;
 import com.example.diechichat.vista.fragmentos.LoginFragment;
@@ -48,15 +49,12 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
 
         bindingMain = ActivityMainBinding.inflate(getLayoutInflater());
-        bindingAppBar=bindingMain.appBarMain;
         setContentView(bindingMain.getRoot());
-        setSupportActionBar(bindingAppBar.mainToolbar);
 
         mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.mainFragCV)).getNavController();
-        mAppBarConfiguration= new AppBarConfiguration.Builder(mNavC.getGraph()).setOpenableLayout(bindingMain.drawerLayout).build();
-        NavigationUI.setupActionBarWithNavController(this,mNavC,mAppBarConfiguration);
         bindingMain.navView.setNavigationItemSelectedListener(navView_OnNavigationItemSelected);
 
+        mNavC.navigate(R.id.action_nav_inicio_to_loginFragment);
         mainVM = new ViewModelProvider(this).get(MainViewModel.class);
     }
 
@@ -145,15 +143,20 @@ public class MainActivity extends AppCompatActivity implements
     //Métodos login
 
     @Override
-    public void onEntrarLoginFrag(Object obj) {
-        if(obj != null) {
-            mainVM.setLogin(obj);
-            if (obj instanceof Nutricionista) {
+    public void onEntrarLoginFrag(Usuario usuario) {
+        if(usuario != null) {
+            mainVM.setLogin(usuario);
+            if (usuario instanceof Nutricionista) {
                 Snackbar.make(bindingMain.getRoot(), "Estás dentro como administrador", Snackbar.LENGTH_SHORT).show();
-            } else if (obj instanceof Cliente) {
+
+            } else if (usuario instanceof Cliente) {
                 Snackbar.make(bindingMain.getRoot(), "Estás dentro como cliente", Snackbar.LENGTH_SHORT).show();
             }
-            mNavC.navigate(R.id.action_loginFragment_to_nav_inicio);
+            bindingAppBar=bindingMain.appBarMain;
+            setSupportActionBar(bindingAppBar.mainToolbar);
+            mAppBarConfiguration= new AppBarConfiguration.Builder(mNavC.getGraph()).setOpenableLayout(bindingMain.drawerLayout).build();
+            NavigationUI.setupActionBarWithNavController(this,mNavC,mAppBarConfiguration);
+            mNavC.navigate(R.id.nav_inicio);
         } else {
             Snackbar.make(bindingMain.getRoot(), "Introduce usuario y contraseña", Snackbar.LENGTH_SHORT).show();
         }
