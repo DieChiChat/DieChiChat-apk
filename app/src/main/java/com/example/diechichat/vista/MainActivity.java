@@ -143,13 +143,13 @@ public class MainActivity extends AppCompatActivity implements
     //Métodos login
 
     @Override
-    public void onEntrarLoginFrag(Usuario usuario) {
-        if(usuario != null) {
-            mainVM.setLogin(usuario);
-            if (usuario instanceof Nutricionista) {
+    public void onEntrarLoginFrag(Object obj) {
+        if(obj != null) {
+            mainVM.setLogin(obj);
+            if (obj instanceof Nutricionista) {
                 Snackbar.make(bindingMain.getRoot(), "Estás dentro como administrador", Snackbar.LENGTH_SHORT).show();
 
-            } else if (usuario instanceof Cliente) {
+            } else if (obj instanceof Cliente) {
                 Snackbar.make(bindingMain.getRoot(), "Estás dentro como cliente", Snackbar.LENGTH_SHORT).show();
             }
             bindingAppBar=bindingMain.appBarMain;
