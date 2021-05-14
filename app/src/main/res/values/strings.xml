@@ -82,7 +82,5 @@
     <string name="btEditar">Editar</string>
     <string name="btAsignarDieta">Modificar Dieta</string>
     <string name="btEliminar">Eliminar</string>
-    <string name="bt_fecnac">…</string>
-    <string name="datos_fechanac">Fecha Nac.:</string>
 
 </resources>

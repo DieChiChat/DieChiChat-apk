@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -22,11 +21,7 @@ import com.example.diechichat.databinding.AppBarMainBinding;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.Nutricionista;
 import com.example.diechichat.vista.dialogos.DlgConfirmacion;
-import com.example.diechichat.vista.fragmentos.MiPerfilFragment;
 import com.example.diechichat.vista.fragmentos.LoginFragment;
-import com.example.diechichat.vista.fragmentos.NuevoCienteFragment;
-import com.example.diechichat.vistamodelo.ClienteViewModel;
-import com.example.diechichat.vistamodelo.LoginViewModel;
 import com.example.diechichat.vistamodelo.MainViewModel;
 import com.example.diechichat.vistamodelo.NutriViewModel;
 import com.google.android.material.snackbar.Snackbar;
@@ -37,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements
         DlgConfirmacion.DlgConfirmacionListener{
 
     private MainViewModel mainVM;
-    private LoginViewModel loginVM;
     private NutriViewModel nutriVM;
                 
     private ActivityMainBinding bindingMain;
@@ -59,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements
 
         mNavC.navigate(R.id.action_nav_inicio_to_loginFragment);
         mainVM = new ViewModelProvider(this).get(MainViewModel.class);
-       mNavC.navigate(R.id.action_inicio_to_logingFragment);
     }
 
     @Override

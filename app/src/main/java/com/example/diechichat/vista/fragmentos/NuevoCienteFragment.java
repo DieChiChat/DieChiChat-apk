@@ -3,32 +3,29 @@ package com.example.diechichat.vista.fragmentos;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.diechichat.R;
 import com.example.diechichat.databinding.FragmentNuevoClienteBinding;
 import com.example.diechichat.modelo.Cliente;
-import com.example.diechichat.modelo.Nutricionista;
-import com.example.diechichat.vistamodelo.MainViewModel;
 import com.example.diechichat.vista.dialogos.DlgSeleccionFecha;
 
 
-public class NuevoCienteFragment extends Fragment{
+public class NuevoCienteFragment extends Fragment implements
+        DlgSeleccionFecha.DlgSeleccionFechaListener {
+
     private FragmentNuevoClienteBinding binding;
     private NuevoCliFragmentInterface mListener;
     private Cliente c;
     private int mLogin;
 
-    public interface NuevoCliFragmentInterface{
+    public interface NuevoCliFragmentInterface {
         void onAceptarNuevoFrag(Cliente c, int datos);  //  1 --> peso = 0 // 2 --> altura = 0
         void onCancelarNuevoFrag();
     }
@@ -40,24 +37,26 @@ public class NuevoCienteFragment extends Fragment{
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof NuevoCliFragmentInterface){
-            mListener= (NuevoCliFragmentInterface) context;
-        }else {
+        if (context instanceof NuevoCliFragmentInterface) {
+            mListener = (NuevoCliFragmentInterface) context;
+        } else {
             throw new RuntimeException(context.toString() + " must implement NuevoCliFragmentInterface");
         }
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        if(getArguments()!= null){
+        if (getArguments() != null) {
             mLogin = getArguments().getInt("login");
         }
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding= FragmentNuevoClienteBinding.inflate(inflater, container, false);
+        binding = FragmentNuevoClienteBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -81,7 +80,7 @@ public class NuevoCienteFragment extends Fragment{
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding=null;
+        binding = null;
     }
 
     @Override
@@ -102,10 +101,10 @@ public class NuevoCienteFragment extends Fragment{
             if (imm != null) imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             if (mListener != null) {
                 if (!binding.etNuevoNombre.getText().toString().equals("") &&
-                    !binding.etNuevoApellidos.getText().toString().equals("") &&
+                        !binding.etNuevoApellidos.getText().toString().equals("") &&
                         !binding.etNuevoUsuario.getText().toString().equals("") &&
                         !binding.etNuevoContrasena.getText().toString().equals("")
-                        && !binding.etFecNac.getText().toString().equals("") ) {
+                        /*&& !binding.etFecNac.getText().toString().equals("")*/) {
                     // Creación un nuevo cliente
                     c = new Cliente();
                     c.setNombreCompleto(binding.etNuevoNombre.getText().toString() + " " + binding.etNuevoApellidos.getText().toString());
@@ -123,7 +122,7 @@ public class NuevoCienteFragment extends Fragment{
                             + " Altura: " + String.valueOf(binding.numPickerAltura.getValue())
                             + "Peso: " + String.valueOf(binding.numPickerPeso.getValue());
 
-                    c.setFechaFormat(binding.etFecNac.getText().toString());
+//                    c.setFechaFormat((binding.etFecNac.getText().toString().equals("") ? "" : ""));
                     if (binding.numPickerPeso.getValue() == 1) {            //Peso con valor 0
                         mListener.onAceptarNuevoFrag(c, 1);
                     } else if (binding.numPickerAltura.getValue() == 2) {   //Altura con valor 0
@@ -137,7 +136,7 @@ public class NuevoCienteFragment extends Fragment{
             }
         }
     };
-    View.OnClickListener btCancelar_onClickListener= new View.OnClickListener() {
+    View.OnClickListener btCancelar_onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             //Ocultamos el teclado!
@@ -153,9 +152,20 @@ public class NuevoCienteFragment extends Fragment{
         @Override
         public void onClick(View v) {
             DialogFragment dialogFragmentFecha = new DlgSeleccionFecha();
-            dialogFragmentFecha.show(getParentFragmentManager(),"tagSeleccionFecha");
+            dialogFragmentFecha.show(getParentFragmentManager(), "tagSeleccionFecha");
         }
     };
 
+    /** MÉTODOS DIÁLOGO SELECCIÓN FECHA*****************************************/
+
+    @Override
+    public void onDlgSeleccionFechaClick(DialogFragment dialog, String fecha) {
+        binding.etFecNac.setText(fecha);
+    }
+
+    @Override
+    public void onDlgSeleccionFechaCancel(DialogFragment dialog) {
+        binding.etFecNac.setText("");
+    }
 
 }

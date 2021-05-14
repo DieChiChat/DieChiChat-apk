@@ -15,6 +15,7 @@
 
     <TextView
         android:id="@+id/textView2"
+        style="@style/Theme.DieChiChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -25,6 +26,7 @@
 
     <EditText
         android:id="@+id/et_nombre"
+        style="@style/Theme.DieChiChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -36,6 +38,7 @@
 
     <TextView
         android:id="@+id/textView3"
+        style="@style/Theme.DieChiChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
@@ -46,6 +49,7 @@
 
     <EditText
         android:id="@+id/et_apellidos"
+        style="@style/Theme.DieChiChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -57,6 +61,7 @@
 
     <TextView
         android:id="@+id/textView4"
+        style="@style/Theme.DieChiChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
@@ -67,6 +72,7 @@
 
     <EditText
         android:id="@+id/et_usuario"
+        style="@style/Theme.DieChiChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -78,6 +84,7 @@
 
     <TextView
         android:id="@+id/textView5"
+        style="@style/Theme.DieChiChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
@@ -88,6 +95,7 @@
 
     <EditText
         android:id="@+id/et_contrasena"
+        style="@style/Theme.DieChiChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -100,22 +108,28 @@
 
     <Button
         android:id="@+id/btCancelar"
-        style="@style/Theme.DieChiChat"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+
         android:layout_marginStart="16dp"
-        android:layout_marginTop="82dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/btn_cancelar"
+        app:background="@drawable/custom_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btAceptar"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:strokeColor="@color/darkBlue" />
 
     <Button
         android:id="@+id/btAceptar"
-        style="@style/Theme.DieChiChat"
+        style="?attr/materialButtonOutlinedStyle"
+        app:background="@drawable/custom_bottom"
+        app:strokeColor="@color/darkBlue"
+
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".vista.fragmentos.NuevoClienteFragment">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -15,10 +14,11 @@
 
     <TextView
         android:id="@+id/textView6"
+        style="@style/Theme.DieChiChat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="8dp"
         android:text="@string/datos_nombre"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -27,6 +27,7 @@
 
     <EditText
         android:id="@+id/et_nuevo_nombre"
+        style="@style/Theme.DieChiChat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -40,6 +41,7 @@
 
     <TextView
         android:id="@+id/textView7"
+        style="@style/Theme.DieChiChat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -52,6 +54,7 @@
 
     <EditText
         android:id="@+id/et_nuevo_apellidos"
+        style="@style/Theme.DieChiChat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -65,6 +68,7 @@
 
     <TextView
         android:id="@+id/textView8"
+        style="@style/Theme.DieChiChat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -77,6 +81,7 @@
 
     <EditText
         android:id="@+id/et_nuevo_usuario"
+        style="@style/Theme.DieChiChat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -90,6 +95,7 @@
 
     <TextView
         android:id="@+id/textView9"
+        style="@style/Theme.DieChiChat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -102,6 +108,7 @@
 
     <EditText
         android:id="@+id/et_nuevo_contrasena"
+        style="@style/Theme.DieChiChat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -115,6 +122,7 @@
 
     <TextView
         android:id="@+id/textView10"
+        style="@style/Theme.DieChiChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
@@ -125,12 +133,14 @@
 
     <NumberPicker
         android:id="@+id/numPicker_altura"
+        style="@style/Theme.DieChiChat"
         android:layout_width="0dp"
         android:layout_height="86dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="48dp"
         android:nestedScrollingEnabled="true"
+        android:scrollbarStyle="insideInset"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
@@ -144,6 +154,7 @@
 
     <TextView
         android:id="@+id/textView11"
+        style="@style/Theme.DieChiChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/datos_peso"
@@ -154,6 +165,7 @@
 
     <NumberPicker
         android:id="@+id/numPicker_peso"
+        style="@style/Theme.DieChiChat"
         android:layout_width="0dp"
         android:layout_height="86dp"
         android:layout_marginStart="48dp"
@@ -166,18 +178,26 @@
 
     <Button
         android:id="@+id/bt_cancelar"
+        style="?attr/materialButtonOutlinedStyle"
+        app:background="@drawable/custom_bottom"
+        app:strokeColor="@color/darkBlue"
+
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/btn_cancelar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numPicker_altura" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/bt_aceptar"
+        style="?attr/materialButtonOutlinedStyle"
+        app:background="@drawable/custom_bottom"
+        app:strokeColor="@color/darkBlue"
+
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -190,6 +210,7 @@
 
     <TextView
         android:id="@+id/textView12"
+        style="@style/Theme.DieChiChat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -202,21 +223,27 @@
 
     <EditText
         android:id="@+id/et_fecNac"
+        style="@style/Theme.DieChiChat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:focusable="false"
+        android:layout_marginEnd="8dp"
         android:ems="10"
+        android:focusable="false"
         android:inputType="textPersonName"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView12"
+        app:layout_constraintEnd_toStartOf="@+id/bt_fecnac"
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
 
     <Button
         android:id="@+id/bt_fecnac"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="6dp"
+        style="?attr/materialButtonOutlinedStyle"
+        app:background="@drawable/custom_bottom"
+        app:strokeColor="@color/darkBlue"
+
+        android:layout_width="48dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/bt_fecnac"
         app:layout_constraintBaseline_toBaselineOf="@+id/et_fecNac"
         app:layout_constraintEnd_toEndOf="parent"

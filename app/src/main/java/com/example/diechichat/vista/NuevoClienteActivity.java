@@ -1,25 +1,25 @@
 package com.example.diechichat.vista;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.ActivityNuevoClienteBinding;
-
-import com.example.diechichat.databinding.FragmentNuevoClienteBinding;
-import com.example.diechichat.vista.dialogos.DlgSeleccionFecha;
+import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.vista.fragmentos.NuevoCienteFragment;
 import com.example.diechichat.vistamodelo.ClienteViewModel;
-import com.example.diechichat.vistamodelo.NutriViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
-public class NuevoClienteActivity extends AppCompatActivity implements NuevoCienteFragment.NuevoCliFragmentInterface, DlgSeleccionFecha.DlgSeleccionFechaListener {
+public class NuevoClienteActivity extends AppCompatActivity implements
+        NuevoCienteFragment.NuevoCliFragmentInterface{
+
     private ActivityNuevoClienteBinding binding;
     private NavController mNavC;
     private ClienteViewModel cliVM;
@@ -35,13 +35,13 @@ public class NuevoClienteActivity extends AppCompatActivity implements NuevoCien
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nuevoClienteFragCV)).getNavController();
-      
+
         cliVM = new ViewModelProvider(this).get(ClienteViewModel.class);
     }
 
     @Override
     public void onAceptarNuevoFrag(Cliente c, int datos) {
-        if(c != null) {
+        if (c != null) {
             if (datos == 1) {
                 Snackbar.make(binding.getRoot(), R.string.msg_peso, Snackbar.LENGTH_SHORT).show();
             } else if (datos == 2) {
@@ -54,7 +54,8 @@ public class NuevoClienteActivity extends AppCompatActivity implements NuevoCien
                     }
                 });
             }
-            mNavC.navigateUp();
+            finish();
+//            mNavC.navigateUp();
         } else {
             Snackbar.make(binding.getRoot(), R.string.msg_datosObligatorios, Snackbar.LENGTH_SHORT).show();
         }
@@ -65,19 +66,4 @@ public class NuevoClienteActivity extends AppCompatActivity implements NuevoCien
         finish();
     }
 
-    @Override
-    public void onDlgSeleccionFechaClick(DialogFragment dialog, String fecha) {
-        // NuevoCienteFragment frag = (NuevoCienteFragment) getSupportFragmentManager().findFragmentById(R.id.nuevoClienteFragCV); --> No funciona
-//        if(null!=frag){
-//            frag.setFecha(fecha);
-//        }
-    }
-
-    @Override
-    public void onDlgSeleccionFechaCancel(DialogFragment dialog) {
-        // NuevoCienteFragment frag = (NuevoCienteFragment) getSupportFragmentManager().findFragmentById(R.id.nuevoClienteFragCV); --> No funciona
-//        if(null!=frag){
-//            frag.setFecha("");
-//        }
-    }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class NutriViewModel extends AndroidViewModel {
 
-    /* ViewModel Dptos ****************************************************************************/
+    /* ViewModel Nutricionista ****************************************************************************/
 
     private final NutriRepository mNutriRep;
     private LiveData<List<Nutricionista>> mNutricionistas;
@@ -29,7 +29,7 @@ public class NutriViewModel extends AndroidViewModel {
         mNutriAEliminar = null;
     }
 
-    /* Métodos Mantenimiento Departamentos ********************************************************/
+    /* Métodos Mantenimiento Nutricionistas ********************************************************/
 
     public LiveData<List<Nutricionista>> getNutricionistaME() {      // Multiple Events
         mNutricionistas = mNutriRep.recuperarNutricionistasME();

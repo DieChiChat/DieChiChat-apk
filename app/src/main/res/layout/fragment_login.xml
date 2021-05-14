@@ -25,6 +25,7 @@
 
     <EditText
         android:id="@+id/etUsuario"
+        style="@style/Theme.DieChiChat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -40,6 +41,7 @@
 
     <EditText
         android:id="@+id/etContrasena"
+        style="@style/Theme.DieChiChat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"

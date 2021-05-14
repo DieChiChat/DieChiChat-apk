@@ -14,28 +14,23 @@ import java.util.List;
 
 public class ClienteViewModel extends AndroidViewModel {
 
-    /* ViewModel Dptos ****************************************************************************/
+    /* ViewModel Clientes ****************************************************************************/
 
     private final ClientesRepository mCliRep;
     private LiveData<List<Cliente>> mCliente;
-    private final MutableLiveData<String> fechaDialogo;
-
 
     private Cliente mLogin;
     private Cliente mClienteAEliminar;
-    private final MutableLiveData<String> fechaDialogo;
 
     public ClienteViewModel(@NonNull Application application) {
         super(application);
         mCliRep = new ClientesRepository(application);
-        this.fechaDialogo = new MutableLiveData<>();;
         mCliente = null;
         mLogin = null;
         mClienteAEliminar = null;
-        fechaDialogo= new MutableLiveData<>();
     }
 
-    /* Métodos Mantenimiento Departamentos ********************************************************/
+    /* Métodos Clientes ********************************************************/
 
     public LiveData<List<Cliente>> getClientesME() {      // Multiple Events
         mCliente = mCliRep.recuperarClienteSE();
@@ -77,6 +72,4 @@ public class ClienteViewModel extends AndroidViewModel {
         mClienteAEliminar = cliAEliminar;
     }
 
-    public void setFechaDialogo(String fechaDialogo) { this.fechaDialogo.setValue(fechaDialogo); }
-    public LiveData<String> getFechaDialogo() { return fechaDialogo; }
 }
