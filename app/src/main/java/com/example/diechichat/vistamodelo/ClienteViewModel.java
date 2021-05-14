@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.Nutricionista;
@@ -22,6 +23,7 @@ public class ClienteViewModel extends AndroidViewModel {
 
     private Cliente mLogin;
     private Cliente mClienteAEliminar;
+    private final MutableLiveData<String> fechaDialogo;
 
     public ClienteViewModel(@NonNull Application application) {
         super(application);
@@ -29,6 +31,7 @@ public class ClienteViewModel extends AndroidViewModel {
         mCliente = null;
         mLogin = null;
         mClienteAEliminar = null;
+        fechaDialogo= new MutableLiveData<>();
     }
 
     /* Métodos Mantenimiento Departamentos ********************************************************/
@@ -72,5 +75,8 @@ public class ClienteViewModel extends AndroidViewModel {
     public void setCliAEliminar(Cliente cliAEliminar) {
         mClienteAEliminar = cliAEliminar;
     }
+
+    public void setFechaDialogo(String fechaDialogo) { this.fechaDialogo.setValue(fechaDialogo); }
+    public LiveData<String> getFechaDialogo() { return fechaDialogo; }
 
 }

@@ -11,12 +11,14 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.FragmentNuevoClienteBinding;
+import com.example.diechichat.vista.dialogos.DlgSeleccionFecha;
 
-public class NuevoCienteFragment extends Fragment {
+public class NuevoCienteFragment extends Fragment{
     private FragmentNuevoClienteBinding binding;
     private NuevoCliFragmentInterface mListener;
 
@@ -56,17 +58,18 @@ public class NuevoCienteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.numPickerEdad.setEnabled(true);
+        binding.numPickerAltura.setEnabled(true);
         binding.numPickerPeso.setEnabled(true);
-        binding.numPickerEdad.setMinValue(0);
-        binding.numPickerEdad.setMaxValue(100);
-        binding.numPickerPeso.setMinValue(20);
+        binding.numPickerAltura.setMinValue(0);
+        binding.numPickerAltura.setMaxValue(300);
+        binding.numPickerPeso.setMinValue(0);
         binding.numPickerPeso.setMaxValue(400);
         binding.numPickerPeso.setWrapSelectorWheel(true);
-        binding.numPickerEdad.setWrapSelectorWheel(true);
+        binding.numPickerAltura.setWrapSelectorWheel(true);
 
         binding.btAceptar.setOnClickListener(btAceptar_onClickListener);
         binding.btCancelar.setOnClickListener(btCancelar_onClickListener);
+        binding.btFecnac.setOnClickListener(btFecnac_OnClickListener);
     }
 
     @Override
@@ -104,4 +107,13 @@ public class NuevoCienteFragment extends Fragment {
             }
         }
     };
+    View.OnClickListener btFecnac_OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            DialogFragment dialogFragmentFecha = new DlgSeleccionFecha();
+            dialogFragmentFecha.show(getParentFragmentManager(),"tagSeleccionFecha");
+        }
+    };
+
+
 }
