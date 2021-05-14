@@ -11,11 +11,14 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.FragmentNuevoClienteBinding;
+import com.example.diechichat.modelo.Cliente;
+import com.example.diechichat.modelo.Nutricionista;
+import com.example.diechichat.vistamodelo.MainViewModel;
 import com.example.diechichat.vista.dialogos.DlgSeleccionFecha;
 
 public class NuevoCienteFragment extends Fragment{
