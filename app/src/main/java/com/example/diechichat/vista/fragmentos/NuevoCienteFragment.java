@@ -60,9 +60,9 @@ public class NuevoCienteFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         binding.numPickerAltura.setEnabled(true);
         binding.numPickerPeso.setEnabled(true);
-        binding.numPickerAltura.setMinValue(100);
+        binding.numPickerAltura.setMinValue(0);
         binding.numPickerAltura.setMaxValue(300);
-        binding.numPickerPeso.setMinValue(20);
+        binding.numPickerPeso.setMinValue(0);
         binding.numPickerPeso.setMaxValue(400);
         binding.numPickerPeso.setWrapSelectorWheel(true);
         binding.numPickerAltura.setWrapSelectorWheel(true);
@@ -114,10 +114,6 @@ public class NuevoCienteFragment extends Fragment{
             dialogFragmentFecha.show(getParentFragmentManager(),"tagSeleccionFecha");
         }
     };
-
-    public void setFecha(String fechaN) {
-        binding.etFecNac.setText(fechaN);
-    }
 
 
 }

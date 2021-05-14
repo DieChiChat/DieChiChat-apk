@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -13,10 +14,13 @@ import com.example.diechichat.databinding.ActivityNuevoClienteBinding;
 import com.example.diechichat.databinding.FragmentNuevoClienteBinding;
 import com.example.diechichat.vista.dialogos.DlgSeleccionFecha;
 import com.example.diechichat.vista.fragmentos.NuevoCienteFragment;
+import com.example.diechichat.vistamodelo.ClienteViewModel;
+import com.example.diechichat.vistamodelo.NutriViewModel;
 
 public class NuevoClienteActivity extends AppCompatActivity implements NuevoCienteFragment.NuevoCliFragmentInterface, DlgSeleccionFecha.DlgSeleccionFechaListener {
     private ActivityNuevoClienteBinding binding;
     private NavController mNavC;
+    private ClienteViewModel cliVM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +35,7 @@ public class NuevoClienteActivity extends AppCompatActivity implements NuevoCien
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nuevoClienteFragCV)).getNavController();
-
+        cliVM= new ViewModelProvider(this).get(ClienteViewModel.class);
     }
 
     @Override

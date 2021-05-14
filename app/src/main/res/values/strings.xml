@@ -47,7 +47,7 @@
     <string name="datos_usuario">Usuario: </string>
     <string name="datos_contraseña">Contraseña: </string>
     <string name="datos_fechanac">Fecha Nac.:</string>
-    <string name="datos_edad">Altura (cm): </string>
+    <string name="datos_altura">Altura (cm): </string>
     <string name="datos_peso">Peso (Kg) : </string>
     <string name="bt_fecnac">…</string>
     <string name="title_activity_mi_perfil">MiPerfilActivity</string>
