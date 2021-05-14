@@ -16,7 +16,6 @@ import com.example.diechichat.databinding.FragmentNuevoClienteBinding;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.vista.dialogos.DlgSeleccionFecha;
 
-
 public class NuevoCienteFragment extends Fragment implements
         DlgSeleccionFecha.DlgSeleccionFechaListener {
 

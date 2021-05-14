@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements
         DlgConfirmacion.DlgConfirmacionListener{
 
     private MainViewModel mainVM;
-    private NutriViewModel nutriVM;
                 
     private ActivityMainBinding bindingMain;
     private AppBarMainBinding bindingAppBar;

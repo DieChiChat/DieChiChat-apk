@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-
 public class Cliente implements Parcelable {
 
     /* Atributos **********************************************************************************/

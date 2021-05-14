@@ -1,10 +1,8 @@
 package com.example.diechichat.vista;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -18,7 +16,7 @@ import com.example.diechichat.vistamodelo.ClienteViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 public class NuevoClienteActivity extends AppCompatActivity implements
-        NuevoCienteFragment.NuevoCliFragmentInterface{
+        NuevoCienteFragment.NuevoCliFragmentInterface {
 
     private ActivityNuevoClienteBinding binding;
     private NavController mNavC;
