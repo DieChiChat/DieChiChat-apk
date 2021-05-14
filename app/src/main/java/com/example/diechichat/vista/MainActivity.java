@@ -48,15 +48,13 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
 
         bindingMain = ActivityMainBinding.inflate(getLayoutInflater());
-        bindingAppBar=bindingMain.appBarMain;
         setContentView(bindingMain.getRoot());
-        setSupportActionBar(bindingAppBar.mainToolbar);
 
         mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.mainFragCV)).getNavController();
-       // mAppBarConfiguration= new AppBarConfiguration.Builder(mNavC.getGraph()).setOpenableLayout(bindingMain.drawerLayout).build();
-        //NavigationUI.setupActionBarWithNavController(this,mNavC,mAppBarConfiguration);
 
+        bindingMain.navView.setNavigationItemSelectedListener(navView_OnNavigationItemSelected);
 
+        mNavC.navigate(R.id.action_nav_inicio_to_loginFragment);
         mainVM = new ViewModelProvider(this).get(MainViewModel.class);
        mNavC.navigate(R.id.action_inicio_to_logingFragment);
     }
@@ -154,9 +152,16 @@ public class MainActivity extends AppCompatActivity implements
             mainVM.setLogin(obj);
             if (obj instanceof Nutricionista) {
                 Snackbar.make(bindingMain.getRoot(), "Estás dentro como administrador", Snackbar.LENGTH_SHORT).show();
+
             } else if (obj instanceof Cliente) {
                 Snackbar.make(bindingMain.getRoot(), "Estás dentro como cliente", Snackbar.LENGTH_SHORT).show();
             }
+
+            bindingAppBar=bindingMain.appBarMain;
+            setSupportActionBar(bindingAppBar.mainToolbar);
+            mAppBarConfiguration= new AppBarConfiguration.Builder(mNavC.getGraph()).setOpenableLayout(bindingMain.drawerLayout).build();
+            NavigationUI.setupActionBarWithNavController(this,mNavC,mAppBarConfiguration);
+
             mNavC.navigate(R.id.nav_inicio);
         } else {
             Snackbar.make(bindingMain.getRoot(), "Introduce usuario y contraseña", Snackbar.LENGTH_SHORT).show();

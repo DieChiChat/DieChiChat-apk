@@ -46,7 +46,7 @@ public class ClienteViewModel extends AndroidViewModel {
         return mCliente;
     }
 
-    public LiveData<Boolean> altaNutricionista(Cliente cli) {
+    public LiveData<Boolean> altaCliente(Cliente cli) {
         return mCliRep.altaCliente(cli);
     }
 
