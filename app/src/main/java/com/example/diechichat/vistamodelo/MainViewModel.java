@@ -32,7 +32,6 @@ public class MainViewModel extends AndroidViewModel {
     public Object getLogin() {
         return mLogin;
     }
-
     public void setLogin(Object login) {
         mLogin = login;
     }

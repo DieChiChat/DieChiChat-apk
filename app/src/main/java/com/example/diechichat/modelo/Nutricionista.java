@@ -62,7 +62,6 @@ public class Nutricionista implements Parcelable {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -70,7 +69,6 @@ public class Nutricionista implements Parcelable {
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -78,7 +76,6 @@ public class Nutricionista implements Parcelable {
     public String getApellidos() {
         return apellidos;
     }
-
     public void setApellidos(String apillidos) {
         this.apellidos = apillidos;
     }
@@ -86,7 +83,6 @@ public class Nutricionista implements Parcelable {
     public String getUsuario() {
         return usuario;
     }
-
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
@@ -94,8 +90,12 @@ public class Nutricionista implements Parcelable {
     public String getContrasena() {
         return contrasena;
     }
-
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
+
+    public String getNombreCompleto() {
+        return nombre + " " + apellidos;
+    }
+
 }

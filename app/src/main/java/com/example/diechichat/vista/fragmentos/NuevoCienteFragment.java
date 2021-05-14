@@ -12,16 +12,22 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.FragmentNuevoClienteBinding;
+import com.example.diechichat.modelo.Cliente;
+import com.example.diechichat.modelo.Nutricionista;
+import com.example.diechichat.vistamodelo.MainViewModel;
 
 public class NuevoCienteFragment extends Fragment {
     private FragmentNuevoClienteBinding binding;
     private NuevoCliFragmentInterface mListener;
+    private Cliente c;
+    private int mLogin;
 
     public interface NuevoCliFragmentInterface{
-        void onAceptarNuevoFrag();
+        void onAceptarNuevoFrag(Cliente c, int datos);  //  1 --> peso = 0 // 2 --> altura = 0
         void onCancelarNuevoFrag();
     }
 
@@ -43,7 +49,7 @@ public class NuevoCienteFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         if(getArguments()!= null){
-
+            mLogin = getArguments().getInt("login");
         }
     }
     @Nullable
@@ -56,14 +62,14 @@ public class NuevoCienteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.numPickerEdad.setEnabled(true);
+        binding.numPickerAltura.setEnabled(true);
         binding.numPickerPeso.setEnabled(true);
-        binding.numPickerEdad.setMinValue(0);
-        binding.numPickerEdad.setMaxValue(100);
-        binding.numPickerPeso.setMinValue(20);
+        binding.numPickerAltura.setMinValue(0);
+        binding.numPickerAltura.setMaxValue(300);
+        binding.numPickerPeso.setMinValue(0);
         binding.numPickerPeso.setMaxValue(400);
         binding.numPickerPeso.setWrapSelectorWheel(true);
-        binding.numPickerEdad.setWrapSelectorWheel(true);
+        binding.numPickerAltura.setWrapSelectorWheel(true);
 
         binding.btAceptar.setOnClickListener(btAceptar_onClickListener);
         binding.btCancelar.setOnClickListener(btCancelar_onClickListener);
@@ -89,7 +95,43 @@ public class NuevoCienteFragment extends Fragment {
     View.OnClickListener btAceptar_onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            mListener.onAceptarNuevoFrag();
+            InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            if (mListener != null) {
+                if (!binding.etNuevoNombre.getText().toString().equals("") &&
+                    !binding.etNuevoApellidos.getText().toString().equals("") &&
+                        !binding.etNuevoUsuario.getText().toString().equals("") &&
+                        !binding.etNuevoContrasena.getText().toString().equals("")
+                        && !binding.etFecNac.getText().toString().equals("") ) {
+                    // Creación un nuevo cliente
+                    c = new Cliente();
+                    c.setNombreCompleto(binding.etNuevoNombre.getText().toString() + " " + binding.etNuevoApellidos.getText().toString());
+                    c.setUsuario(binding.etNuevoUsuario.getText().toString());
+                    c.setContrasena(binding.etNuevoContrasena.getText().toString());
+                    c.setPeso(binding.numPickerPeso.getValue());
+                    c.setAltura(binding.numPickerAltura.getValue());
+                    c.setIdAdmin(mLogin);
+                    c.setId(c.getFechaNacimiento() + 1);
+                    c.setFechaNacimiento("15/09/1991");
+                    String s = "Nombre: " + binding.etNuevoNombre.getText().toString()
+                            + " Apellidos: " + binding.etNuevoApellidos.getText().toString()
+                            + " Usuario: " + binding.etNuevoUsuario.getText().toString()
+                            + " Contraseña: " + binding.etNuevoContrasena.getText().toString()
+                            + " Altura: " + String.valueOf(binding.numPickerAltura.getValue())
+                            + "Peso: " + String.valueOf(binding.numPickerPeso.getValue());
+
+                    c.setFechaFormat(binding.etFecNac.getText().toString());
+                    if (binding.numPickerPeso.getValue() == 1) {            //Peso con valor 0
+                        mListener.onAceptarNuevoFrag(c, 1);
+                    } else if (binding.numPickerAltura.getValue() == 2) {   //Altura con valor 0
+                        mListener.onAceptarNuevoFrag(c, 2);
+                    } else {
+                        mListener.onAceptarNuevoFrag(c, -1);
+                    }
+                } else {
+                    mListener.onAceptarNuevoFrag(null, -1);  // Faltan Datos Obligatorios
+                }
+            }
         }
     };
     View.OnClickListener btCancelar_onClickListener= new View.OnClickListener() {

@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gold">#cca131</color>
     <color name="darkBlue">#0a1256</color>
+    <color name="colorAccent">#CDDC39</color>
 </resources>
