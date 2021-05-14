@@ -8,9 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.diechichat.modelo.Cliente;
-import com.example.diechichat.modelo.Nutricionista;
 import com.example.diechichat.repositorio.ClientesRepository;
-import com.example.diechichat.repositorio.NutriRepository;
 
 import java.util.List;
 
@@ -20,6 +18,8 @@ public class ClienteViewModel extends AndroidViewModel {
 
     private final ClientesRepository mCliRep;
     private LiveData<List<Cliente>> mCliente;
+    private final MutableLiveData<String> fechaDialogo;
+
 
     private Cliente mLogin;
     private Cliente mClienteAEliminar;
@@ -28,6 +28,7 @@ public class ClienteViewModel extends AndroidViewModel {
     public ClienteViewModel(@NonNull Application application) {
         super(application);
         mCliRep = new ClientesRepository(application);
+        this.fechaDialogo = new MutableLiveData<>();;
         mCliente = null;
         mLogin = null;
         mClienteAEliminar = null;
@@ -78,5 +79,4 @@ public class ClienteViewModel extends AndroidViewModel {
 
     public void setFechaDialogo(String fechaDialogo) { this.fechaDialogo.setValue(fechaDialogo); }
     public LiveData<String> getFechaDialogo() { return fechaDialogo; }
-
 }

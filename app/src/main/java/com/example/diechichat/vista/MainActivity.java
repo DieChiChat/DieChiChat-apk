@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -23,6 +24,8 @@ import com.example.diechichat.modelo.Nutricionista;
 import com.example.diechichat.vista.dialogos.DlgConfirmacion;
 import com.example.diechichat.vista.fragmentos.MiPerfilFragment;
 import com.example.diechichat.vista.fragmentos.LoginFragment;
+import com.example.diechichat.vista.fragmentos.NuevoCienteFragment;
+import com.example.diechichat.vistamodelo.ClienteViewModel;
 import com.example.diechichat.vistamodelo.LoginViewModel;
 import com.example.diechichat.vistamodelo.MainViewModel;
 import com.example.diechichat.vistamodelo.NutriViewModel;
@@ -118,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements
                 startActivity(i);
             }else if(item.getItemId()==R.id.menu_nuevocliente){
                 Intent i= new Intent(MainActivity.this,NuevoClienteActivity.class);
+                i.putExtra("login", ((Nutricionista)mainVM.getLogin()).getId());
                 startActivity(i);
             }else{
                 return false;
@@ -145,16 +149,13 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onEntrarLoginFrag(Object obj) {
-        mAppBarConfiguration= new AppBarConfiguration.Builder(mNavC.getGraph()).setOpenableLayout(bindingMain.drawerLayout).build();
-        NavigationUI.setupActionBarWithNavController(this,mNavC,mAppBarConfiguration);
-        bindingMain.navView.setNavigationItemSelectedListener(navView_OnNavigationItemSelected);
         if(obj != null) {
             mainVM.setLogin(obj);
             if (obj instanceof Nutricionista) {
-                Snackbar.make(bindingMain.getRoot(), "Estás dentro como administrador", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(bindingMain.getRoot(), (R.string.msg_bienvenida + " " + ((Nutricionista) obj).getNombreCompleto()), Snackbar.LENGTH_SHORT).show();
 
             } else if (obj instanceof Cliente) {
-                Snackbar.make(bindingMain.getRoot(), "Estás dentro como cliente", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(bindingMain.getRoot(), (R.string.msg_bienvenida + " " + ((Cliente) obj).getNombreCompleto()), Snackbar.LENGTH_SHORT).show();
             }
 
             bindingAppBar=bindingMain.appBarMain;
@@ -167,4 +168,5 @@ public class MainActivity extends AppCompatActivity implements
             Snackbar.make(bindingMain.getRoot(), "Introduce usuario y contraseña", Snackbar.LENGTH_SHORT).show();
         }
     }
+
 }

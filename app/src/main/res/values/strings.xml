@@ -32,7 +32,17 @@
     <string name="msg_LoginKO">Login incorrecto.</string>
     <string name="msg_NoLogin">No Login!!</string>
     <string name="msg_LoginPermisos">No tiene permisos</string>
+    <string name="msg_datosObligatorios">Todos los datos son obligatorios</string>
+    <string name="msg_peso">El peso debe ser mayor que 0</string>
+    <string name="msg_altura">La altura debe ser mayor que 0</string>
+    <string name="msg_bienvenida">Bienvenido</string>
 
+    <!-- NUEVO CLIENTE -->
+    <string name="msg_altaCorrecta">Alta correcta</string>
+    <string name="msg_altaIncorrecta">Alta incorrecta</string>
+
+
+    <!-- COLORES -->
     <string name="colorFondo">#4A148C</string>
     <string name="colorLetras">#ffbf00</string>
     
@@ -46,7 +56,9 @@
     <string name="datos_apellidos">Apellidos: </string>
     <string name="datos_usuario">Usuario: </string>
     <string name="datos_contraseña">Contraseña: </string>
+
     <string name="datos_fechanac">Fecha Nac.:</string>
+
     <string name="datos_altura">Altura (cm): </string>
     <string name="datos_peso">Peso (Kg) : </string>
     <string name="bt_fecnac">…</string>
@@ -66,5 +78,11 @@
     <string name="Firebase_name_default">DieChiChat</string>
 
     <string name="title_activity_nuevo_cliente">NuevoClienteActivity</string>
+    <string name="iv_cli_contentDescription">Foto Cliente</string>
+    <string name="btEditar">Editar</string>
+    <string name="btAsignarDieta">Modificar Dieta</string>
+    <string name="btEliminar">Eliminar</string>
+    <string name="bt_fecnac">…</string>
+    <string name="datos_fechanac">Fecha Nac.:</string>
 
 </resources>

@@ -7,41 +7,45 @@ import androidx.annotation.NonNull;
 
 
 public class Cliente implements Parcelable {
+
+    /* Atributos **********************************************************************************/
     private String id;
     private int idAdmin;             //pk
     @NonNull
-    private int edad;           //pk
+    private String fechaNacimiento;           //pk
     @NonNull
     private String usuario;              //pk
     private String contrasena;     //not null
-    private String nombre;         //not null
-    private String apellidos;      //not null
+    private String nombreCompleto;         //not null
     private double peso;
     private double altura;
 
+    /* Constructor ********************************************************************************/
     public Cliente() {
     }
 
 
+    /* Métodos Parcelable *************************************************************************/
+
     protected Cliente(Parcel in) {
+        id = in.readString();
         idAdmin = in.readInt();
-        edad = in.readInt();
+        fechaNacimiento = in.readString();
         usuario = in.readString();
         contrasena = in.readString();
-        nombre = in.readString();
-        apellidos = in.readString();
+        nombreCompleto = in.readString();
         peso = in.readDouble();
         altura = in.readDouble();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
         dest.writeInt(idAdmin);
-        dest.writeInt(edad);
+        dest.writeString(fechaNacimiento);
         dest.writeString(usuario);
         dest.writeString(contrasena);
-        dest.writeString(nombre);
-        dest.writeString(apellidos);
+        dest.writeString(nombreCompleto);
         dest.writeDouble(peso);
         dest.writeDouble(altura);
     }
@@ -63,6 +67,8 @@ public class Cliente implements Parcelable {
         }
     };
 
+    /* Métodos Getters&Setters ********************************************************************/
+
     public String getId() {
         return id;
     }
@@ -78,8 +84,11 @@ public class Cliente implements Parcelable {
     }
 
     @NonNull
-    public int getEdad() { return edad; }
-    public void setEdad(@NonNull int edad) { this.edad = edad; }
+    public String getFechaNacimiento() { return fechaNacimiento; }
+    public void setFechaNacimiento(@NonNull String fechaNacimiento) { this.fechaNacimiento = fechaNacimiento; }
+
+    public String getFechaFormat() { return fechaNacimiento.substring(6, 8) + "/" + fechaNacimiento.substring(4, 6) + "/" + fechaNacimiento.substring(0, 4); }
+    public void setFechaFormat(@NonNull String fecha) { this.fechaNacimiento = fecha.substring(6, 10) + fecha.substring(3, 5) + fecha.substring(0, 2); }
 
     @NonNull
     public String getUsuario() {
@@ -96,19 +105,10 @@ public class Cliente implements Parcelable {
         this.contrasena = contrasena;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreCompleto() {
+        return nombreCompleto;
     }
-    public void setNombre(String nombre) {
-        nombre = nombre;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-    public void setApellidos(String apellidos) {
-        apellidos = apellidos;
-    }
+    public void setNombreCompleto(String nombre) { this.nombreCompleto = nombre; }
 
     public double getPeso() { return peso; }
     public void setPeso(double peso) { this.peso = peso; }
