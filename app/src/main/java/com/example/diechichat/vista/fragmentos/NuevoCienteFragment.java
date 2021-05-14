@@ -19,8 +19,10 @@ import com.example.diechichat.databinding.FragmentNuevoClienteBinding;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.Nutricionista;
 import com.example.diechichat.vistamodelo.MainViewModel;
+import com.example.diechichat.vista.dialogos.DlgSeleccionFecha;
 
-public class NuevoCienteFragment extends Fragment {
+
+public class NuevoCienteFragment extends Fragment{
     private FragmentNuevoClienteBinding binding;
     private NuevoCliFragmentInterface mListener;
     private Cliente c;
@@ -73,6 +75,7 @@ public class NuevoCienteFragment extends Fragment {
 
         binding.btAceptar.setOnClickListener(btAceptar_onClickListener);
         binding.btCancelar.setOnClickListener(btCancelar_onClickListener);
+        binding.btFecnac.setOnClickListener(btFecnac_OnClickListener);
     }
 
     @Override
@@ -146,4 +149,13 @@ public class NuevoCienteFragment extends Fragment {
             }
         }
     };
+    View.OnClickListener btFecnac_OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            DialogFragment dialogFragmentFecha = new DlgSeleccionFecha();
+            dialogFragmentFecha.show(getParentFragmentManager(),"tagSeleccionFecha");
+        }
+    };
+
+
 }

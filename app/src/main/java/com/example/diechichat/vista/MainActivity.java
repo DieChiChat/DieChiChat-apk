@@ -54,10 +54,12 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(bindingMain.getRoot());
 
         mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.mainFragCV)).getNavController();
+
         bindingMain.navView.setNavigationItemSelectedListener(navView_OnNavigationItemSelected);
 
         mNavC.navigate(R.id.action_nav_inicio_to_loginFragment);
         mainVM = new ViewModelProvider(this).get(MainViewModel.class);
+       mNavC.navigate(R.id.action_inicio_to_logingFragment);
     }
 
     @Override
@@ -155,10 +157,12 @@ public class MainActivity extends AppCompatActivity implements
             } else if (obj instanceof Cliente) {
                 Snackbar.make(bindingMain.getRoot(), (R.string.msg_bienvenida + " " + ((Cliente) obj).getNombreCompleto()), Snackbar.LENGTH_SHORT).show();
             }
+
             bindingAppBar=bindingMain.appBarMain;
             setSupportActionBar(bindingAppBar.mainToolbar);
             mAppBarConfiguration= new AppBarConfiguration.Builder(mNavC.getGraph()).setOpenableLayout(bindingMain.drawerLayout).build();
             NavigationUI.setupActionBarWithNavController(this,mNavC,mAppBarConfiguration);
+
             mNavC.navigate(R.id.nav_inicio);
         } else {
             Snackbar.make(bindingMain.getRoot(), "Introduce usuario y contraseña", Snackbar.LENGTH_SHORT).show();

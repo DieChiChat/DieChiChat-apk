@@ -23,6 +23,7 @@ public class ClienteViewModel extends AndroidViewModel {
 
     private Cliente mLogin;
     private Cliente mClienteAEliminar;
+    private final MutableLiveData<String> fechaDialogo;
 
     public ClienteViewModel(@NonNull Application application) {
         super(application);
@@ -31,6 +32,7 @@ public class ClienteViewModel extends AndroidViewModel {
         mCliente = null;
         mLogin = null;
         mClienteAEliminar = null;
+        fechaDialogo= new MutableLiveData<>();
     }
 
     /* Métodos Mantenimiento Departamentos ********************************************************/
