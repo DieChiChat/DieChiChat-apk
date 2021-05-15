@@ -82,5 +82,6 @@
     <string name="btEditar">Editar</string>
     <string name="btAsignarDieta">Modificar Dieta</string>
     <string name="btEliminar">Eliminar</string>
+    <string name="string_ojo">👁</string>
 
 </resources>

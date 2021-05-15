@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/llrvClis"
@@ -9,46 +9,40 @@
     android:orientation="horizontal"
     tools:context=".vista.fragmentos.MisClientesFragment">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvCli"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="55dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/foto_camara_icono_opt" />
+
+    <TextView
+        android:id="@+id/tv_nombreCli"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="5dp"
-        app:cardUseCompatPadding="false">
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button4"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/button5"
+        tools:layout_editor_absoluteY="16dp" />
 
-            <ImageView
-                android:id="@+id/ivCliRV"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:contentDescription="@string/iv_cli_contentDescription"
-                app:srcCompat="@drawable/foto_small_icon_only_inverted" />
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@+id/button4"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvNombreRV"
-                    style="@style/Theme.DieChiChat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lines="2"
-                    android:maxLines="2"
-                    android:textSize="12sp"
-                    android:textStyle="normal|italic" />
-
-            </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

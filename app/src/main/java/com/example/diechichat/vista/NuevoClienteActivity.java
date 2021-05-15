@@ -3,6 +3,7 @@ package com.example.diechichat.vista;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -11,12 +12,13 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.ActivityNuevoClienteBinding;
 import com.example.diechichat.modelo.Cliente;
+import com.example.diechichat.vista.dialogos.DlgSeleccionFecha;
 import com.example.diechichat.vista.fragmentos.NuevoCienteFragment;
 import com.example.diechichat.vistamodelo.ClienteViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 public class NuevoClienteActivity extends AppCompatActivity implements
-        NuevoCienteFragment.NuevoCliFragmentInterface {
+        NuevoCienteFragment.NuevoCliFragmentInterface, DlgSeleccionFecha.DlgSeleccionFechaListener {
 
     private ActivityNuevoClienteBinding binding;
     private NavController mNavC;
@@ -64,4 +66,13 @@ public class NuevoClienteActivity extends AppCompatActivity implements
         finish();
     }
 
+    @Override
+    public void onDlgSeleccionFechaClick(DialogFragment dialog, String fecha) {
+        cliVM.setmFechaDlg(fecha);
+    }
+
+    @Override
+    public void onDlgSeleccionFechaCancel(DialogFragment dialog) {
+
+    }
 }

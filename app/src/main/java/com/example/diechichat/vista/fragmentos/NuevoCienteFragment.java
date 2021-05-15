@@ -11,10 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.diechichat.databinding.FragmentNuevoClienteBinding;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.vista.dialogos.DlgSeleccionFecha;
+import com.example.diechichat.vistamodelo.ClienteViewModel;
 
 public class NuevoCienteFragment extends Fragment implements
         DlgSeleccionFecha.DlgSeleccionFechaListener {
@@ -50,6 +53,13 @@ public class NuevoCienteFragment extends Fragment implements
         if (getArguments() != null) {
             mLogin = getArguments().getInt("login");
         }
+        ClienteViewModel cliVM= new ViewModelProvider(requireActivity()).get(ClienteViewModel.class);
+        cliVM.getmFechaDlg().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String fecha) {
+                binding.etFecNac.setText(fecha);
+            }
+        });
     }
 
     @Nullable
