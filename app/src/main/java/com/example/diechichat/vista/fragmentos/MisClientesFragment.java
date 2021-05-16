@@ -30,22 +30,15 @@ public class MisClientesFragment extends Fragment {
     private AdaptadorClientes mAdaptadorClis;
 
     private FragmentMisClientesBinding binding;
-    private MisClientesFragInterface mListener;
-
-    public interface MisClientesFragInterface {
-        void onEditarBusIncsFrag(Cliente cli);
-        void onAsignarDietaBusClisFrag();
-        void onEliminarBusClisFrag(Cliente cli);
-    }
 
     @Override
     public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (context instanceof MisClientesFragInterface) {
-            mListener = (MisClientesFragInterface) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement MisClientesFragInterface");
-        }
+          super.onAttach(context);
+//        if (context instanceof MisClientesFragInterface) {
+//            mListener = (MisClientesFragInterface) context;
+//        } else {
+//            throw new RuntimeException(context.toString() + " must implement MisClientesFragInterface");
+//        }
     }
     public MisClientesFragment() {
         // Required empty public constructor
@@ -75,9 +68,6 @@ public class MisClientesFragment extends Fragment {
                     binding.rvClientes.scrollToPosition(mAdaptadorClis.getItemCount() - 1);
                 }
                 mAdaptadorClis.setItemPos(-1);
-//                binding.btIncEliminar.setEnabled(false);
-//                binding.btIncEditar.setEnabled(false);
-//                binding.btIncCrear.setEnabled(true);
             }
         });
     }
@@ -92,42 +82,14 @@ public class MisClientesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Init RecyclerView Dptos
+        // Init RecyclerView Clientes
         binding.rvClientes.setHasFixedSize(true);
         binding.rvClientes.setLayoutManager(new LinearLayoutManager(view.getContext()));
         binding.rvClientes.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
         binding.rvClientes.setAdapter(mAdaptadorClis);
 
-        // Inits
-        if (mAdaptadorClis.getItemPos() != -1) {
-            binding.btEditar.setEnabled(true);
-            binding.btAsignarDieta.setEnabled(true);
-            binding.btEliminar.setEnabled(true);
-        } else {
-//            binding.btEditar.setEnabled(false);
-//            binding.btAsignarDieta.setEnabled(false);
-//            binding.btEliminar.setEnabled(false);
-            binding.btEditar.setEnabled(true);
-            binding.btAsignarDieta.setEnabled(true);
-            binding.btEliminar.setEnabled(true);
-        }
-
         // Listeners0
-        binding.btEditar.setOnClickListener(btEditarCli_OnClickListener);
-        binding.btAsignarDieta.setOnClickListener(btAsignarDieta_OnClickListener);
-        binding.btEliminar.setOnClickListener(btIncEliminar_OnClickListener);
         mAdaptadorClis.setOnClickListener(mAdaptadorClis_OnClickListener);
-
-//        TODO: ya no es necesario refrescar, se refresca automáticamente
-//        binding.srIncs.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                // Inits Incs sin Observer
-//                IncsViewModel incVM = new ViewModelProvider(requireActivity()).get(IncsViewModel.class);
-//                incVM.getIncs();
-//                binding.srIncs.setRefreshing(false);
-//            }
-//        });
     }
 
     @Override
@@ -144,7 +106,6 @@ public class MisClientesFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
     @Override
@@ -157,15 +118,7 @@ public class MisClientesFragment extends Fragment {
         @Override
         public void onClick(View v) {
             int pos = mAdaptadorClis.getItemPos();
-            if (pos != -1) {
-                binding.btEditar.setEnabled(true);
-                binding.btAsignarDieta.setEnabled(true);
-                binding.btEliminar.setEnabled(false);
-            } else {
-                binding.btEditar.setEnabled(false);
-                binding.btAsignarDieta.setEnabled(false);
-                binding.btEliminar.setEnabled(false);
-            }
+
         }
     };
 
@@ -174,9 +127,7 @@ public class MisClientesFragment extends Fragment {
         public void onClick(View v) {
             int pos = mAdaptadorClis.getItemPos();
             if (pos == -1) {
-                if (mListener != null) {
-                    mListener.onAsignarDietaBusClisFrag();
-                }
+
             }
         }
     };
@@ -186,9 +137,7 @@ public class MisClientesFragment extends Fragment {
         public void onClick(View v) {
             int pos = mAdaptadorClis.getItemPos();
             if (pos >= 0) {
-                if (mListener != null) {
-                    mListener.onEditarBusIncsFrag(mAdaptadorClis.getItem(pos));
-                }
+
             }
         }
     };
@@ -198,9 +147,7 @@ public class MisClientesFragment extends Fragment {
         public void onClick(View v) {
             int pos = mAdaptadorClis.getItemPos();
             if (pos >= 0) {
-                if (mListener != null) {
-                    mListener.onEliminarBusClisFrag(mAdaptadorClis.getItem(pos));
-                }
+
             }
         }
     };

@@ -5,11 +5,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diechichat.R;
+import com.example.diechichat.databinding.ContentRvClientesBinding;
 import com.example.diechichat.modelo.Cliente;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdaptadorClientes extends RecyclerView.Adapter<AdaptadorClientes.ClienteVH> {
@@ -17,6 +20,7 @@ public class AdaptadorClientes extends RecyclerView.Adapter<AdaptadorClientes.Cl
     private List<Cliente> mDatos;
     private int mItemPos;
     private View.OnClickListener mListener;
+    private AdaptadorClientesInterface mListener2;
 
     public AdaptadorClientes() {
         mDatos = null;
@@ -25,7 +29,13 @@ public class AdaptadorClientes extends RecyclerView.Adapter<AdaptadorClientes.Cl
     }
 
     public void setDatos(List<Cliente> datos) {
-        mDatos = datos;
+        mDatos = new ArrayList<>();
+        Cliente c= new Cliente();
+        c.setAltura(165);
+        c.setNombreCompleto("María Martínez Gómez");
+        mDatos.add(c); // ES DE PRUEBA PORQUE NO HAY CLIENTES EN LA COLECCIÓN
+        mDatos.add(c);
+    //    mDatos = datos; --> este es el que lo recoge
     }
 
     public int getItemPos() {
@@ -44,20 +54,19 @@ public class AdaptadorClientes extends RecyclerView.Adapter<AdaptadorClientes.Cl
         return mDatos.get(pos);
     }
 
+
     @NonNull
     @Override
-    public AdaptadorClientes.ClienteVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_rv_clientes, parent, false);
-//        return new ClienteVH(v);
-        //TODO: retornar vista listado
-        return null;
+    public ClienteVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_rv_clientes, parent, false);
+        return new ClienteVH(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AdaptadorClientes.ClienteVH holder, int position) {
         if (mDatos != null) {
-//            holder.setItem(mDatos.get(position));
-//            holder.binding.llrvDptos.setActivated(mItemPos == position);
+            holder.setItem(mDatos.get(position));
+            holder.binding.llrvClis.setActivated(mItemPos == position);
         }
     }
 
@@ -72,30 +81,41 @@ public class AdaptadorClientes extends RecyclerView.Adapter<AdaptadorClientes.Cl
 
     public class ClienteVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-//        private final ContentRvNutrisBinding binding;
+        private final ContentRvClientesBinding binding;
 
         public ClienteVH(@NonNull View itemView) {
             super(itemView);
-//            binding = ContentRvNutrisBinding.bind(itemView);
-//            binding.llrvDptos.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.rv_item_seleccionado));
+            binding = ContentRvClientesBinding.bind(itemView);
+            //        binding.llrvClis.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.rv_item_seleccionado));
             itemView.setOnClickListener(this);
         }
 
-//        private void setItem(@NonNull Nutricionista nutri) {
-//            binding.tvDptoRvId.setText(String.format(itemView.getContext().getResources().getString(R.string.msg_Dpto_Id), dpto.getId()));
-//            binding.tvDptoRvNombre.setText(String.format(itemView.getContext().getResources().getString(R.string.msg_Dpto_Nombre), dpto.getNombre()));
-//        }
-
         @Override
         public void onClick(View v) {
-            int pos = getLayoutPosition();
-            notifyItemChanged(mItemPos);
-            mItemPos = (mItemPos == pos) ? -1 : pos;
-            notifyItemChanged(mItemPos);
-            if (mListener != null) {
-                mListener.onClick(v);
+            if (v == binding.imagebAdd) {
+                mListener2.onClickIgmagebAdd();
+            } else if (v == binding.imagebCamara) {
+                mListener2.onClickImagebCamara();
+            } else if (v == binding.imagebVer) {
+                mListener2.onClickImagebVer();
+            } else {
+                int pos = getLayoutPosition();
+                notifyItemChanged(mItemPos);
+                mItemPos = (mItemPos == pos) ? -1 : pos;
+                notifyItemChanged(mItemPos);
+                if (mListener != null) {
+                    mListener.onClick(v);
+                }
             }
         }
+        private void setItem(Cliente cli) {
+            binding.tvNombreCli.setText(cli.getNombreCompleto());
+        }
+    }
+    public interface AdaptadorClientesInterface {
+        void onClickImagebVer();
+        void onClickIgmagebAdd();
+        void onClickImagebCamara();
     }
 
 }

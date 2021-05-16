@@ -8,6 +8,14 @@
     <fragment android:id="@+id/fragment_clientes"
         android:name="com.example.diechichat.vista.fragmentos.MisClientesFragment"
         android:label="@string/title_activity_mis_clientes"
-        tools:layout="@layout/fragment_mis_clientes"/>
+        tools:layout="@layout/fragment_mis_clientes">
+        <action
+            android:id="@+id/action_mis_lientes_to_nuevoCienteFragment"
+            app:destination="@id/nuevoCienteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nuevoCienteFragment"
+        android:name="com.example.diechichat.vista.fragmentos.NuevoCienteFragment"
+        android:label="NuevoCienteFragment" />
 
 </navigation>
