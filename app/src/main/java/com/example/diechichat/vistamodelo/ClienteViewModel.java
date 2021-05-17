@@ -1,6 +1,7 @@
 package com.example.diechichat.vistamodelo;
 
 import android.app.Application;
+import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -19,18 +20,21 @@ public class ClienteViewModel extends AndroidViewModel {
 
     private final ClientesRepository mCliRep;
     private LiveData<List<Cliente>> mCliente;
+
     private MutableLiveData<String> mFechaDlg;
+    private final MutableLiveData<Bitmap> foto;
 
     private Cliente mLogin;
     private Cliente mClienteAEliminar;
 
     public ClienteViewModel(@NonNull Application application) {
         super(application);
-        mCliRep = new ClientesRepository(application);
-        mCliente = null;
-        mLogin = null;
-        mClienteAEliminar = null;
-        mFechaDlg= new MutableLiveData<>();
+        this.mCliRep = new ClientesRepository(application);
+        this.mCliente = null;
+        this.mLogin = null;
+        this.mClienteAEliminar = null;
+        this.mFechaDlg= new MutableLiveData<>();
+        this.foto = new MutableLiveData<>();
     }
 
     /* Métodos Clientes ********************************************************/
@@ -70,16 +74,19 @@ public class ClienteViewModel extends AndroidViewModel {
     public Cliente getClienteAEliminar() {
         return mClienteAEliminar;
     }
-
     public void setCliAEliminar(Cliente cliAEliminar) {
         mClienteAEliminar = cliAEliminar;
     }
+
     public void setmFechaDlg(String fechaDlg){
         mFechaDlg.setValue(fechaDlg);
     }
     public LiveData<String> getmFechaDlg() {
         return mFechaDlg;
     }
+
+    public void setFoto(Bitmap foto) { this.foto.setValue(foto); }
+    public LiveData<Bitmap> getFoto() { return foto; }
 
 
 }

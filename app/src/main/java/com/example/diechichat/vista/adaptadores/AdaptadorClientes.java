@@ -35,6 +35,8 @@ public class AdaptadorClientes extends RecyclerView.Adapter<AdaptadorClientes.Cl
         c.setNombreCompleto("María Martínez Gómez");
         mDatos.add(c); // ES DE PRUEBA PORQUE NO HAY CLIENTES EN LA COLECCIÓN
         mDatos.add(c);
+        mDatos.add(c);
+        mDatos.add(c);
     //    mDatos = datos; --> este es el que lo recoge
     }
 
@@ -86,30 +88,52 @@ public class AdaptadorClientes extends RecyclerView.Adapter<AdaptadorClientes.Cl
         public ClienteVH(@NonNull View itemView) {
             super(itemView);
             binding = ContentRvClientesBinding.bind(itemView);
-            //        binding.llrvClis.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.rv_item_seleccionado));
+            binding.llrvClis.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.rv_item_seleccionado));
             itemView.setOnClickListener(this);
+
+            binding.imagebVer.setOnClickListener(imagebVer_OnClick);
+
         }
+
+        private View.OnClickListener imagebVer_OnClick = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        };
+//        @Override
+//        public void onClick(View v) {
+//            if (v == binding.imagebAdd) {
+//                mListener2.onClickIgmagebAdd();
+//            } else if (v == binding.imagebCamara) {
+//                mListener2.onClickImagebCamara();
+//            } else if (v == binding.imagebVer) {
+//                mListener2.onClickImagebVer();
+//            } else {
+//                int pos = getLayoutPosition();
+//                notifyItemChanged(mItemPos);
+//                mItemPos = (mItemPos == pos) ? -1 : pos;
+//                notifyItemChanged(mItemPos);
+//                if (mListener != null) {
+//                    mListener.onClick(v);
+//                }
+//            }
+//        }
 
         @Override
         public void onClick(View v) {
-            if (v == binding.imagebAdd) {
-                mListener2.onClickIgmagebAdd();
-            } else if (v == binding.imagebCamara) {
-                mListener2.onClickImagebCamara();
-            } else if (v == binding.imagebVer) {
-                mListener2.onClickImagebVer();
-            } else {
-                int pos = getLayoutPosition();
-                notifyItemChanged(mItemPos);
-                mItemPos = (mItemPos == pos) ? -1 : pos;
-                notifyItemChanged(mItemPos);
-                if (mListener != null) {
-                    mListener.onClick(v);
-                }
+            int pos = getLayoutPosition();
+            notifyItemChanged(mItemPos);
+            mItemPos = (mItemPos == pos) ? -1 : pos;
+            notifyItemChanged(mItemPos);
+            if (mListener != null) {
+                mListener.onClick(v);
             }
         }
+
         private void setItem(Cliente cli) {
             binding.tvNombreCli.setText(cli.getNombreCompleto());
+            binding.imagebVer.setImageBitmap(cli.getFoto());
         }
     }
     public interface AdaptadorClientesInterface {

@@ -107,7 +107,7 @@ public class ClientesRepository {
 
     public LiveData<Boolean> altaCliente(@NonNull Cliente cli) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
-        mAppDB.getRefFS().collection("clientes").document(String.valueOf(cli.getIdAdmin()) + cli.getFechaNacimiento() + cli.getId()).set(cli)
+        mAppDB.getRefFS().collection("clientes").document(cli.getId()).set(cli)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

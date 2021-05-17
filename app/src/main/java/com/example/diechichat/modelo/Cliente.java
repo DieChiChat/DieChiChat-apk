@@ -1,9 +1,11 @@
 package com.example.diechichat.modelo;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 
 public class Cliente implements Parcelable {
 
@@ -18,6 +20,9 @@ public class Cliente implements Parcelable {
     private String nombreCompleto;         //not null
     private double peso;
     private double altura;
+    private String nombre;
+    private String apellidos;
+    private Bitmap foto;
 
     /* Constructor ********************************************************************************/
     public Cliente() {
@@ -35,6 +40,9 @@ public class Cliente implements Parcelable {
         nombreCompleto = in.readString();
         peso = in.readDouble();
         altura = in.readDouble();
+        nombre = in.readString();
+        apellidos = in.readString();
+        foto = in.readParcelable(Bitmap.class.getClassLoader());
     }
 
     @Override
@@ -47,6 +55,9 @@ public class Cliente implements Parcelable {
         dest.writeString(nombreCompleto);
         dest.writeDouble(peso);
         dest.writeDouble(altura);
+        dest.writeString(nombre);
+        dest.writeString(apellidos);
+        dest.writeParcelable(foto, flags);
     }
 
     @Override
@@ -109,10 +120,23 @@ public class Cliente implements Parcelable {
     }
     public void setNombreCompleto(String nombre) { this.nombreCompleto = nombre; }
 
+    public String getNombre() {
+        return nombre;
+    }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+    public void setApellidos(String apellidos) { this.apellidos = apellidos; }
+
     public double getPeso() { return peso; }
     public void setPeso(double peso) { this.peso = peso; }
 
     public double getAltura() { return altura; }
     public void setAltura(double altura) { this.altura = altura; }
+
+    public Bitmap getFoto() { return foto; }
+    public void setFoto(Bitmap foto) { this.foto = foto; }
 
 }

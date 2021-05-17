@@ -62,7 +62,7 @@
     <string name="datos_altura">Altura (cm): </string>
     <string name="datos_peso">Peso (Kg) : </string>
     <string name="bt_fecnac">…</string>
-    <string name="title_activity_mi_perfil">MiPerfilActivity</string>
+    <string name="title_activity_mi_perfil">Mi perfil</string>
     
     <!-- mi perfil -->
     <string name="perfil_nombre">Nombre: </string>
@@ -70,18 +70,19 @@
     <string name="perfil_usuario">Usuario: </string>
     <string name="perfil_contraseña">Contraseña: </string>
     <string name="menu_editar_perfil">Editar perfil</string>
-    <string name="title_activity_mis_clientes">MisClientesActivity</string>
+    <string name="title_activity_mis_clientes">Mis Clientes</string>
     <!-- FIREBASE -->
     <string name="Firebase_name_key">Firebase_name</string>
     <string name="Firebase_name_title">Firebase Nombre</string>
     <string name="Firebase_name_summary">Nombre raíz en Firebase</string>
     <string name="Firebase_name_default">DieChiChat</string>
 
-    <string name="title_activity_nuevo_cliente">NuevoClienteActivity</string>
+    <string name="title_activity_nuevo_cliente">Nuevo Cliente</string>
     <string name="iv_cli_contentDescription">Foto Cliente</string>
     <string name="btEditar">Editar</string>
     <string name="btAsignarDieta">Modificar Dieta</string>
     <string name="btEliminar">Eliminar</string>
     <string name="string_ojo">👁</string>
+    <string name="tvFoto">Foto: </string>
 
 </resources>

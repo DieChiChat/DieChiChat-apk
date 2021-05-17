@@ -37,7 +37,16 @@ public class MisClientesActivity extends AppCompatActivity
 
     @Override
     public void onClickImagebVer() {
-        Bundle bundle=new Bundle();
+        // Lanzamos MtoDptosFragment
+        Bundle bundle = new Bundle();
+//        bundle.putInt("op", NuevoClienteActivity.OP_CREAR);
+//        bundle.putParcelable("cli", cli);
+//        bundle.putString("nombre", cli.getNombre());
+//        bundle.putString("apellidos", cli.getApellidos());
+//        bundle.putString("usuario", cli.getUsuario());
+//        bundle.putString("contrasena", cli.getContrasena());
+//        bundle.putInt("peso", cli.getPeso());
+//        bundle.putInt("altura", cli.getAltura());
        // bundle.putParcelable(); --> Aquí hay que meterle el cliente para pasárselo al fragmento y rellenarlo :)
         mNavC.navigate(R.id.action_mis_lientes_to_nuevoCienteFragment);
     }
