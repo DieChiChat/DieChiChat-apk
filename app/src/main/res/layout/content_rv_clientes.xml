@@ -5,15 +5,15 @@
     android:id="@+id/llrvClis"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="1dp"
-    android:orientation="horizontal"
+    android:layout_margin="8dp"
+    android:orientation="vertical"
     tools:context=".vista.fragmentos.MisClientesFragment">
 
     <ImageView
         android:id="@+id/imageb_camara"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,7 +25,7 @@
         android:id="@+id/tv_nombreCli"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
@@ -37,9 +37,8 @@
 
     <ImageButton
         android:id="@+id/imageb_ver"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:background="@color/white"
         android:src="@drawable/ver_ojo_round"
         app:layout_constraintBottom_toBottomOf="@+id/imageb_camara"
@@ -48,9 +47,9 @@
 
     <ImageButton
         android:id="@+id/imageb_add"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:background="@color/white"
         android:src="@drawable/add_cli_round"
         app:layout_constraintBottom_toBottomOf="@+id/imageb_ver"

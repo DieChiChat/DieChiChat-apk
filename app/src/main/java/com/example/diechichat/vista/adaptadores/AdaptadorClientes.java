@@ -1,5 +1,6 @@
 package com.example.diechichat.vista.adaptadores;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.ContentRvClientesBinding;
 import com.example.diechichat.modelo.Cliente;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +72,9 @@ public class AdaptadorClientes extends RecyclerView.Adapter<AdaptadorClientes.Cl
         if (mDatos != null) {
             holder.setItem(mDatos.get(position));
             holder.binding.llrvClis.setActivated(mItemPos == position);
+            holder.itemView.setBackgroundColor((mItemPos == position)
+                    ? ContextCompat.getColor(holder.itemView.getContext(), R.color.lightGold)
+                    : Color.TRANSPARENT);
         }
     }
 
@@ -89,36 +95,10 @@ public class AdaptadorClientes extends RecyclerView.Adapter<AdaptadorClientes.Cl
             super(itemView);
             binding = ContentRvClientesBinding.bind(itemView);
             binding.llrvClis.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.rv_item_seleccionado));
+            binding.imagebAdd.setEnabled(true);
             itemView.setOnClickListener(this);
 
-            binding.imagebVer.setOnClickListener(imagebVer_OnClick);
-
         }
-
-        private View.OnClickListener imagebVer_OnClick = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        };
-//        @Override
-//        public void onClick(View v) {
-//            if (v == binding.imagebAdd) {
-//                mListener2.onClickIgmagebAdd();
-//            } else if (v == binding.imagebCamara) {
-//                mListener2.onClickImagebCamara();
-//            } else if (v == binding.imagebVer) {
-//                mListener2.onClickImagebVer();
-//            } else {
-//                int pos = getLayoutPosition();
-//                notifyItemChanged(mItemPos);
-//                mItemPos = (mItemPos == pos) ? -1 : pos;
-//                notifyItemChanged(mItemPos);
-//                if (mListener != null) {
-//                    mListener.onClick(v);
-//                }
-//            }
-//        }
 
         @Override
         public void onClick(View v) {
@@ -126,10 +106,35 @@ public class AdaptadorClientes extends RecyclerView.Adapter<AdaptadorClientes.Cl
             notifyItemChanged(mItemPos);
             mItemPos = (mItemPos == pos) ? -1 : pos;
             notifyItemChanged(mItemPos);
-            if (mListener != null) {
-                mListener.onClick(v);
+            if(mListener2 != null) {
+                if (v == binding.imagebAdd) {
+                    mListener2.onClickIgmagebAdd();
+                } else if (v == binding.imagebCamara) {
+                    mListener2.onClickImagebCamara();
+                } else if (v == binding.imagebVer) {
+                    mListener2.onClickImagebVer();
+                } else {
+//                    int pos = getLayoutPosition();
+//                    notifyItemChanged(mItemPos);
+//                    mItemPos = (mItemPos == pos) ? -1 : pos;
+//                    notifyItemChanged(mItemPos);
+                    if (mListener != null) {
+                        mListener.onClick(v);
+                    }
+                }
             }
         }
+
+//        @Override
+//        public void onClick(View v) {
+//            int pos = getLayoutPosition();
+//            notifyItemChanged(mItemPos);
+//            mItemPos = (mItemPos == pos) ? -1 : pos;
+//            notifyItemChanged(mItemPos);
+//            if (mListener != null) {
+//                mListener.onClick(v);
+//            }
+//        }
 
         private void setItem(Cliente cli) {
             binding.tvNombreCli.setText(cli.getNombreCompleto());

@@ -7,7 +7,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-     <!-- Strings related to login -->
+    <!-- Strings related to login -->
     <string name="prompt_email">Email/Usuario</string>
     <string name="prompt_password">Contraseña</string>
     <string name="action_sign_in">Entrar</string>
@@ -17,7 +17,7 @@
     <string name="invalid_password">La contraseña debe tener un mínimo de 5 carácteres</string>
     <string name="login_failed">"Login failed"</string>
     <string name="by">Created By María - Marta</string>
-    
+
     <string name="menu_inicio">Inicio</string>
     <string name="menu_miperfil">Mi perfil</string>
     <string name="menu_misclientes">Mis clientes</string>
@@ -45,7 +45,7 @@
     <!-- COLORES -->
     <string name="colorFondo">#4A148C</string>
     <string name="colorLetras">#ffbf00</string>
-    
+
     <!-- botones -->
     <string name="btn_aceptar">Aceptar</string>
     <string name="btn_cancelar">Cancelar</string>
@@ -63,7 +63,7 @@
     <string name="datos_peso">Peso (Kg) : </string>
     <string name="bt_fecnac">…</string>
     <string name="title_activity_mi_perfil">Mi perfil</string>
-    
+
     <!-- mi perfil -->
     <string name="perfil_nombre">Nombre: </string>
     <string name="perfil_apellidos">Apellidos: </string>
@@ -84,5 +84,24 @@
     <string name="btEliminar">Eliminar</string>
     <string name="string_ojo">👁</string>
     <string name="tvFoto">Foto: </string>
+
+    <string name="hello_blank_fragment">Asignar Dieta</string>
+    <string name="title_activity_dieta">Dieta</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Dieta</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="tvDesayuno">Desayuno</string>
+    <string name="tvComida">Comida</string>
+    <string name="tvCena">Cena</string>
+    <string name="tvOtros">Otros</string>
+    <string name="btMas">+</string>
+
+
 
 </resources>

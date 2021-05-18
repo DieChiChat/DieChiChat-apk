@@ -13,6 +13,7 @@ import com.example.diechichat.databinding.ActivityMisClientesBinding;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.vista.adaptadores.AdaptadorClientes;
 import com.example.diechichat.vista.fragmentos.MisClientesFragment;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MisClientesActivity extends AppCompatActivity
         implements AdaptadorClientes.AdaptadorClientesInterface {
@@ -28,6 +29,7 @@ public class MisClientesActivity extends AppCompatActivity
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
         mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.misclientesFragCV)).getNavController();
 //        setContentView(R.layout.activity_mi_perfil);
 //        Toolbar toolbar = findViewById(R.id.toolbar);
@@ -53,7 +55,7 @@ public class MisClientesActivity extends AppCompatActivity
 
     @Override
     public void onClickIgmagebAdd() {
-
+        Snackbar.make(binding.getRoot(), "añadir dieta", Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

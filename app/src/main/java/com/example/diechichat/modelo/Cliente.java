@@ -7,6 +7,8 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
+import java.util.List;
+
 public class Cliente implements Parcelable {
 
     /* Atributos **********************************************************************************/
@@ -23,6 +25,7 @@ public class Cliente implements Parcelable {
     private String nombre;
     private String apellidos;
     private Bitmap foto;
+    private List<Alimento> tAlimentos;
 
     /* Constructor ********************************************************************************/
     public Cliente() {

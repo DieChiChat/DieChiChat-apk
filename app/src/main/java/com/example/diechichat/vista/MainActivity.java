@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.DialogFragment;
-import androidx.navigation.NavController;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -23,16 +23,15 @@ import com.example.diechichat.modelo.Nutricionista;
 import com.example.diechichat.vista.dialogos.DlgConfirmacion;
 import com.example.diechichat.vista.fragmentos.LoginFragment;
 import com.example.diechichat.vistamodelo.MainViewModel;
-import com.example.diechichat.vistamodelo.NutriViewModel;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements
         LoginFragment.LoginFragInterface,
-        DlgConfirmacion.DlgConfirmacionListener{
+        DlgConfirmacion.DlgConfirmacionListener {
 
     private MainViewModel mainVM;
-                
+
     private ActivityMainBinding bindingMain;
     private AppBarMainBinding bindingAppBar;
 
@@ -60,13 +59,13 @@ public class MainActivity extends AppCompatActivity implements
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-                
+
     @Override
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(mNavC, mAppBarConfiguration) || super.onSupportNavigateUp();
     }
-                
-    private void mostrarDlgSalir(){
+
+    private void mostrarDlgSalir() {
         //Lanzamos DlgConfirmacion
         Bundle bundle = new Bundle();
         bundle.putInt("titulo", R.string.app_name);
@@ -87,41 +86,42 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        if(bindingMain.drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (bindingMain.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             bindingMain.drawerLayout.closeDrawer(GravityCompat.START);
-        }else{
+        } else {
             mostrarDlgSalir();
         }
     }
-                
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
-         
+
     private final NavigationView.OnNavigationItemSelectedListener navView_OnNavigationItemSelected = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            if (item.getItemId()==R.id.menu_inicio){
-
-            }else if (item.getItemId()==R.id.menu_miperfil){
-                Intent i= new Intent(MainActivity.this,MiPerfilActivity.class);
+            if (item.getItemId() == R.id.menu_inicio) {
+                Intent i = new Intent(MainActivity.this, DietaActivity.class);
+                startActivity(i);
+            } else if (item.getItemId() == R.id.menu_miperfil) {
+                Intent i = new Intent(MainActivity.this, MiPerfilActivity.class);
                 startActivity(i);
 
-            }else if(item.getItemId()==R.id.menu_misclientes){
-                Intent i= new Intent(MainActivity.this,MisClientesActivity.class);
+            } else if (item.getItemId() == R.id.menu_misclientes) {
+                Intent i = new Intent(MainActivity.this, MisClientesActivity.class);
                 startActivity(i);
-            }else if(item.getItemId()==R.id.menu_nuevocliente){
-                Intent i= new Intent(MainActivity.this,NuevoClienteActivity.class);
-                i.putExtra("login", ((Nutricionista)mainVM.getLogin()).getId());
+            } else if (item.getItemId() == R.id.menu_nuevocliente) {
+                Intent i = new Intent(MainActivity.this, NuevoClienteActivity.class);
+                i.putExtra("login", ((Nutricionista) mainVM.getLogin()).getId());
                 startActivity(i);
-            }else{
+            } else {
                 return false;
             }
             return false;
         }
     };
-                
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onEntrarLoginFrag(Object obj) {
-        if(obj != null) {
+        if (obj != null) {
             mainVM.setLogin(obj);
             if (obj instanceof Nutricionista) {
                 Snackbar.make(bindingMain.getRoot(), (R.string.msg_bienvenida + " " + ((Nutricionista) obj).getNombreCompleto()), Snackbar.LENGTH_SHORT).show();
@@ -150,10 +150,10 @@ public class MainActivity extends AppCompatActivity implements
                 Snackbar.make(bindingMain.getRoot(), (R.string.msg_bienvenida + " " + ((Cliente) obj).getNombreCompleto()), Snackbar.LENGTH_SHORT).show();
             }
 
-            bindingAppBar=bindingMain.appBarMain;
+            bindingAppBar = bindingMain.appBarMain;
             setSupportActionBar(bindingAppBar.mainToolbar);
-            mAppBarConfiguration= new AppBarConfiguration.Builder(mNavC.getGraph()).setOpenableLayout(bindingMain.drawerLayout).build();
-            NavigationUI.setupActionBarWithNavController(this,mNavC,mAppBarConfiguration);
+            mAppBarConfiguration = new AppBarConfiguration.Builder(mNavC.getGraph()).setOpenableLayout(bindingMain.drawerLayout).build();
+            NavigationUI.setupActionBarWithNavController(this, mNavC, mAppBarConfiguration);
 
             mNavC.navigate(R.id.nav_inicio);
         } else {

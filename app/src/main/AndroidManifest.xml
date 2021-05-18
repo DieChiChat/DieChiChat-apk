@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DieChiChat">
         <activity
+            android:name=".vista.DietaActivity"
+            android:label="@string/title_activity_dieta"
+            android:theme="@style/Theme.DieChiChat.NoActionBar" />
+        <activity
             android:name=".vista.NuevoClienteActivity"
             android:label="@string/title_activity_nuevo_cliente"
             android:theme="@style/Theme.DieChiChat.NoActionBar" />
