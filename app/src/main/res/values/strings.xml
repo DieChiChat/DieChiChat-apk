@@ -100,8 +100,11 @@
     <string name="tvComida">Comida</string>
     <string name="tvCena">Cena</string>
     <string name="tvOtros">Otros</string>
-    <string name="btMas">+</string>
-
-
+    <string name="btMas">➕</string>
+    <string name="menu_chat">Chat</string>
+    <string name="menuVacio"> </string>
+    <string name="btEnviar">⬆️</string>
+    <string name="title_activity_chat">Chat</string>
+    <string name="etEscribeTexto">Escribe un mensaje</string>
 
 </resources>

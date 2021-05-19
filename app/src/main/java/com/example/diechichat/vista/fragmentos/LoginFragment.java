@@ -78,7 +78,6 @@ public class LoginFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        return inflater.inflate(R.layout.fragment_login, container, false);
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -87,8 +86,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Inits
-        //binding.spLoginDptos.setAdapter(mAdaptadorDtpos);
 
         // Listeners
         binding.btEntrar.setOnClickListener(btEntrar_OnClickListener);
