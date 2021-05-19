@@ -33,14 +33,14 @@ public class AdaptadorClientes extends RecyclerView.Adapter<AdaptadorClientes.Cl
 
     public void setDatos(List<Cliente> datos) {
         mDatos = new ArrayList<>();
-        Cliente c= new Cliente();
-        c.setAltura(165);
-        c.setNombreCompleto("María Martínez Gómez");
-        mDatos.add(c); // ES DE PRUEBA PORQUE NO HAY CLIENTES EN LA COLECCIÓN
-        mDatos.add(c);
-        mDatos.add(c);
-        mDatos.add(c);
-    //    mDatos = datos; --> este es el que lo recoge
+//        Cliente c= new Cliente();
+//        c.setAltura(165);
+//        c.setNombreCompleto("María Martínez Gómez");
+//        mDatos.add(c); // ES DE PRUEBA PORQUE NO HAY CLIENTES EN LA COLECCIÓN
+//        mDatos.add(c);
+//        mDatos.add(c);
+//        mDatos.add(c);
+        mDatos = datos; //--> este es el que lo recoge
     }
 
     public int getItemPos() {

@@ -1,12 +1,15 @@
 package com.example.diechichat.modelo;
 
+import java.util.Date;
+
 public class Chat {
     private int id;
     private String mensajeTexto;
     private String mensajeUsuario;
-    private String horaMensaje;
+    private long horaMensaje;
 
     public Chat() {
+        this.horaMensaje = new Date().getTime();
     }
 
     public int getId() { return id; }
@@ -18,6 +21,6 @@ public class Chat {
     public String getMensajeUsuario() { return mensajeUsuario; }
     public void setMensajeUsuario(String mensajeUsuario) { this.mensajeUsuario = mensajeUsuario; }
 
-    public String getHoraMensaje() { return horaMensaje; }
-    public void setHoraMensaje(String horaMensaje) { this.horaMensaje = horaMensaje; }
+    public Long getHoraMensaje() { return horaMensaje; }
+    public void setHoraMensaje(Long horaMensaje) { this.horaMensaje = horaMensaje; }
 }
