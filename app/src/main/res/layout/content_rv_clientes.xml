@@ -31,29 +31,8 @@
         android:layout_marginBottom="16dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="@+id/imageb_camara"
-        app:layout_constraintEnd_toStartOf="@+id/imageb_ver"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageb_camara"
         app:layout_constraintTop_toTopOf="@+id/imageb_camara" />
-
-    <ImageButton
-        android:id="@+id/imageb_ver"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:src="@drawable/ver_ojo_round"
-        app:layout_constraintBottom_toBottomOf="@+id/imageb_camara"
-        app:layout_constraintEnd_toStartOf="@+id/imageb_add"
-        app:layout_constraintTop_toTopOf="@+id/imageb_camara" />
-
-    <ImageButton
-        android:id="@+id/imageb_add"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@color/white"
-        android:src="@drawable/add_cli_round"
-        app:layout_constraintBottom_toBottomOf="@+id/imageb_ver"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageb_ver" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

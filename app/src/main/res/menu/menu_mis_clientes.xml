@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menuVerCliente"
+        android:icon="@drawable/ver_ojo_round"
+        android:orderInCategory="100"
+        android:enabled="false"
+        android:title="@string/menu_misclientes"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menuAddDieta"
+        android:icon="@drawable/add_cli_round"
+        android:orderInCategory="200"
+        android:enabled="false"
+        android:title="@string/menu_misclientes"
+        app:showAsAction="ifRoom" />
+</menu>

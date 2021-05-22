@@ -28,17 +28,15 @@ import java.util.List;
 
 public class MisClientesFragment extends Fragment {
     private AdaptadorClientes mAdaptadorClis;
-
     private FragmentMisClientesBinding binding;
-
     @Override
     public void onAttach(@NonNull Context context) {
           super.onAttach(context);
-//        if (context instanceof MisClientesFragInterface) {
-//            mListener = (MisClientesFragInterface) context;
-//        } else {
-//            throw new RuntimeException(context.toString() + " must implement MisClientesFragInterface");
-//        }
+      /*  if (context instanceof MisClientesFragInterface) {
+            mListener = (MisClientesFragInterface) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement MisClientesFragInterface");
+        }*/
     }
     public MisClientesFragment() {
         // Required empty public constructor
@@ -47,6 +45,7 @@ public class MisClientesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
 
         }
@@ -118,37 +117,6 @@ public class MisClientesFragment extends Fragment {
         @Override
         public void onClick(View v) {
             int pos = mAdaptadorClis.getItemPos();
-
-        }
-    };
-
-    private final View.OnClickListener btAsignarDieta_OnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            int pos = mAdaptadorClis.getItemPos();
-            if (pos == -1) {
-
-            }
-        }
-    };
-
-    private final View.OnClickListener btEditarCli_OnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            int pos = mAdaptadorClis.getItemPos();
-            if (pos >= 0) {
-
-            }
-        }
-    };
-
-    private final View.OnClickListener btIncEliminar_OnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            int pos = mAdaptadorClis.getItemPos();
-            if (pos >= 0) {
-
-            }
         }
     };
 }

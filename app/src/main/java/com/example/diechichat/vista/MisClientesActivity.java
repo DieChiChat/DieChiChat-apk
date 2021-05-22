@@ -1,9 +1,12 @@
 package com.example.diechichat.vista;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -13,12 +16,13 @@ import com.example.diechichat.databinding.ActivityMisClientesBinding;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.vista.adaptadores.AdaptadorClientes;
 import com.example.diechichat.vista.fragmentos.MisClientesFragment;
+import com.example.diechichat.vistamodelo.ClienteViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
-public class MisClientesActivity extends AppCompatActivity
-        implements AdaptadorClientes.AdaptadorClientesInterface {
+public class MisClientesActivity extends AppCompatActivity {
     private ActivityMisClientesBinding binding;
     private NavController mNavC;
+    private ClienteViewModel mCliVM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +33,22 @@ public class MisClientesActivity extends AppCompatActivity
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
+        mCliVM = new ViewModelProvider(this).get(ClienteViewModel.class);
         mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.misclientesFragCV)).getNavController();
-//        setContentView(R.layout.activity_mi_perfil);
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.menuVerCliente){
+          //TODO: RELLENAR CLIENTE Y NAVEGAR HASTA EL PERFIL PARA EDITAR
+            //TODO: HAY QUE ABILITAR LAS OPCIONES DE MENÚ SI HAY CLIENTE SELECCIONADO
+            Bundle bundleVerCliente= new Bundle();
+            //bundleVerCliente.putParcelable("clienteSelecionado",); --> AQUI SE LE PASA EL CLIENTE RELLENO
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //@Override
     public void onClickImagebVer() {
         // Lanzamos MtoDptosFragment
         Bundle bundle = new Bundle();
@@ -53,12 +64,12 @@ public class MisClientesActivity extends AppCompatActivity
         mNavC.navigate(R.id.action_mis_lientes_to_nuevoCienteFragment);
     }
 
-    @Override
+    // @Override
     public void onClickIgmagebAdd() {
         Snackbar.make(binding.getRoot(), "añadir dieta", Snackbar.LENGTH_SHORT).show();
     }
 
-    @Override
+    //@Override
     public void onClickImagebCamara() {
 
     }

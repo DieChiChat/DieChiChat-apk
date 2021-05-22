@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class NetworkUtils {
     private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
     // Base URL for Books API.
-    private static final String FOOD_BASE_URL = "a https://test-es.edamam.com/search";
+    private static final String FOOD_BASE_URL = "https://test-es.edamam.com/search";
     private static final String RUTA_BUSQUEDA = "https://api.edamam.com/search?q={palabra_a_buscar}&app_id=${tu_id}&app_key=${tu_clave}";
     // Parameter for the search string.
     private static final String QUERY_PARAM = "q";
