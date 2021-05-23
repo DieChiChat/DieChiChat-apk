@@ -41,7 +41,9 @@ public class NuevoClienteActivity extends AppCompatActivity implements
     private NavController mNavC;
     private ClienteViewModel cliVM;
 
-    private static final int REQUEST_iMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int OP_CREAR = 2;
+    private static final int OP_EDITAR = 3;
     private Cliente cli;
 
     @Override
@@ -51,7 +53,7 @@ public class NuevoClienteActivity extends AppCompatActivity implements
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
         Intent i = getIntent();
-        if(i != null) {
+        if (i != null) {
             Bundle b = i.getExtras();
             if (b != null) {
                 cli = b.getParcelable("cliente");
@@ -70,15 +72,15 @@ public class NuevoClienteActivity extends AppCompatActivity implements
     @Override
     public void onAceptarNuevoFrag(Cliente c) {
         if (c != null) {
-                cliVM.altaCliente(c).observe(this, new Observer<Boolean>() {
-                    @Override
-                    public void onChanged(Boolean ok) {
-                        Snackbar.make(binding.getRoot(), (ok) ? R.string.msg_altaCorrecta : R.string.msg_altaIncorrecta, Snackbar.LENGTH_SHORT).show();
-                        if(ok) {
-                            subirFotoAStorage(c, cliVM.getFoto());
-                        }
+            cliVM.altaCliente(c).observe(this, new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean ok) {
+                    Snackbar.make(binding.getRoot(), (ok) ? R.string.msg_altaCorrecta : R.string.msg_altaIncorrecta, Snackbar.LENGTH_SHORT).show();
+                    if (ok) {
+                        subirFotoAStorage(c, cliVM.getFoto());
                     }
-                });
+                }
+            });
             mNavC.navigateUp();
         } else {
             Snackbar.make(binding.getRoot(), R.string.msg_datosObligatorios, Snackbar.LENGTH_SHORT).show();
@@ -90,14 +92,17 @@ public class NuevoClienteActivity extends AppCompatActivity implements
         finish();
     }
 
-    /**Métodos Cámara ****************************************/
+    /**
+     * Métodos Cámara
+     ****************************************/
     @Override
     public void onAbrirCamaraFrag() {
         Intent i = new Intent();
         i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (i.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(i, REQUEST_iMAGE_CAPTURE);
+            startActivityForResult(i, REQUEST_IMAGE_CAPTURE);
         }
+
     }
 
     @Override
@@ -105,9 +110,9 @@ public class NuevoClienteActivity extends AppCompatActivity implements
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null) {
             switch (requestCode) {
-                case REQUEST_iMAGE_CAPTURE: {
+                case REQUEST_IMAGE_CAPTURE: {
                     if (resultCode == RESULT_OK) {
-                        cliVM.setFoto((Bitmap)data.getExtras().get("data"));
+                        cliVM.setFoto((Bitmap) data.getExtras().get("data"));
                     }
                 }
             }
@@ -115,13 +120,14 @@ public class NuevoClienteActivity extends AppCompatActivity implements
     }
 
     public void subirFotoAStorage(Cliente cli, LiveData<Bitmap> fotoLive) {
-        String hora = new SimpleDateFormat("HHmmss", Locale.ENGLISH).format(new Date());;
+        String hora = new SimpleDateFormat("HHmmss", Locale.ENGLISH).format(new Date());
+        ;
         String nombreFoto = "imagen" + cli.getIdAdmin() + cli.getId();
 
         Bitmap foto = fotoLive.getValue();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReferenceFromUrl("gs://diechichat.appspot.com").child("fotosClientes/" + cli.getId()).child("imagen" + cli.getId() + ".jpeg");
-        if(foto != null) {
+        if (foto != null) {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             foto.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
             byte[] data = outputStream.toByteArray();
@@ -139,7 +145,9 @@ public class NuevoClienteActivity extends AppCompatActivity implements
         }
     }
 
-    /**Métodos Diálogo de Selección de Fecha **********************************/
+    /**
+     * Métodos Diálogo de Selección de Fecha
+     **********************************/
 
     @Override
     public void onDlgSeleccionFechaClick(DialogFragment dialog, String fecha) {

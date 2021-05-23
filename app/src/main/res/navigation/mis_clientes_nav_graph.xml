@@ -17,5 +17,9 @@
         android:id="@+id/nuevoCienteFragment"
         android:name="com.example.diechichat.vista.fragmentos.NuevoCienteFragment"
         android:label="NuevoCienteFragment" />
+    <fragment
+        android:id="@+id/dietaDelClienteFragment"
+        android:name="com.example.diechichat.vista.fragmentos.DietaFragment"
+        android:label="DietaClienteFragment" />
 
 </navigation>

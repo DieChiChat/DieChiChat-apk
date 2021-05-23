@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -29,15 +30,24 @@ import java.util.List;
 public class MisClientesFragment extends Fragment {
     private AdaptadorClientes mAdaptadorClis;
     private FragmentMisClientesBinding binding;
+    private MisClietnesFragmentInterface mListener;
+
+    public interface MisClietnesFragmentInterface {
+        void onVerClienteFrag(Cliente cli);
+
+        void onAddDietaFrag(Cliente cli);
+    }
+
     @Override
     public void onAttach(@NonNull Context context) {
-          super.onAttach(context);
-      /*  if (context instanceof MisClientesFragInterface) {
-            mListener = (MisClientesFragInterface) context;
+        super.onAttach(context);
+        if (context instanceof MisClietnesFragmentInterface) {
+            mListener = (MisClietnesFragmentInterface) context;
         } else {
             throw new RuntimeException(context.toString() + " must implement MisClientesFragInterface");
-        }*/
+        }
     }
+
     public MisClientesFragment() {
         // Required empty public constructor
     }
@@ -110,7 +120,29 @@ public class MisClientesFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-//        inflater.inflate(R.menu.menu_filtro, menu);
+        inflater.inflate(R.menu.menu_mis_clientes, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menuVerCliente) {
+            int posRecicler = mAdaptadorClis.getItemPos();
+            if (posRecicler >= 0) {
+                if (mListener != null) {
+                    mListener.onVerClienteFrag(mAdaptadorClis.getItem(posRecicler));
+                }
+            }
+        }
+        if (item.getItemId() == R.id.menuAddDieta) {
+            int posRecicler = mAdaptadorClis.getItemPos();
+            if (posRecicler >= 0) {
+                if (mListener != null) {
+                    mListener.onAddDietaFrag(mAdaptadorClis.getItem(posRecicler));
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
     private final View.OnClickListener mAdaptadorClis_OnClickListener = new View.OnClickListener() {

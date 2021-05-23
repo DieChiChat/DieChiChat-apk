@@ -80,7 +80,7 @@ public class NuevoCienteFragment extends Fragment implements
         setHasOptionsMenu(true);
         if (getArguments() != null) {
             mOp = getArguments().getInt("op");
-            c = getArguments().getParcelable("cli");
+            c = getArguments().getParcelable("clienteVer");
             mLogin = getArguments().getInt("login");
         }
         ClienteViewModel cliVM= new ViewModelProvider(requireActivity()).get(ClienteViewModel.class);
@@ -123,18 +123,22 @@ public class NuevoCienteFragment extends Fragment implements
         binding.btCancelar.setOnClickListener(btCancelar_onClickListener);
         binding.btFecnac.setOnClickListener(btFecnac_OnClickListener);
 
-        if (mOp != -1) {    // MtoIncsFragment requiere una operación válida!!
+        if (mOp != -1) {
             switch (mOp) {
                 case OP_EDITAR:
                     Bundle b = getArguments();
                     if (b != null) {
-                        c = b.getParcelable("cli");
+                        c = b.getParcelable("clienteVer");
                         binding.etNuevoNombre.setText(c.getNombre());
                         binding.etNuevoApellidos.setText(c.getApellidos());
                         binding.etNuevoUsuario.setText(c.getUsuario());
                         binding.etNuevoContrasena.setText(c.getContrasena());
+                        binding.etFecNac.setText(c.getFechaFormat());
                         binding.numPickerPeso.setValue((int) c.getPeso());
                         binding.numPickerAltura.setValue((int) c.getAltura());
+                        if(c.getFoto()!=null){
+                            binding.ivFoto.setImageBitmap(c.getFoto());
+                        }
 
                     }
                     break;
@@ -187,14 +191,16 @@ public class NuevoCienteFragment extends Fragment implements
                         !binding.etNuevoContrasena.getText().toString().equals("") &&
                         !binding.etFecNac.getText().toString().equals("")) {
 
-                    if (binding.numPickerPeso.getValue() == 1) {            //Peso con valor 0
+                    if (binding.numPickerPeso.getValue() == 0) {            //Peso con valor 0
                         Snackbar.make(binding.getRoot(), R.string.msg_peso, Snackbar.LENGTH_SHORT).show();
-                    } else if (binding.numPickerAltura.getValue() == 2) {   //Altura con valor 0
+                    } else if (binding.numPickerAltura.getValue() == 0) {   //Altura con valor 0
                         Snackbar.make(binding.getRoot(), R.string.msg_altura, Snackbar.LENGTH_SHORT).show();
                     } else {
                         // Creación un nuevo cliente
                         c = new Cliente();
                         c.setNombreCompleto(binding.etNuevoNombre.getText().toString() + " " + binding.etNuevoApellidos.getText().toString());
+                        c.setNombre(binding.etNuevoNombre.getText().toString());
+                        c.setApellidos(binding.etNuevoApellidos.getText().toString());
                         c.setUsuario(binding.etNuevoUsuario.getText().toString());
                         c.setContrasena(binding.etNuevoContrasena.getText().toString());
                         c.setPeso(binding.numPickerPeso.getValue());
