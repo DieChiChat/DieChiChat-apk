@@ -18,12 +18,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:text="@string/datos_nombre"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvFoto" />
 
     <EditText
         android:id="@+id/et_nuevo_nombre"
@@ -179,34 +179,34 @@
     <Button
         android:id="@+id/bt_cancelar"
         style="?attr/materialButtonOutlinedStyle"
-        app:background="@drawable/custom_bottom"
-        app:strokeColor="@color/darkBlue"
-
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
         android:text="@string/btn_cancelar"
+        app:background="@drawable/custom_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/darkBlue" />
 
     <Button
         android:id="@+id/bt_aceptar"
         style="?attr/materialButtonOutlinedStyle"
-        app:background="@drawable/custom_bottom"
-        app:strokeColor="@color/darkBlue"
-
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/btn_aceptar"
+        app:background="@drawable/custom_bottom"
         app:layout_constraintBottom_toBottomOf="@+id/bt_cancelar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="@+id/bt_cancelar" />
+        app:layout_constraintTop_toTopOf="@+id/bt_cancelar"
+        app:strokeColor="@color/darkBlue" />
 
     <TextView
         android:id="@+id/textView12"
@@ -238,36 +238,37 @@
     <Button
         android:id="@+id/bt_fecnac"
         style="?attr/materialButtonOutlinedStyle"
-        app:background="@drawable/custom_bottom"
-        app:strokeColor="@color/darkBlue"
-
         android:layout_width="48dp"
         android:layout_height="50dp"
+
         android:layout_marginEnd="16dp"
         android:text="@string/bt_fecnac"
+        app:background="@drawable/custom_bottom"
         app:layout_constraintBaseline_toBaselineOf="@+id/et_fecNac"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/et_fecNac" />
+        app:layout_constraintStart_toEndOf="@+id/et_fecNac"
+        app:strokeColor="@color/darkBlue" />
 
     <TextView
         android:id="@+id/tvFoto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="@string/tvFoto"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/numPicker_altura" />
+        android:layout_marginTop="16dp"
+        android:text="@string/tvFotoAsignar"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivFoto" />
 
     <ImageView
         android:id="@+id/ivFoto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvFoto"
-        app:layout_constraintTop_toBottomOf="@+id/numPicker_peso"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/foto_camara_icono_round" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

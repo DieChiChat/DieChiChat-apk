@@ -7,7 +7,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -51,11 +55,12 @@ public class NuevoCienteFragment extends Fragment implements
     private int mOp;    // Operación a realizar
     public static final int OP_CREAR = 1;
     public static final int OP_EDITAR = 2;
+    private static final String TAG_SELECCION_FECHA = "tagSeleccionFecha";
 
     private Bitmap fotoBitmap;
 
     public interface NuevoCliFragmentInterface {
-        void onAceptarNuevoFrag(Cliente c);
+        void onAceptarNuevoFrag(int op, Cliente c);
         void onCancelarNuevoFrag();
         void onAbrirCamaraFrag();
     }
@@ -77,7 +82,6 @@ public class NuevoCienteFragment extends Fragment implements
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
         if (getArguments() != null) {
             mOp = getArguments().getInt("op");
             c = getArguments().getParcelable("clienteVer");
@@ -103,6 +107,11 @@ public class NuevoCienteFragment extends Fragment implements
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if(mOp == OP_CREAR) {
+            setHasOptionsMenu(false);
+        } else if(mOp == OP_EDITAR) {
+            setHasOptionsMenu(true);
+        }
         binding = FragmentNuevoClienteBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -126,8 +135,11 @@ public class NuevoCienteFragment extends Fragment implements
         if (mOp != -1) {
             switch (mOp) {
                 case OP_EDITAR:
+                    binding.tvFoto.setText(R.string.tvFotoCambiar);
                     Bundle b = getArguments();
                     if (b != null) {
+                        habilitarCampos(false);
+
                         c = b.getParcelable("clienteVer");
                         binding.etNuevoNombre.setText(c.getNombre());
                         binding.etNuevoApellidos.setText(c.getApellidos());
@@ -136,11 +148,20 @@ public class NuevoCienteFragment extends Fragment implements
                         binding.etFecNac.setText(c.getFechaFormat());
                         binding.numPickerPeso.setValue((int) c.getPeso());
                         binding.numPickerAltura.setValue((int) c.getAltura());
-                        if(c.getFoto()!=null){
-                            binding.ivFoto.setImageBitmap(c.getFoto());
-                        }
+                        mostrarImagenStorage(c);
+                        /*
+                        * android:hint="@string/hint_password"
+                        android:imeActionLabel="@string/login_sign_in"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword"
+                        *
+                        * */
 
                     }
+                    break;
+                case OP_CREAR:
+                    binding.tvFoto.setText(R.string.tvFotoAsignar);
+                    habilitarCampos(true);
                     break;
             }
         }
@@ -179,6 +200,23 @@ public class NuevoCienteFragment extends Fragment implements
         super.onDetach();
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_perfil,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.menuEditarPerfil){
+            if(binding.etNuevoNombre.isEnabled()) {
+                habilitarCampos(false);
+            } else {
+                habilitarCampos(true);
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     View.OnClickListener btAceptar_onClickListener = new View.OnClickListener() {
         @Override
@@ -191,11 +229,6 @@ public class NuevoCienteFragment extends Fragment implements
                         !binding.etNuevoContrasena.getText().toString().equals("") &&
                         !binding.etFecNac.getText().toString().equals("")) {
 
-                    if (binding.numPickerPeso.getValue() == 0) {            //Peso con valor 0
-                        Snackbar.make(binding.getRoot(), R.string.msg_peso, Snackbar.LENGTH_SHORT).show();
-                    } else if (binding.numPickerAltura.getValue() == 0) {   //Altura con valor 0
-                        Snackbar.make(binding.getRoot(), R.string.msg_altura, Snackbar.LENGTH_SHORT).show();
-                    } else {
                         // Creación un nuevo cliente
                         c = new Cliente();
                         c.setNombreCompleto(binding.etNuevoNombre.getText().toString() + " " + binding.etNuevoApellidos.getText().toString());
@@ -209,10 +242,10 @@ public class NuevoCienteFragment extends Fragment implements
                         c.setId(generarId());
                         c.setFechaFormat((binding.etFecNac.getText().toString().equals("") ? "" : binding.etFecNac.getText().toString()));
 
-                        mListener.onAceptarNuevoFrag(c);
-                    }
+                        mListener.onAceptarNuevoFrag(mOp, c);
+
                 } else {
-                    mListener.onAceptarNuevoFrag(null);  // Faltan Datos Obligatorios
+                    mListener.onAceptarNuevoFrag(-1,null);  // Faltan Datos Obligatorios
                 }
             }
         }
@@ -233,7 +266,7 @@ public class NuevoCienteFragment extends Fragment implements
             esconderTeclado(v);
 
             DialogFragment dialogFragmentFecha = new DlgSeleccionFecha();
-            dialogFragmentFecha.show(getParentFragmentManager(), "tagSeleccionFecha");
+            dialogFragmentFecha.show(getParentFragmentManager(), TAG_SELECCION_FECHA);
         }
     };
 
@@ -257,6 +290,7 @@ public class NuevoCienteFragment extends Fragment implements
         binding.etFecNac.setText("");
     }
 
+    /*********************************************************/
     public String generarId() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         String s = sdf.format(Calendar.getInstance().getTime());
@@ -292,4 +326,27 @@ public class NuevoCienteFragment extends Fragment implements
         } catch (IOException e ) {}
     }
 
+    public void habilitarCampos(boolean habilitado) {
+        if(habilitado) {
+            binding.etNuevoNombre.setEnabled(true);
+            binding.etNuevoApellidos.setEnabled(true);
+            binding.etNuevoUsuario.setEnabled(true);
+            binding.etNuevoContrasena.setEnabled(true);
+            binding.etFecNac.setEnabled(true);
+            binding.numPickerAltura.setEnabled(true);
+            binding.numPickerPeso.setEnabled(true);
+            binding.btFecnac.setEnabled(true);
+            binding.etNuevoContrasena.setInputType(InputType.TYPE_CLASS_TEXT);
+        } else {
+            binding.etNuevoNombre.setEnabled(false);
+            binding.etNuevoApellidos.setEnabled(false);
+            binding.etNuevoUsuario.setEnabled(false);
+            binding.etNuevoContrasena.setEnabled(false);
+            binding.etFecNac.setEnabled(false);
+            binding.numPickerAltura.setEnabled(false);
+            binding.numPickerPeso.setEnabled(false);
+            binding.btFecnac.setEnabled(false);
+            binding.etNuevoContrasena.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        }
+    }
 }

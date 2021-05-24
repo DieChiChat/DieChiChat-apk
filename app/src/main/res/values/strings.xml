@@ -107,4 +107,6 @@
     <string name="title_activity_chat">Chat</string>
     <string name="etEscribeTexto">Escribe un mensaje</string>
 
+    <string name="tvFotoAsignar">Asignar foto de perfil</string>
+    <string name="tvFotoCambiar">Cambiar foto de perfil</string>
 </resources>

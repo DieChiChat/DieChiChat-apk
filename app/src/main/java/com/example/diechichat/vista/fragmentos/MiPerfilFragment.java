@@ -1,12 +1,16 @@
 package com.example.diechichat.vista.fragmentos;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,11 +21,22 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.FragmentPerfilBinding;
+import com.example.diechichat.modelo.Cliente;
+import com.example.diechichat.modelo.Nutricionista;
+import com.example.diechichat.vistamodelo.ClienteViewModel;
+import com.example.diechichat.vistamodelo.MainViewModel;
+import com.example.diechichat.vistamodelo.NutriViewModel;
+
+import java.util.List;
 
 public class MiPerfilFragment extends Fragment {
 
     private FragmentPerfilBinding binding;
     private PerfilFragInterface mListener;
+
+    private Nutricionista nutri;
+
+    private MainViewModel mainVM;
 
     public interface PerfilFragInterface{
         void onAceptarPerfilFrag();
@@ -45,9 +60,11 @@ public class MiPerfilFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        if(getArguments()!= null){
-
+        mainVM = new ViewModelProvider(this).get(MainViewModel.class);
+        if (getArguments() != null) {
+            nutri = getArguments().getParcelable("nutricionista");
         }
+//        nutri = (Nutricionista) mainVM.getLogin();
     }
     @Nullable
     @Override
@@ -56,14 +73,18 @@ public class MiPerfilFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @SuppressLint("FragmentLiveDataObserve")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //TODO: poner los datos del perfil
-        binding.etNombre.setEnabled(false);
-        binding.etApellidos.setEnabled(false);
-        binding.etUsuario.setEnabled(false);
-        binding.etContrasena.setEnabled(false);
+        habilitarCampos(false);
+
+        if(nutri != null) {
+            binding.etNombre.setText(nutri.getNombre());
+            binding.etApellidos.setText(nutri.getApellidos());
+            binding.etUsuario.setText(nutri.getUsuario());
+            binding.etContrasena.setText(nutri.getContrasena());
+        }
 
         binding.btAceptar.setOnClickListener(btAceptar_onClickListener);
         binding.btCancelar.setOnClickListener(btCancelar_onClickListener);
@@ -94,10 +115,11 @@ public class MiPerfilFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.menuEditarPerfil){
-            binding.etNombre.setEnabled(true);
-            binding.etApellidos.setEnabled(true);
-            binding.etUsuario.setEnabled(true);
-            binding.etContrasena.setEnabled(true);
+            if(binding.etNombre.isEnabled()) {
+                habilitarCampos(false);
+            } else {
+                habilitarCampos(true);
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -105,10 +127,6 @@ public class MiPerfilFragment extends Fragment {
     View.OnClickListener btAceptar_onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            binding.etNombre.setEnabled(false);
-            binding.etApellidos.setEnabled(false);
-            binding.etUsuario.setEnabled(false);
-            binding.etContrasena.setEnabled(false);
             mListener.onAceptarPerfilFrag();
         }
     };
@@ -125,4 +143,18 @@ public class MiPerfilFragment extends Fragment {
             }
         }
     };
+
+    public void habilitarCampos(boolean habilitado) {
+        if(habilitado) {
+            binding.etNombre.setEnabled(true);
+            binding.etApellidos.setEnabled(true);
+            binding.etUsuario.setEnabled(true);
+            binding.etContrasena.setEnabled(true);
+        } else {
+            binding.etNombre.setEnabled(false);
+            binding.etApellidos.setEnabled(false);
+            binding.etUsuario.setEnabled(false);
+            binding.etContrasena.setEnabled(false);
+        }
+    }
 }

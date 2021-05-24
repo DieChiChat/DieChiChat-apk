@@ -52,14 +52,6 @@ public class NuevoClienteActivity extends AppCompatActivity implements
         binding = ActivityNuevoClienteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
-        Intent i = getIntent();
-        if (i != null) {
-            Bundle b = i.getExtras();
-            if (b != null) {
-                cli = b.getParcelable("cliente");
-
-            }
-        }
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -70,17 +62,34 @@ public class NuevoClienteActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onAceptarNuevoFrag(Cliente c) {
+    public void onAceptarNuevoFrag(int op, Cliente c) {
         if (c != null) {
-            cliVM.altaCliente(c).observe(this, new Observer<Boolean>() {
-                @Override
-                public void onChanged(Boolean ok) {
-                    Snackbar.make(binding.getRoot(), (ok) ? R.string.msg_altaCorrecta : R.string.msg_altaIncorrecta, Snackbar.LENGTH_SHORT).show();
-                    if (ok) {
-                        subirFotoAStorage(c, cliVM.getFoto());
-                    }
-                }
-            });
+            switch (op) {
+                case NuevoCienteFragment.OP_CREAR:
+                    cliVM.altaCliente(c).observe(this, new Observer<Boolean>() {
+                        @Override
+                        public void onChanged(Boolean ok) {
+                            Snackbar.make(binding.getRoot(), (ok) ? R.string.msg_altaCorrecta : R.string.msg_altaIncorrecta, Snackbar.LENGTH_SHORT).show();
+                            if (ok) {
+                                subirFotoAStorage(c, cliVM.getFoto());
+                            }
+                        }
+                    });
+                    break;
+                case NuevoCienteFragment.OP_EDITAR:
+                    cliVM.editarCliente(c).observe(this, new Observer<Boolean>() {
+                        @Override
+                        public void onChanged(Boolean ok) {
+                            Snackbar.make(binding.getRoot(), (ok) ? R.string.msg_altaCorrecta : R.string.msg_altaIncorrecta, Snackbar.LENGTH_SHORT).show();
+                            if (ok) {
+                                subirFotoAStorage(c, cliVM.getFoto());
+                            }
+                        }
+                    });
+                    break;
+            }
+
+
             mNavC.navigateUp();
         } else {
             Snackbar.make(binding.getRoot(), R.string.msg_datosObligatorios, Snackbar.LENGTH_SHORT).show();

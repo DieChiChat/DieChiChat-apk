@@ -48,11 +48,6 @@ public class MisClientesActivity extends AppCompatActivity implements
     @Override
     public void onVerClienteFrag(Cliente cli) {
         Bundle bundleCli= new Bundle();
-//        bundle.putString("nombre", cli.getNombre());
-//        bundle.putString("apellidos", cli.getApellidos());
-//        bundle.putString("usuario", cli.getUsuario());
-//        bundle.putString("contrasena", cli.getContrasena());
-//        bundle.putInt("peso", cli.getPeso());
         bundleCli.putParcelable("clienteVer",cli);
         bundleCli.putInt("op", NuevoCienteFragment.OP_EDITAR);
         mNavC.navigate(R.id.action_mis_lientes_to_nuevoCienteFragment,bundleCli);
@@ -66,7 +61,7 @@ public class MisClientesActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onAceptarNuevoFrag(Cliente c) {
+    public void onAceptarNuevoFrag(int op, Cliente c) {
 
     }
 

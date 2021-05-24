@@ -22,6 +22,7 @@ import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.Nutricionista;
 import com.example.diechichat.vista.dialogos.DlgConfirmacion;
 import com.example.diechichat.vista.fragmentos.LoginFragment;
+import com.example.diechichat.vista.fragmentos.NuevoCienteFragment;
 import com.example.diechichat.vistamodelo.MainViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -105,9 +106,23 @@ public class MainActivity extends AppCompatActivity implements
                 Intent i = new Intent(MainActivity.this, DietaActivity.class);
                 startActivity(i);
             } else if (item.getItemId() == R.id.menu_miperfil) {
-                Intent i = new Intent(MainActivity.this, MiPerfilActivity.class);
-                startActivity(i);
-
+                Intent i = null;
+                if(mainVM.getLogin() instanceof Nutricionista) {
+                    i = new Intent(MainActivity.this, MiPerfilActivity.class);
+                    Bundle bundleNu = new Bundle();
+                    bundleNu.putParcelable("nutricionista",(Nutricionista) mainVM.getLogin());
+                    bundleNu.putInt("op", NuevoCienteFragment.OP_EDITAR);
+                    i.putExtra("nutricionista", bundleNu);
+                } else if(mainVM.getLogin() instanceof Cliente) {
+                    i = new Intent(MainActivity.this, NuevoClienteActivity.class);
+                    Bundle bundleCli= new Bundle();
+                    bundleCli.putParcelable("clienteVer",(Cliente) mainVM.getLogin());
+                    bundleCli.putInt("op", NuevoCienteFragment.OP_EDITAR);
+                    i.putExtra("clienteVer", bundleCli);
+                }
+                if(i != null) {
+                    startActivity(i);
+                }
             } else if (item.getItemId() == R.id.menu_misclientes) {
                 Intent i = new Intent(MainActivity.this, MisClientesActivity.class);
                 startActivity(i);
