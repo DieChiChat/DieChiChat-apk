@@ -9,15 +9,16 @@ public class Alimento implements Parcelable {
     private double grasaSaturada;
     private double colesterol;
     private double sodio;
-    private double fibraDietetica;
+    private double fibra;
     private double azucares;
     private double proteinas;
     private double calcio;
-    private double alcoholes;
     private double hierro;
     private double potasio;
     private double vitaminaA;
     private double vitaminaC;
+    private String nombre;
+    private double calorias;
 
     /* Constructor ********************************************************************************/
 
@@ -31,15 +32,16 @@ public class Alimento implements Parcelable {
         grasaSaturada = in.readDouble();
         colesterol = in.readDouble();
         sodio = in.readDouble();
-        fibraDietetica = in.readDouble();
+        fibra = in.readDouble();
         azucares = in.readDouble();
         proteinas = in.readDouble();
         calcio = in.readDouble();
-        alcoholes = in.readDouble();
         hierro = in.readDouble();
         potasio = in.readDouble();
         vitaminaA = in.readDouble();
         vitaminaC = in.readDouble();
+        nombre = in.readString();
+        calorias = in.readDouble();
     }
 
     @Override
@@ -48,15 +50,16 @@ public class Alimento implements Parcelable {
         dest.writeDouble(grasaSaturada);
         dest.writeDouble(colesterol);
         dest.writeDouble(sodio);
-        dest.writeDouble(fibraDietetica);
+        dest.writeDouble(fibra);
         dest.writeDouble(azucares);
         dest.writeDouble(proteinas);
         dest.writeDouble(calcio);
-        dest.writeDouble(alcoholes);
         dest.writeDouble(hierro);
         dest.writeDouble(potasio);
         dest.writeDouble(vitaminaA);
         dest.writeDouble(vitaminaC);
+        dest.writeString(nombre);
+        dest.writeDouble(calorias);
     }
 
     @Override
@@ -90,8 +93,8 @@ public class Alimento implements Parcelable {
     public double getSodio() { return sodio; }
     public void setSodio(double sodio) { this.sodio = sodio; }
 
-    public double getFibraDietetica() { return fibraDietetica; }
-    public void setFibraDietetica(double fibraDietetica) { this.fibraDietetica = fibraDietetica; }
+    public double getFibra() { return fibra; }
+    public void setFibra(double fibra) { this.fibra = fibra; }
 
     public double getAzucares() { return azucares; }
     public void setAzucares(double azucares) { this.azucares = azucares; }
@@ -101,9 +104,6 @@ public class Alimento implements Parcelable {
 
     public double getCalcio() { return calcio; }
     public void setCalcio(double calcio) { this.calcio = calcio; }
-
-    public double getAlcoholes() { return alcoholes; }
-    public void setAlcoholes(double alcoholes) { this.alcoholes = alcoholes; }
 
     public double getHierro() { return hierro; }
     public void setHierro(double hierro) { this.hierro = hierro; }
@@ -116,4 +116,10 @@ public class Alimento implements Parcelable {
 
     public double getVitaminaC() { return vitaminaC; }
     public void setVitaminaC(double vitaminaC) { this.vitaminaC = vitaminaC; }
+
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public double getCalorias() { return calorias; }
+    public void setCalorias(double calorias) { this.calorias = calorias; }
 }

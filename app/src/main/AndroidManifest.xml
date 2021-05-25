@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.diechichat">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,37 +12,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DieChiChat">
+        <activity android:name=".vista.AlimentosActivity"></activity>
         <activity
             android:name=".vista.ChatActivity"
             android:label="@string/title_activity_chat"
-            android:theme="@style/Theme.DieChiChat.NoActionBar"
             android:parentActivityName=".vista.MainActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:theme="@style/Theme.DieChiChat.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".vista.DietaActivity"
             android:label="@string/title_activity_dieta"
-            android:theme="@style/Theme.DieChiChat.NoActionBar"
             android:parentActivityName=".vista.MainActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:theme="@style/Theme.DieChiChat.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".vista.NuevoClienteActivity"
             android:label="@string/title_activity_nuevo_cliente"
-            android:theme="@style/Theme.DieChiChat.NoActionBar"
             android:parentActivityName=".vista.MainActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            />
+            android:theme="@style/Theme.DieChiChat.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".vista.MiPerfilActivity"
             android:label="@string/title_activity_mi_perfil"
-            android:theme="@style/Theme.DieChiChat.NoActionBar"
             android:parentActivityName=".vista.MainActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:theme="@style/Theme.DieChiChat.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".vista.MisClientesActivity"
             android:label="@string/title_activity_mis_clientes"
-            android:theme="@style/Theme.DieChiChat.NoActionBar"
             android:parentActivityName=".vista.MainActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:theme="@style/Theme.DieChiChat.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".vista.MainActivity"
             android:label="@string/app_name"

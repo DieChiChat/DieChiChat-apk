@@ -21,7 +21,7 @@ import com.example.diechichat.vistamodelo.ClienteViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 public class MisClientesActivity extends AppCompatActivity implements
-        MisClientesFragment.MisClietnesFragmentInterface,
+        MisClientesFragment.MisClientesFragmentInterface,
         NuevoCienteFragment.NuevoCliFragmentInterface {
     private ActivityMisClientesBinding binding;
     private NavController mNavC;

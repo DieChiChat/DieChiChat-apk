@@ -33,9 +33,9 @@ public class NetworkUtils {
         String bookJSONString = null;
 
         try {
-            Uri builtURI = Uri.parse(FOOD_BASE_URL).buildUpon()
+            Uri builtURI = Uri.parse(RUTA_BUSQUEDA).buildUpon()
                     .appendQueryParameter(QUERY_PARAM, queryString)
-                    .appendQueryParameter(MAX_RESULTS, "10")
+                    .appendQueryParameter(MAX_RESULTS, "20")
                     .appendQueryParameter(PRINT_TYPE, "foods")
                     .build();
             URL requestURL = new URL(builtURI.toString());
@@ -93,14 +93,15 @@ public class NetworkUtils {
 
             // Initialize iterator and results fields.
             int i = 0;
+            double calorias = 0;
+            String nombre = "";
             double grasaSaturada = 0;
             double colesterol = 0;
             double sodio = 0;
-            double fibraDietetica = 0;
+            double fibra = 0;
             double azucares = 0;
             double proteinas = 0;
             double calcio = 0;
-            double alcoholes = 0;
             double hierro = 0;
             double potasio = 0;
             double vitaminaA = 0;
@@ -117,27 +118,29 @@ public class NetworkUtils {
                 // Try to get the author and title from the current item,
                 // catch if either field is empty and move on.
                 try {
-                    grasaSaturada = volumeInfo.getDouble("");
-                    colesterol = volumeInfo.getDouble("");
-                    sodio = volumeInfo.getDouble("");
-                    fibraDietetica = volumeInfo.getDouble("");
-                    azucares = volumeInfo.getDouble("");
-                    proteinas = volumeInfo.getDouble("");
-                    calcio = volumeInfo.getDouble("");
-                    alcoholes = volumeInfo.getDouble("");
-                    hierro = volumeInfo.getDouble("");
-                    potasio = volumeInfo.getDouble("");
-                    vitaminaA = volumeInfo.getDouble("");
-                    vitaminaC = volumeInfo.getDouble("");
+                    nombre = volumeInfo.getString("name");
+                    calorias = volumeInfo.getDouble("calories");
+                    grasaSaturada = volumeInfo.getDouble("saturated");
+                    colesterol = volumeInfo.getDouble("cholesterol");
+                    sodio = volumeInfo.getDouble("sodium");
+                    fibra = volumeInfo.getDouble("fiber");
+                    azucares = volumeInfo.getDouble("sugars");
+                    proteinas = volumeInfo.getDouble("protein");
+                    calcio = volumeInfo.getDouble("calcium");
+                    hierro = volumeInfo.getDouble("iron");
+                    potasio = volumeInfo.getDouble("potassium");
+                    vitaminaA = volumeInfo.getDouble("vitamin a");
+                    vitaminaC = volumeInfo.getDouble("vitamin c");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 alimento = new Alimento();
-                alimento.setAlcoholes(alcoholes);
+                alimento.setCalorias(calorias);
+                alimento.setNombre(nombre);
                 alimento.setAzucares(azucares);
                 alimento.setCalcio(calcio);
                 alimento.setColesterol(colesterol);
-                alimento.setFibraDietetica(fibraDietetica);
+                alimento.setFibra(fibra);
                 alimento.setGrasaSaturada(grasaSaturada);
                 alimento.setSodio(sodio);
                 alimento.setProteinas(proteinas);
@@ -146,7 +149,7 @@ public class NetworkUtils {
                 alimento.setVitaminaA(vitaminaA);
                 alimento.setVitaminaC(vitaminaC);
 
-//                Datos.getInstance().getLibros().add(libro);
+                DatosAlimentos.getInstance().getAlimentos().add(alimento);
                 // Move to the next item.
                 i++;
             }

@@ -30,9 +30,9 @@ import java.util.List;
 public class MisClientesFragment extends Fragment {
     private AdaptadorClientes mAdaptadorClis;
     private FragmentMisClientesBinding binding;
-    private MisClietnesFragmentInterface mListener;
+    private MisClientesFragmentInterface mListener;
 
-    public interface MisClietnesFragmentInterface {
+    public interface MisClientesFragmentInterface {
         void onVerClienteFrag(Cliente cli);
 
         void onAddDietaFrag(Cliente cli);
@@ -41,8 +41,8 @@ public class MisClientesFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof MisClietnesFragmentInterface) {
-            mListener = (MisClietnesFragmentInterface) context;
+        if (context instanceof MisClientesFragmentInterface) {
+            mListener = (MisClientesFragmentInterface) context;
         } else {
             throw new RuntimeException(context.toString() + " must implement MisClientesFragInterface");
         }
