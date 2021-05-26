@@ -120,9 +120,9 @@ public class NuevoCienteFragment extends Fragment implements
         super.onViewCreated(view, savedInstanceState);
         binding.numPickerAltura.setEnabled(true);
         binding.numPickerPeso.setEnabled(true);
-        binding.numPickerAltura.setMinValue(0);
+        binding.numPickerAltura.setMinValue(150);
         binding.numPickerAltura.setMaxValue(300);
-        binding.numPickerPeso.setMinValue(0);
+        binding.numPickerPeso.setMinValue(45);
         binding.numPickerPeso.setMaxValue(400);
         binding.numPickerPeso.setWrapSelectorWheel(true);
         binding.numPickerAltura.setWrapSelectorWheel(true);

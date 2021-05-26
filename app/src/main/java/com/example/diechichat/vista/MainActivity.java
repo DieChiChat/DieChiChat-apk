@@ -144,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements
             } else if (item.getItemId() == R.id.menu_chat) {
 //                Intent i = new Intent(MainActivity.this, ChatActivity.class);
 //                startActivity(i);
+                Snackbar.make(bindingMain.getRoot(), R.string.msg_mantenimiento, Snackbar.LENGTH_SHORT).show();
             } else {
                 return false;
             }
@@ -170,12 +171,12 @@ public class MainActivity extends AppCompatActivity implements
     public void onEntrarLoginFrag(Object obj) {
         if (obj != null) {
             mainVM.setLogin(obj);
-            if (obj instanceof Nutricionista) {
-                Snackbar.make(bindingMain.getRoot(), (R.string.msg_bienvenida + " " + ((Nutricionista) obj).getNombreCompleto()), Snackbar.LENGTH_SHORT).show();
-
-            } else if (obj instanceof Cliente) {
-                Snackbar.make(bindingMain.getRoot(), (R.string.msg_bienvenida + " " + ((Cliente) obj).getNombreCompleto()), Snackbar.LENGTH_SHORT).show();
-            }
+//            if (obj instanceof Nutricionista) {
+//                Snackbar.make(bindingMain.getRoot(), (R.string.msg_bienvenida + " " + ((Nutricionista) obj).getNombreCompleto()), Snackbar.LENGTH_SHORT).show();
+//
+//            } else if (obj instanceof Cliente) {
+//                Snackbar.make(bindingMain.getRoot(), (R.string.msg_bienvenida + " " + ((Cliente) obj).getNombreCompleto()), Snackbar.LENGTH_SHORT).show();
+//            }
 
             bindingAppBar = bindingMain.appBarMain;
             setSupportActionBar(bindingAppBar.mainToolbar);

@@ -116,5 +116,8 @@
     <string name="etAlimento">Inserta el nombre del alimento</string>
     <string name="btBuscarAlimento">Buscar</string>
     <string name="title_activity_alimentos">Alimentos</string>
+    <string name="msg_mantenimiento">Sección en mantenimiento, intentelo más tarde.</string>
+    <string name="no_results">No hay resultados</string>
 
+    <string name="menu_terminar">Finalizar Selección</string>
 </resources>

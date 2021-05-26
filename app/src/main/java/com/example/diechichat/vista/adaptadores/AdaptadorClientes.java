@@ -41,7 +41,6 @@ public class AdaptadorClientes extends RecyclerView.Adapter<AdaptadorClientes.Cl
 
     public void setDatos(List<Cliente> datos) {
         mDatos = new ArrayList<>();
-
         mDatos = datos;
     }
 

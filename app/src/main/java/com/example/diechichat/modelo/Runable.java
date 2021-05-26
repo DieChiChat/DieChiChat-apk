@@ -7,11 +7,11 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.ArrayList;
 
-public class Runnable implements java.lang.Runnable {
+public class Runable implements java.lang.Runnable {
     private final Context mContext;
     private final String mquery;
 
-    public Runnable(Context mContext, String mquery) {
+    public Runable(Context mContext, String mquery) {
         this.mContext = mContext;
         this.mquery = mquery;
     }
