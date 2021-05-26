@@ -10,16 +10,28 @@
         android:label="@string/title_activity_mis_clientes"
         tools:layout="@layout/fragment_mis_clientes">
         <action
-            android:id="@+id/action_mis_lientes_to_nuevoCienteFragment"
+            android:id="@+id/action_mis_clientes_to_nuevoCienteFragment"
             app:destination="@id/nuevoCienteFragment" />
+        <action
+            android:id="@+id/action_fragment_clientes_to_fragment_dieta"
+            app:destination="@id/fragment_dieta" />
     </fragment>
     <fragment
         android:id="@+id/nuevoCienteFragment"
         android:name="com.example.diechichat.vista.fragmentos.NuevoCienteFragment"
         android:label="NuevoCienteFragment" />
-    <fragment
-        android:id="@+id/dietaDelClienteFragment"
-        android:name="com.example.diechichat.vista.fragmentos.DietaFragment"
-        android:label="DietaClienteFragment" />
 
+    <dialog
+        android:id="@+id/dlgConfirmacionMisClientes"
+        android:name="com.example.diechichat.vista.dialogos.DlgConfirmacion"
+        android:label="DlgConfirmacion" />
+    <action
+        android:id="@+id/action_global_dlgConfirmacionMisClientes"
+        app:destination="@id/dlgConfirmacionMisClientes" />
+
+    <fragment
+        android:id="@+id/fragment_dieta"
+        android:name="com.example.diechichat.vista.fragmentos.DietaFragment"
+        android:label="@string/title_activity_dieta"
+        tools:layout="@layout/fragment_dieta"/>
 </navigation>

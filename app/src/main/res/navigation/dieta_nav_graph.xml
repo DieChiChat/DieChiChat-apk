@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dieta_nav_graph"
+    app:startDestination="@id/fragment_dieta">
+
+    <fragment
+        android:id="@+id/fragment_dieta"
+        android:name="com.example.diechichat.vista.fragmentos.DietaFragment"
+        android:label="@string/title_activity_dieta"
+        tools:layout="@layout/fragment_dieta"/>
+</navigation>

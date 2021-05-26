@@ -152,19 +152,12 @@ public class NuevoCienteFragment extends Fragment implements
                         mostrarImagenStorage(c);
                         binding.tvId.setText(c.getId());
                         binding.tvId.setVisibility(View.INVISIBLE);
-                        /*
-                        * android:hint="@string/hint_password"
-                        android:imeActionLabel="@string/login_sign_in"
-                        android:imeOptions="actionDone"
-                        android:inputType="textPassword"
-                        *
-                        * */
-
                     }
                     break;
                 case OP_CREAR:
                     binding.tvFoto.setText(R.string.tvFotoAsignar);
                     binding.tvId.setVisibility(View.INVISIBLE);
+                    binding.btVerContrasena.setVisibility(View.INVISIBLE);
                     habilitarCampos(true);
                     break;
             }

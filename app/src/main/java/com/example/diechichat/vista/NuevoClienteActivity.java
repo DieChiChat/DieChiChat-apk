@@ -37,16 +37,13 @@ import java.util.Locale;
 
 public class NuevoClienteActivity extends AppCompatActivity implements
         NuevoCienteFragment.NuevoCliFragmentInterface,
-        DlgSeleccionFecha.DlgSeleccionFechaListener,
-        DlgConfirmacion.DlgConfirmacionListener {
+        DlgSeleccionFecha.DlgSeleccionFechaListener {
 
     private ActivityNuevoClienteBinding binding;
     private NavController mNavC;
     private ClienteViewModel cliVM;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private static final int OP_CREAR = 0;
-    private static final int OP_EDITAR = 1;
     private Cliente cli;
 
     @Override
@@ -118,10 +115,7 @@ public class NuevoClienteActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onEliminarClienteFrag(Cliente c) {
-        cli = c;
-        mostrarDlgEliminar();
-    }
+    public void onEliminarClienteFrag(Cliente c) { ; }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -177,34 +171,4 @@ public class NuevoClienteActivity extends AppCompatActivity implements
         cliVM.setmFechaDlg("");
     }
 
-    private void mostrarDlgEliminar() {
-        //Lanzamos DlgConfirmacion
-        Bundle bundle = new Bundle();
-        bundle.putInt("titulo", R.string.app_name);
-        bundle.putInt("mensaje", R.string.msg_DlgConfirmacion_Eliminar);
-        bundle.putString("tag", "tagConfirmacion_Salir");
-    }
-
-
-
-    /** MÉTODOS DIÁLOGO SELECCIÓN FECHA*****************************************/
-
-    @Override
-    public void onDlgConfirmacionPositiveClick(DialogFragment dialog) {
-        if(cli != null) {
-            cliVM.bajaCliente(cli).observe(this, new Observer<Boolean>() {
-                @Override
-                public void onChanged(Boolean ok) {
-                    Toast.makeText(getApplication(), (ok) ? R.string.msg_clieteEliminado : R.string.msg_clieteNoEliminado, Toast.LENGTH_SHORT).show();
-                    if (ok) {
-                        subirFotoAStorage(cli, cliVM.getFoto());
-                    }
-                }
-            });
-            mNavC.navigateUp();
-        }
-    }
-
-    @Override
-    public void onDlgConfirmacionNegativeClick(DialogFragment dialog) { }
 }

@@ -23,6 +23,7 @@ import com.example.diechichat.databinding.ActivityMiPerfilBinding;
 import com.example.diechichat.databinding.ActivityMisClientesBinding;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.vista.adaptadores.AdaptadorClientes;
+import com.example.diechichat.vista.dialogos.DlgConfirmacion;
 import com.example.diechichat.vista.dialogos.DlgSeleccionFecha;
 import com.example.diechichat.vista.fragmentos.MisClientesFragment;
 import com.example.diechichat.vista.fragmentos.NuevoCienteFragment;
@@ -42,12 +43,14 @@ import java.util.Locale;
 public class MisClientesActivity extends AppCompatActivity implements
         MisClientesFragment.MisClientesFragmentInterface,
         NuevoCienteFragment.NuevoCliFragmentInterface,
-        DlgSeleccionFecha.DlgSeleccionFechaListener {
+        DlgSeleccionFecha.DlgSeleccionFechaListener,
+        DlgConfirmacion.DlgConfirmacionListener {
 
     private ActivityMisClientesBinding binding;
     private NavController mNavC;
     private ClienteViewModel cliVM;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private Cliente cli;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +75,14 @@ public class MisClientesActivity extends AppCompatActivity implements
         Bundle bundleCli= new Bundle();
         bundleCli.putParcelable("clienteVer",cli);
         bundleCli.putInt("op", NuevoCienteFragment.OP_EDITAR);
-        mNavC.navigate(R.id.action_mis_lientes_to_nuevoCienteFragment,bundleCli);
+        mNavC.navigate(R.id.action_mis_clientes_to_nuevoCienteFragment,bundleCli);
     }
 
     @Override
     public void onAddDietaFrag(Cliente cli) {
         Bundle bundleCli= new Bundle();
         bundleCli.putParcelable("clienteAddDieta",cli);
-    //    mNavC.navigate(R.id.action);
+        mNavC.navigate(R.id.action_fragment_clientes_to_fragment_dieta);
     }
 
     /**Métodos NuevoClienteFragment***************************************/
@@ -126,16 +129,8 @@ public class MisClientesActivity extends AppCompatActivity implements
     @Override
     public void onEliminarClienteFrag(Cliente c) {
         if(c != null) {
-            cliVM.bajaCliente(c).observe(this, new Observer<Boolean>() {
-                @Override
-                public void onChanged(Boolean ok) {
-                    Toast.makeText(getApplication(), (ok) ? R.string.msg_clieteEliminado : R.string.msg_clieteNoEliminado, Toast.LENGTH_SHORT).show();
-                    if (ok) {
-                        subirFotoAStorage(c, cliVM.getFoto());
-                    }
-                }
-            });
-            mNavC.navigateUp();
+            cli = c;
+            mostrarDlgEliminar();
         }
     }
 
@@ -193,5 +188,36 @@ public class MisClientesActivity extends AppCompatActivity implements
                 }
             });
         }
+    }
+
+    /** MÉTODOS DIÁLOGO CONFIRMACIÓN*****************************************/
+
+    @Override
+    public void onDlgConfirmacionPositiveClick(DialogFragment dialog) {
+        if(cli != null) {
+            cliVM.bajaCliente(cli).observe(this, new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean ok) {
+                    Toast.makeText(getApplication(), (ok) ? R.string.msg_clieteEliminado : R.string.msg_clieteNoEliminado, Toast.LENGTH_SHORT).show();
+                    if (ok) {
+                        subirFotoAStorage(cli, cliVM.getFoto());
+                    }
+                }
+            });
+        }
+        mNavC.navigateUp();
+    }
+
+    @Override
+    public void onDlgConfirmacionNegativeClick(DialogFragment dialog) { }
+
+
+    private void mostrarDlgEliminar() {
+        //Lanzamos DlgConfirmacion
+        Bundle bundle = new Bundle();
+        bundle.putInt("titulo", R.string.app_name);
+        bundle.putInt("mensaje", R.string.msg_DlgConfirmacion_Eliminar);
+        bundle.putString("tag", "tagConfirmacion_Salir");
+        mNavC.navigate(R.id.dlgConfirmacionMisClientes, bundle);
     }
 }

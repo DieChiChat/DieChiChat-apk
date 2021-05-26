@@ -14,12 +14,6 @@
         android:theme="@style/Theme.DieChiChat">
         <activity android:name=".vista.AlimentosActivity"></activity>
         <activity
-            android:name=".vista.ChatActivity"
-            android:label="@string/title_activity_chat"
-            android:parentActivityName=".vista.MainActivity"
-            android:theme="@style/Theme.DieChiChat.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity
             android:name=".vista.DietaActivity"
             android:label="@string/title_activity_dieta"
             android:parentActivityName=".vista.MainActivity"
