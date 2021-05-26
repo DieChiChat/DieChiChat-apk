@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +19,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.ActivityNuevoClienteBinding;
 import com.example.diechichat.modelo.Cliente;
+import com.example.diechichat.vista.dialogos.DlgConfirmacion;
 import com.example.diechichat.vista.dialogos.DlgSeleccionFecha;
 import com.example.diechichat.vista.fragmentos.NuevoCienteFragment;
 import com.example.diechichat.vistamodelo.ClienteViewModel;
@@ -35,15 +37,16 @@ import java.util.Locale;
 
 public class NuevoClienteActivity extends AppCompatActivity implements
         NuevoCienteFragment.NuevoCliFragmentInterface,
-        DlgSeleccionFecha.DlgSeleccionFechaListener {
+        DlgSeleccionFecha.DlgSeleccionFechaListener,
+        DlgConfirmacion.DlgConfirmacionListener {
 
     private ActivityNuevoClienteBinding binding;
     private NavController mNavC;
     private ClienteViewModel cliVM;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private static final int OP_CREAR = 2;
-    private static final int OP_EDITAR = 3;
+    private static final int OP_CREAR = 0;
+    private static final int OP_EDITAR = 1;
     private Cliente cli;
 
     @Override
@@ -69,7 +72,8 @@ public class NuevoClienteActivity extends AppCompatActivity implements
                     cliVM.altaCliente(c).observe(this, new Observer<Boolean>() {
                         @Override
                         public void onChanged(Boolean ok) {
-                            Snackbar.make(binding.getRoot(), (ok) ? R.string.msg_altaCorrecta : R.string.msg_altaIncorrecta, Snackbar.LENGTH_SHORT).show();
+                            Toast.makeText(getApplication(), (ok) ? R.string.msg_altaCorrecta : R.string.msg_altaIncorrecta, Toast.LENGTH_SHORT).show();
+//                            Snackbar.make(binding.getRoot(), (ok) ? R.string.msg_altaCorrecta : R.string.msg_altaIncorrecta, Snackbar.LENGTH_SHORT).show();
                             if (ok) {
                                 subirFotoAStorage(c, cliVM.getFoto());
                             }
@@ -80,7 +84,8 @@ public class NuevoClienteActivity extends AppCompatActivity implements
                     cliVM.editarCliente(c).observe(this, new Observer<Boolean>() {
                         @Override
                         public void onChanged(Boolean ok) {
-                            Snackbar.make(binding.getRoot(), (ok) ? R.string.msg_altaCorrecta : R.string.msg_altaIncorrecta, Snackbar.LENGTH_SHORT).show();
+                            Toast.makeText(getApplication(), (ok) ? R.string.msg_altaCorrecta : R.string.msg_altaIncorrecta, Toast.LENGTH_SHORT).show();
+//                            Snackbar.make(binding.getRoot(), (ok) ? R.string.msg_altaCorrecta : R.string.msg_altaIncorrecta, Snackbar.LENGTH_SHORT).show();
                             if (ok) {
                                 subirFotoAStorage(c, cliVM.getFoto());
                             }
@@ -88,9 +93,7 @@ public class NuevoClienteActivity extends AppCompatActivity implements
                     });
                     break;
             }
-
-
-            mNavC.navigateUp();
+            finish();
         } else {
             Snackbar.make(binding.getRoot(), R.string.msg_datosObligatorios, Snackbar.LENGTH_SHORT).show();
         }
@@ -112,6 +115,12 @@ public class NuevoClienteActivity extends AppCompatActivity implements
             startActivityForResult(i, REQUEST_IMAGE_CAPTURE);
         }
 
+    }
+
+    @Override
+    public void onEliminarClienteFrag(Cliente c) {
+        cli = c;
+        mostrarDlgEliminar();
     }
 
     @Override
@@ -167,4 +176,35 @@ public class NuevoClienteActivity extends AppCompatActivity implements
     public void onDlgSeleccionFechaCancel(DialogFragment dialog) {
         cliVM.setmFechaDlg("");
     }
+
+    private void mostrarDlgEliminar() {
+        //Lanzamos DlgConfirmacion
+        Bundle bundle = new Bundle();
+        bundle.putInt("titulo", R.string.app_name);
+        bundle.putInt("mensaje", R.string.msg_DlgConfirmacion_Eliminar);
+        bundle.putString("tag", "tagConfirmacion_Salir");
+    }
+
+
+
+    /** MÉTODOS DIÁLOGO SELECCIÓN FECHA*****************************************/
+
+    @Override
+    public void onDlgConfirmacionPositiveClick(DialogFragment dialog) {
+        if(cli != null) {
+            cliVM.bajaCliente(cli).observe(this, new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean ok) {
+                    Toast.makeText(getApplication(), (ok) ? R.string.msg_clieteEliminado : R.string.msg_clieteNoEliminado, Toast.LENGTH_SHORT).show();
+                    if (ok) {
+                        subirFotoAStorage(cli, cliVM.getFoto());
+                    }
+                }
+            });
+            mNavC.navigateUp();
+        }
+    }
+
+    @Override
+    public void onDlgConfirmacionNegativeClick(DialogFragment dialog) { }
 }

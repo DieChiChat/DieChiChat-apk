@@ -1,21 +1,25 @@
 package com.example.diechichat.vista;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.ActivityMiPerfilBinding;
 import com.example.diechichat.vista.fragmentos.MiPerfilFragment;
+import com.example.diechichat.vistamodelo.MainViewModel;
 
 public class MiPerfilActivity extends AppCompatActivity implements MiPerfilFragment.PerfilFragInterface {
 
     private ActivityMiPerfilBinding binding;
     private NavController mNavC;
+    private MainViewModel mainVM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +30,13 @@ public class MiPerfilActivity extends AppCompatActivity implements MiPerfilFragm
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        mainVM = new ViewModelProvider(this).get(MainViewModel.class);
+        Intent i = getIntent();
+        if(i != null) {
+            mainVM.setLogin(i.getExtras().getParcelable("nutricionista"));
+        }
         mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.miperfilFragCV)).getNavController();
-//        setContentView(R.layout.activity_mi_perfil);
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
 
     }
 
@@ -39,18 +46,9 @@ public class MiPerfilActivity extends AppCompatActivity implements MiPerfilFragm
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_miperfil) {
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onAceptarPerfilFrag() {
 
     }
-
     @Override
     public void onCancelarPerfilFrag() {
         finish();

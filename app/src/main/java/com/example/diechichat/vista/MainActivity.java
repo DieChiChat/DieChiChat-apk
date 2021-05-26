@@ -50,8 +50,10 @@ public class MainActivity extends AppCompatActivity implements
 
         bindingMain.navView.setNavigationItemSelectedListener(navView_OnNavigationItemSelected);
 
-        mNavC.navigate(R.id.action_nav_inicio_to_loginFragment);
         mainVM = new ViewModelProvider(this).get(MainViewModel.class);
+        if(mainVM.getLogin() == null && savedInstanceState == null) {
+            mNavC.navigate(R.id.action_nav_inicio_to_loginFragment);
+        }
     }
 
     @Override
@@ -146,12 +148,10 @@ public class MainActivity extends AppCompatActivity implements
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements
             mAppBarConfiguration = new AppBarConfiguration.Builder(mNavC.getGraph()).setOpenableLayout(bindingMain.drawerLayout).build();
             NavigationUI.setupActionBarWithNavController(this, mNavC, mAppBarConfiguration);
 
-            mNavC.navigate(R.id.nav_inicio);
+            mNavC.navigateUp();
         } else {
             Snackbar.make(bindingMain.getRoot(), "Introduce usuario y contraseña", Snackbar.LENGTH_SHORT).show();
         }

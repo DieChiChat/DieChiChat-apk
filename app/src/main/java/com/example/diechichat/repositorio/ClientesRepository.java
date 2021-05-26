@@ -125,7 +125,7 @@ public class ClientesRepository {
 
     public LiveData<Boolean> editarCliente(@NonNull Cliente cli) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
-        mAppDB.getRefFS().collection("clientes").document(String.valueOf(cli.getIdAdmin()) + cli.getFechaNacimiento() + cli.getUsuario()).set(cli, SetOptions.merge())
+        mAppDB.getRefFS().collection("clientes").document(cli.getId()).set(cli, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -143,7 +143,7 @@ public class ClientesRepository {
 
     public LiveData<Boolean> bajaCliente(@NonNull Cliente cli) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
-        mAppDB.getRefFS().collection("clientes").document(String.valueOf(cli.getIdAdmin()) + cli.getFechaNacimiento() + cli.getUsuario()).delete()
+        mAppDB.getRefFS().collection("clientes").document(cli.getId()).delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

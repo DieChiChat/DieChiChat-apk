@@ -1,13 +1,11 @@
 package com.example.diechichat.vista.fragmentos;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,11 +25,11 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.FragmentNuevoClienteBinding;
 import com.example.diechichat.modelo.Cliente;
+import com.example.diechichat.vista.dialogos.DlgConfirmacion;
 import com.example.diechichat.vista.dialogos.DlgSeleccionFecha;
 import com.example.diechichat.vistamodelo.ClienteViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -42,10 +40,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-import static android.app.Activity.RESULT_OK;
-
 public class NuevoCienteFragment extends Fragment implements
-        DlgSeleccionFecha.DlgSeleccionFechaListener {
+        DlgSeleccionFecha.DlgSeleccionFechaListener,
+        DlgConfirmacion.DlgConfirmacionListener {
 
     private FragmentNuevoClienteBinding binding;
     private NuevoCliFragmentInterface mListener;
@@ -53,8 +50,8 @@ public class NuevoCienteFragment extends Fragment implements
     private int mLogin;
 
     private int mOp;    // Operación a realizar
-    public static final int OP_CREAR = 1;
-    public static final int OP_EDITAR = 2;
+    public static final int OP_CREAR = 0;
+    public static final int OP_EDITAR = 1;
     private static final String TAG_SELECCION_FECHA = "tagSeleccionFecha";
 
     private Bitmap fotoBitmap;
@@ -63,6 +60,7 @@ public class NuevoCienteFragment extends Fragment implements
         void onAceptarNuevoFrag(int op, Cliente c);
         void onCancelarNuevoFrag();
         void onAbrirCamaraFrag();
+        void onEliminarClienteFrag(Cliente cliente);
     }
 
     public NuevoCienteFragment() {
@@ -128,9 +126,12 @@ public class NuevoCienteFragment extends Fragment implements
         binding.numPickerPeso.setWrapSelectorWheel(true);
         binding.numPickerAltura.setWrapSelectorWheel(true);
 
+        binding.tvId.setText("");
+
         binding.btAceptar.setOnClickListener(btAceptar_onClickListener);
         binding.btCancelar.setOnClickListener(btCancelar_onClickListener);
         binding.btFecnac.setOnClickListener(btFecnac_OnClickListener);
+        binding.btVerContrasena.setOnClickListener(btVerContrasena_OnClickListener);
 
         if (mOp != -1) {
             switch (mOp) {
@@ -149,6 +150,8 @@ public class NuevoCienteFragment extends Fragment implements
                         binding.numPickerPeso.setValue((int) c.getPeso());
                         binding.numPickerAltura.setValue((int) c.getAltura());
                         mostrarImagenStorage(c);
+                        binding.tvId.setText(c.getId());
+                        binding.tvId.setVisibility(View.INVISIBLE);
                         /*
                         * android:hint="@string/hint_password"
                         android:imeActionLabel="@string/login_sign_in"
@@ -161,6 +164,7 @@ public class NuevoCienteFragment extends Fragment implements
                     break;
                 case OP_CREAR:
                     binding.tvFoto.setText(R.string.tvFotoAsignar);
+                    binding.tvId.setVisibility(View.INVISIBLE);
                     habilitarCampos(true);
                     break;
             }
@@ -203,7 +207,7 @@ public class NuevoCienteFragment extends Fragment implements
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_perfil,menu);
+        inflater.inflate(R.menu.menu_perfil_cliente,menu);
     }
 
     @Override
@@ -214,8 +218,19 @@ public class NuevoCienteFragment extends Fragment implements
             } else {
                 habilitarCampos(true);
             }
+        } else if(item.getItemId() == R.id.menuEliminar) {
+            mListener.onEliminarClienteFrag(c);
+//            mostrarDlgSalir();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void mostrarDlgSalir() {
+        //Lanzamos DlgConfirmacion
+        Bundle bundle = new Bundle();
+        bundle.putInt("titulo", R.string.app_name);
+        bundle.putInt("mensaje", R.string.msg_DlgConfirmacion_Salir);
+        bundle.putString("tag", "tagConfirmacion_Salir");
     }
 
     View.OnClickListener btAceptar_onClickListener = new View.OnClickListener() {
@@ -239,7 +254,7 @@ public class NuevoCienteFragment extends Fragment implements
                         c.setPeso(binding.numPickerPeso.getValue());
                         c.setAltura(binding.numPickerAltura.getValue());
                         c.setIdAdmin(mLogin);
-                        c.setId(generarId());
+                        c.setId(binding.tvId.getText().toString().equals("") ? generarId() : binding.tvId.getText().toString());
                         c.setFechaFormat((binding.etFecNac.getText().toString().equals("") ? "" : binding.etFecNac.getText().toString()));
 
                         mListener.onAceptarNuevoFrag(mOp, c);
@@ -278,6 +293,18 @@ public class NuevoCienteFragment extends Fragment implements
         }
     };
 
+    View.OnClickListener btVerContrasena_OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            esconderTeclado(v);
+            if (binding.etNuevoContrasena.getTransformationMethod() == null) {
+                binding.etNuevoContrasena.setTransformationMethod(new PasswordTransformationMethod());
+            } else {
+                binding.etNuevoContrasena.setTransformationMethod(null);
+            }
+        }
+    };
+
     /** MÉTODOS DIÁLOGO SELECCIÓN FECHA*****************************************/
 
     @Override
@@ -288,6 +315,19 @@ public class NuevoCienteFragment extends Fragment implements
     @Override
     public void onDlgSeleccionFechaCancel(DialogFragment dialog) {
         binding.etFecNac.setText("");
+    }
+
+
+    /** MÉTODOS DIÁLOGO SELECCIÓN FECHA*****************************************/
+
+    @Override
+    public void onDlgConfirmacionPositiveClick(DialogFragment dialog) {
+        mListener.onEliminarClienteFrag(c);
+    }
+
+    @Override
+    public void onDlgConfirmacionNegativeClick(DialogFragment dialog) {
+        mListener.onEliminarClienteFrag(null);
     }
 
     /*********************************************************/
@@ -309,7 +349,7 @@ public class NuevoCienteFragment extends Fragment implements
 
     public void mostrarImagenStorage(Cliente cli) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageReference = storage.getReferenceFromUrl("gs://diechichat.appspot.com").child("fotosClientes" + cli.getId()).child("imagen" + cli.getId() + ".jpeg");
+        StorageReference storageReference = storage.getReferenceFromUrl("gs://diechichat.appspot.com").child("fotosClientes/" + cli.getId()).child("imagen" + cli.getId() + ".jpeg");
         try {
             final File localFile = File.createTempFile("imagen" + cli.getId() + ".jpeg", "jpeg");
             storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
@@ -336,7 +376,7 @@ public class NuevoCienteFragment extends Fragment implements
             binding.numPickerAltura.setEnabled(true);
             binding.numPickerPeso.setEnabled(true);
             binding.btFecnac.setEnabled(true);
-            binding.etNuevoContrasena.setInputType(InputType.TYPE_CLASS_TEXT);
+//            binding.etNuevoContrasena.setTransformationMethod(null);
         } else {
             binding.etNuevoNombre.setEnabled(false);
             binding.etNuevoApellidos.setEnabled(false);
@@ -346,7 +386,7 @@ public class NuevoCienteFragment extends Fragment implements
             binding.numPickerAltura.setEnabled(false);
             binding.numPickerPeso.setEnabled(false);
             binding.btFecnac.setEnabled(false);
-            binding.etNuevoContrasena.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            binding.etNuevoContrasena.setTransformationMethod(new PasswordTransformationMethod());
         }
     }
 }

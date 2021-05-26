@@ -7,10 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,13 +19,8 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.FragmentPerfilBinding;
-import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.Nutricionista;
-import com.example.diechichat.vistamodelo.ClienteViewModel;
 import com.example.diechichat.vistamodelo.MainViewModel;
-import com.example.diechichat.vistamodelo.NutriViewModel;
-
-import java.util.List;
 
 public class MiPerfilFragment extends Fragment {
 
@@ -64,7 +57,7 @@ public class MiPerfilFragment extends Fragment {
         if (getArguments() != null) {
             nutri = getArguments().getParcelable("nutricionista");
         }
-//        nutri = (Nutricionista) mainVM.getLogin();
+        nutri = (Nutricionista) mainVM.getLogin();
     }
     @Nullable
     @Override
@@ -79,11 +72,22 @@ public class MiPerfilFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         habilitarCampos(false);
 
+        if(mainVM.getLogin() instanceof Nutricionista) {
+            nutri = (Nutricionista) mainVM.getLogin();
+        }
+
         if(nutri != null) {
             binding.etNombre.setText(nutri.getNombre());
             binding.etApellidos.setText(nutri.getApellidos());
             binding.etUsuario.setText(nutri.getUsuario());
             binding.etContrasena.setText(nutri.getContrasena());
+        }
+
+        if(mainVM.getLogin() != null) {
+            binding.etNombre.setText(((Nutricionista)mainVM.getLogin()).getNombre());
+            binding.etApellidos.setText(((Nutricionista)mainVM.getLogin()).getApellidos());
+            binding.etUsuario.setText(((Nutricionista)mainVM.getLogin()).getUsuario());
+            binding.etContrasena.setText(((Nutricionista)mainVM.getLogin()).getContrasena());
         }
 
         binding.btAceptar.setOnClickListener(btAceptar_onClickListener);
@@ -109,7 +113,7 @@ public class MiPerfilFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_perfil,menu);
+        inflater.inflate(R.menu.menu_perfil_nutri,menu);
     }
 
     @Override
