@@ -42,6 +42,7 @@
     <string name="msg_altaIncorrecta">Alta incorrecta</string>
     <string name="msg_editarOk">Edición correcta</string>
     <string name="msg_editarKo">Edición Incorrecta</string>
+    <string name="btAceptarEdicionKO">Por favor, habilita la edición</string>
     <string name="msg_clieteEliminado">Cliente eliminado correctamente</string>
     <string name="msg_clieteNoEliminado">El cliente no se ha podido eliminar</string>
 
@@ -112,5 +113,8 @@
 
     <string name="tvFotoAsignar">Asignar foto de perfil</string>
     <string name="tvFotoCambiar">Cambiar foto de perfil</string>
+    <string name="etAlimento">Inserta el nombre del alimento</string>
+    <string name="btBuscarAlimento">Buscar</string>
+    <string name="title_activity_alimentos">Alimentos</string>
 
 </resources>

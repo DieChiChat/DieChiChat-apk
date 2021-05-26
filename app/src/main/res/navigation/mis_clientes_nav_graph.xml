@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_fragment_clientes_to_fragment_dieta"
             app:destination="@id/fragment_dieta" />
+        <action
+            android:id="@+id/action_fragment_clientes_to_fragment_alimentos"
+            app:destination="@id/fragment_alimentos" />
     </fragment>
     <fragment
         android:id="@+id/nuevoCienteFragment"
@@ -34,4 +37,11 @@
         android:name="com.example.diechichat.vista.fragmentos.DietaFragment"
         android:label="@string/title_activity_dieta"
         tools:layout="@layout/fragment_dieta"/>
+
+    <fragment
+        android:id="@+id/fragment_alimentos"
+        android:name="com.example.diechichat.vista.fragmentos.DietaFragment"
+        android:label="@string/title_activity_dieta"
+        tools:layout="@layout/fragment_alimentos"/>
+
 </navigation>

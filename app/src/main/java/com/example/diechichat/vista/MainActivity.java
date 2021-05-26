@@ -105,8 +105,17 @@ public class MainActivity extends AppCompatActivity implements
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             if (item.getItemId() == R.id.menu_inicio) {
-                Intent i = new Intent(MainActivity.this, DietaActivity.class);
-                startActivity(i);
+//                Bundle bundle = null;
+//                if(mainVM.getLogin() instanceof Nutricionista) {
+//                    bundle = new Bundle();
+//                    bundle.putParcelable("usuario",(Nutricionista) mainVM.getLogin());
+//                } else if(mainVM.getLogin() instanceof Cliente) {
+//                    bundle = new Bundle();
+//                    bundle.putParcelable("usuario",(Cliente) mainVM.getLogin());
+//                }
+//                if(bundle != null) {
+//                    mNavC.navigate(R.id.action_nav_inicio_to_fragment_dieta, bundle);
+//                }
             } else if (item.getItemId() == R.id.menu_miperfil) {
                 Intent i = null;
                 if(mainVM.getLogin() instanceof Nutricionista) {

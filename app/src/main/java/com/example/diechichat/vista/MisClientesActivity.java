@@ -25,6 +25,7 @@ import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.vista.adaptadores.AdaptadorClientes;
 import com.example.diechichat.vista.dialogos.DlgConfirmacion;
 import com.example.diechichat.vista.dialogos.DlgSeleccionFecha;
+import com.example.diechichat.vista.fragmentos.DietaFragment;
 import com.example.diechichat.vista.fragmentos.MisClientesFragment;
 import com.example.diechichat.vista.fragmentos.NuevoCienteFragment;
 import com.example.diechichat.vistamodelo.ClienteViewModel;
@@ -44,7 +45,8 @@ public class MisClientesActivity extends AppCompatActivity implements
         MisClientesFragment.MisClientesFragmentInterface,
         NuevoCienteFragment.NuevoCliFragmentInterface,
         DlgSeleccionFecha.DlgSeleccionFechaListener,
-        DlgConfirmacion.DlgConfirmacionListener {
+        DlgConfirmacion.DlgConfirmacionListener,
+        DietaFragment.DietaFragmentInterface {
 
     private ActivityMisClientesBinding binding;
     private NavController mNavC;
@@ -135,6 +137,11 @@ public class MisClientesActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onEditadoSinHabilitarFrag() {
+        Snackbar.make(binding.getRoot(), R.string.btAceptarEdicionKO, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onDlgSeleccionFechaClick(DialogFragment dialog, String fecha) { cliVM.setmFechaDlg(fecha); }
     @Override
     public void onDlgSeleccionFechaCancel(DialogFragment dialog) {
@@ -190,6 +197,29 @@ public class MisClientesActivity extends AppCompatActivity implements
         }
     }
 
+    //TODO: SIN TERMINAR
+    public void borrarFotoStorage(Cliente cli) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        // Create a storage reference from our app
+        StorageReference storageRef = storage.getReference();
+        StorageReference storageReference = storage.getReferenceFromUrl("gs://diechichat.appspot.com").child("fotosClientes/" + cli.getId()).child("imagen" + cli.getId() + ".jpeg");
+        // Create a reference to the file to delete
+        StorageReference desertRef = storageRef.child("fotosClientes/" + cli.getId()).child("imagen" + cli.getId() + ".jpeg");
+
+        // Delete the file
+        desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // File deleted successfully
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Uh-oh, an error occurred!
+            }
+        });
+    }
+
     /** MÉTODOS DIÁLOGO CONFIRMACIÓN*****************************************/
 
     @Override
@@ -199,9 +229,9 @@ public class MisClientesActivity extends AppCompatActivity implements
                 @Override
                 public void onChanged(Boolean ok) {
                     Toast.makeText(getApplication(), (ok) ? R.string.msg_clieteEliminado : R.string.msg_clieteNoEliminado, Toast.LENGTH_SHORT).show();
-                    if (ok) {
-                        subirFotoAStorage(cli, cliVM.getFoto());
-                    }
+//                    if (ok) {
+//                        borrarFotoStorage(cli);
+//                    }
                 }
             });
         }
@@ -219,5 +249,14 @@ public class MisClientesActivity extends AppCompatActivity implements
         bundle.putInt("mensaje", R.string.msg_DlgConfirmacion_Eliminar);
         bundle.putString("tag", "tagConfirmacion_Salir");
         mNavC.navigate(R.id.dlgConfirmacionMisClientes, bundle);
+    }
+
+
+    @Override
+    public void onAsignarDieta(Cliente c, int opcion) {
+        Bundle bundleCli= new Bundle();
+        bundleCli.putParcelable("clienteAddDieta", c);
+        bundleCli.putInt("op", opcion);
+        mNavC.navigate(R.id.action_fragment_clientes_to_fragment_alimentos, bundleCli);
     }
 }

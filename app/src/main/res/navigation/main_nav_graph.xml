@@ -14,6 +14,9 @@
 
             android:id="@+id/action_nav_inicio_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_nav_inicio_to_fragment_dieta"
+            app:destination="@id/fragment_dieta" />
     </fragment>
 
     <fragment
@@ -29,5 +32,11 @@
     <action
         android:id="@+id/action_global_dlgConfirmacionMain"
         app:destination="@id/dlgConfirmacionMain" />
+
+    <fragment
+        android:id="@+id/fragment_dieta"
+        android:name="com.example.diechichat.vista.fragmentos.DietaFragment"
+        android:label="@string/title_activity_dieta"
+        tools:layout="@layout/fragment_dieta"/>
 
 </navigation>

@@ -118,6 +118,9 @@ public class NuevoClienteActivity extends AppCompatActivity implements
     public void onEliminarClienteFrag(Cliente c) { ; }
 
     @Override
+    public void onEditadoSinHabilitarFrag() { ; }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null) {

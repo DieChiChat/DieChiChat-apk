@@ -61,6 +61,7 @@ public class NuevoCienteFragment extends Fragment implements
         void onCancelarNuevoFrag();
         void onAbrirCamaraFrag();
         void onEliminarClienteFrag(Cliente cliente);
+        void onEditadoSinHabilitarFrag();
     }
 
     public NuevoCienteFragment() {
@@ -149,7 +150,11 @@ public class NuevoCienteFragment extends Fragment implements
                         binding.etFecNac.setText(c.getFechaFormat());
                         binding.numPickerPeso.setValue((int) c.getPeso());
                         binding.numPickerAltura.setValue((int) c.getAltura());
-                        mostrarImagenStorage(c);
+                        if(c.getFoto() != null) {
+                            mostrarImagenStorage(c);
+                        } else {
+                            binding.ivFoto.setImageResource(R.drawable.foto_camara_icono_round);
+                        }
                         binding.tvId.setText(c.getId());
                         binding.tvId.setVisibility(View.INVISIBLE);
                     }
@@ -231,11 +236,12 @@ public class NuevoCienteFragment extends Fragment implements
         public void onClick(View v) {
             esconderTeclado(v);
             if (mListener != null) {
-                if (!binding.etNuevoNombre.getText().toString().equals("") &&
-                        !binding.etNuevoApellidos.getText().toString().equals("") &&
-                        !binding.etNuevoUsuario.getText().toString().equals("") &&
-                        !binding.etNuevoContrasena.getText().toString().equals("") &&
-                        !binding.etFecNac.getText().toString().equals("")) {
+                if(binding.etNuevoNombre.isEnabled()) {
+                    if (!binding.etNuevoNombre.getText().toString().equals("") &&
+                            !binding.etNuevoApellidos.getText().toString().equals("") &&
+                            !binding.etNuevoUsuario.getText().toString().equals("") &&
+                            !binding.etNuevoContrasena.getText().toString().equals("") &&
+                            !binding.etFecNac.getText().toString().equals("")) {
 
                         // Creación un nuevo cliente
                         c = new Cliente();
@@ -252,8 +258,11 @@ public class NuevoCienteFragment extends Fragment implements
 
                         mListener.onAceptarNuevoFrag(mOp, c);
 
+                    } else {
+                        mListener.onAceptarNuevoFrag(-1,null);  // Faltan Datos Obligatorios
+                    }
                 } else {
-                    mListener.onAceptarNuevoFrag(-1,null);  // Faltan Datos Obligatorios
+                    mListener.onEditadoSinHabilitarFrag();
                 }
             }
         }
