@@ -48,6 +48,7 @@ public class NuevoCienteFragment extends Fragment implements
     private NuevoCliFragmentInterface mListener;
     private Cliente c;
     private int mLogin;
+    private ClienteViewModel cliVM;
 
     private int mOp;    // Operación a realizar
     public static final int OP_CREAR = 0;
@@ -86,7 +87,9 @@ public class NuevoCienteFragment extends Fragment implements
             c = getArguments().getParcelable("clienteVer");
             mLogin = getArguments().getInt("login");
         }
-        ClienteViewModel cliVM= new ViewModelProvider(requireActivity()).get(ClienteViewModel.class);
+
+        cliVM = new ViewModelProvider(this).get(ClienteViewModel.class);
+
         cliVM.getmFechaDlg().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String fecha) {
@@ -134,6 +137,9 @@ public class NuevoCienteFragment extends Fragment implements
         binding.btFecnac.setOnClickListener(btFecnac_OnClickListener);
         binding.btVerContrasena.setOnClickListener(btVerContrasena_OnClickListener);
 
+        if(cliVM.getLogin() != null) {
+            mOp = OP_EDITAR;
+        }
         if (mOp != -1) {
             switch (mOp) {
                 case OP_EDITAR:
@@ -141,8 +147,11 @@ public class NuevoCienteFragment extends Fragment implements
                     Bundle b = getArguments();
                     if (b != null) {
                         habilitarCampos(false);
-
-                        c = b.getParcelable("clienteVer");
+                        if(cliVM.getLogin() != null) {
+                            c = cliVM.getLogin();
+                        } else {
+                            c = b.getParcelable("clienteVer");
+                        }
                         binding.etNuevoNombre.setText(c.getNombre());
                         binding.etNuevoApellidos.setText(c.getApellidos());
                         binding.etNuevoUsuario.setText(c.getUsuario());

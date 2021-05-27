@@ -27,6 +27,8 @@ public class ClienteViewModel extends AndroidViewModel {
     private Cliente mLogin;
     private Cliente mClienteAEliminar;
 
+
+
     public ClienteViewModel(@NonNull Application application) {
         super(application);
         this.mCliRep = new ClientesRepository(application);

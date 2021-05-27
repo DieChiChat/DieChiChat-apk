@@ -45,6 +45,7 @@ public class NuevoClienteActivity extends AppCompatActivity implements
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private Cliente cli;
+    private int opcion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +54,14 @@ public class NuevoClienteActivity extends AppCompatActivity implements
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
 
+        cliVM = new ViewModelProvider(this).get(ClienteViewModel.class);
+
+
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nuevoClienteFragCV)).getNavController();
 
-        cliVM = new ViewModelProvider(this).get(ClienteViewModel.class);
     }
 
     @Override

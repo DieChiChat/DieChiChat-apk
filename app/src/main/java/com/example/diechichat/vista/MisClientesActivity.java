@@ -84,7 +84,11 @@ public class MisClientesActivity extends AppCompatActivity implements
     public void onAddDietaFrag(Cliente cli) {
         Bundle bundleCli= new Bundle();
         bundleCli.putParcelable("clienteAddDieta",cli);
-        mNavC.navigate(R.id.action_fragment_clientes_to_fragment_dieta);
+//        mNavC.navigate(R.id.action_fragment_clientes_to_fragment_dieta);
+        Intent i = new Intent(MisClientesActivity.this, DietaActivity.class);
+        i.putExtra("clienteAddDieta", bundleCli);
+        startActivity(i);
+
     }
 
     /**Métodos NuevoClienteFragment***************************************/
@@ -257,6 +261,6 @@ public class MisClientesActivity extends AppCompatActivity implements
         Bundle bundleCli= new Bundle();
         bundleCli.putParcelable("clienteAddDieta", c);
         bundleCli.putInt("op", opcion);
-        mNavC.navigate(R.id.action_fragment_clientes_to_fragment_alimentos, bundleCli);
+        mNavC.navigate(R.id.action_fragment_dieta_to_fragment_alimentos2, bundleCli);
     }
 }
