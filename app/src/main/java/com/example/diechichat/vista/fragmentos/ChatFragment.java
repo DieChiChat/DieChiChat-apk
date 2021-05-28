@@ -28,7 +28,7 @@ import java.util.List;
 public class ChatFragment extends Fragment {
 
     private FragmentChatBinding binding;
-    private NuevoCienteFragment.NuevoCliFragmentInterface mListener;
+    private ChatFragmentInterface mListener;
     private ChatViewModel chatVM;
     private AdaptadorChat mAdaptadorChat;
 
@@ -44,7 +44,7 @@ public class ChatFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof ChatFragment.ChatFragmentInterface) {
-            mListener = (NuevoCienteFragment.NuevoCliFragmentInterface) context;
+            mListener = (ChatFragmentInterface) context;
         } else {
             throw new RuntimeException(context.toString() + " must implement ChatFragmentInterface");
         }
@@ -95,10 +95,10 @@ public class ChatFragment extends Fragment {
         binding.rvChats.setLayoutManager(new LinearLayoutManager(view.getContext()));
         binding.rvChats.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
         binding.rvChats.setAdapter(mAdaptadorChat);
-        binding.btEnviar.setOnClickListener(btAceptar_onClickListener);
 
         // Listeners0
         mAdaptadorChat.setOnClickListener(mAdaptadorChat_OnClickListener);
+        binding.btEnviar.setOnClickListener(btAceptar_onClickListener);
 
     }
 
@@ -130,7 +130,7 @@ public class ChatFragment extends Fragment {
         @Override
         public void onClick(View v) {
             if(binding.tvTexto.getText().toString().equals("")) {
-
+                mListener.onAceptarChatFrag(new Chat());
             }
 
 

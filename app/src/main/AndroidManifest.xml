@@ -12,8 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DieChiChat">
-        <activity android:name=".vista.ChatActivity"></activity>
-        <activity android:name=".vista.AlimentosActivity" />
+        <activity android:name=".vista.ChatActivity"
+            android:label="@string/hello_blank_fragmentContacto"
+            android:parentActivityName=".vista.MainActivity"
+            android:theme="@style/Theme.DieChiChat.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name=".vista.AlimentosActivity"
+            android:label="@string/title_activity_alimentos"
+            android:parentActivityName=".vista.MainActivity"
+            android:theme="@style/Theme.DieChiChat.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity
             android:name=".vista.DietaActivity"
             android:label="@string/title_activity_dieta"
