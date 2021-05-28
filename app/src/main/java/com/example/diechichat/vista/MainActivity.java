@@ -142,9 +142,9 @@ public class MainActivity extends AppCompatActivity implements
                 i.putExtra("login", ((Nutricionista) mainVM.getLogin()).getId());
                 startActivity(i);
             } else if (item.getItemId() == R.id.menu_chat) {
-                Intent i = new Intent(MainActivity.this, ChatActivity.class);
-                startActivity(i);
-//                Snackbar.make(bindingMain.getRoot(), R.string.msg_mantenimiento, Snackbar.LENGTH_SHORT).show();
+//                Intent i = new Intent(MainActivity.this, ChatActivity.class);
+//                startActivity(i);
+                Snackbar.make(bindingMain.getRoot(), R.string.msg_mantenimiento, Snackbar.LENGTH_SHORT).show();
             } else {
                 return false;
             }
