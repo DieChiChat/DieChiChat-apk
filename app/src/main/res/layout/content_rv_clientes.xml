@@ -23,7 +23,7 @@
         tools:src="@drawable/perfil_logo_small" />
 
     <TextView
-        android:id="@+id/tv_nombreCli"
+        android:id="@+id/tvNombreCli"
         style="@style/Theme.DieChiChat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

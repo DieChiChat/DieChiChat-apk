@@ -118,6 +118,9 @@
     <string name="title_activity_alimentos">Alimentos</string>
     <string name="msg_mantenimiento">Sección en mantenimiento, intentelo más tarde.</string>
     <string name="no_results">No hay resultados</string>
+    <string name="btEnviarChat">Enviar</string>
 
     <string name="menu_terminar">Finalizar Selección</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Contacto</string>
 </resources>

@@ -43,7 +43,6 @@ public class DietaActivity extends AppCompatActivity
         bundleCli.putParcelable("clienteAddDieta", c);
         bundleCli.putInt("op", opcion);
 
-//        TODO: Navegación falla
-//        mNavC.navigate(R.id.action_fragment_clientes_to_fragment_alimentos, bundleCli);
+        mNavC.navigate(R.id.action_fragment_dieta_to_fragment_alimentos, bundleCli);
     }
 }

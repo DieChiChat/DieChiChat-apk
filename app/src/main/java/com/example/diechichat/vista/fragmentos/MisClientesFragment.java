@@ -34,7 +34,6 @@ public class MisClientesFragment extends Fragment {
 
     public interface MisClientesFragmentInterface {
         void onVerClienteFrag(Cliente cli);
-
         void onAddDietaFrag(Cliente cli);
     }
 

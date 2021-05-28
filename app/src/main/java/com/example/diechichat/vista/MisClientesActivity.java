@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -19,10 +18,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.diechichat.R;
-import com.example.diechichat.databinding.ActivityMiPerfilBinding;
 import com.example.diechichat.databinding.ActivityMisClientesBinding;
 import com.example.diechichat.modelo.Cliente;
-import com.example.diechichat.vista.adaptadores.AdaptadorClientes;
 import com.example.diechichat.vista.dialogos.DlgConfirmacion;
 import com.example.diechichat.vista.dialogos.DlgSeleccionFecha;
 import com.example.diechichat.vista.fragmentos.DietaFragment;
@@ -37,9 +34,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class MisClientesActivity extends AppCompatActivity implements
         MisClientesFragment.MisClientesFragmentInterface,
@@ -64,7 +58,7 @@ public class MisClientesActivity extends AppCompatActivity implements
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         cliVM = new ViewModelProvider(this).get(ClienteViewModel.class);
-        mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.misclientesFragCV)).getNavController();
+        mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.chatFragCV)).getNavController();
     }
 
     @Override
@@ -84,10 +78,10 @@ public class MisClientesActivity extends AppCompatActivity implements
     public void onAddDietaFrag(Cliente cli) {
         Bundle bundleCli= new Bundle();
         bundleCli.putParcelable("clienteAddDieta",cli);
-//        mNavC.navigate(R.id.action_fragment_clientes_to_fragment_dieta);
-        Intent i = new Intent(MisClientesActivity.this, DietaActivity.class);
-        i.putExtra("clienteAddDieta", bundleCli);
-        startActivity(i);
+        mNavC.navigate(R.id.action_fragment_clientes_to_fragment_dieta);
+//        Intent i = new Intent(MisClientesActivity.this, DietaActivity.class);
+//        i.putExtra("clienteAddDieta", bundleCli);
+//        startActivity(i);
 
     }
 

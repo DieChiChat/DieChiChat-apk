@@ -108,7 +108,7 @@ public class ChatRepository {
 
     public LiveData<Boolean> altaChat(@NonNull Chat chat) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
-        mAppDB.getRefFS().collection("chat").document(String.valueOf(chat.getId())).set(chat)
+        mAppDB.getRefFS().collection("chat").document(chat.getId()).set(chat)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -126,7 +126,7 @@ public class ChatRepository {
 
     public LiveData<Boolean> borrarChat(@NonNull Chat chat) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
-        mAppDB.getRefFS().collection("chat").document(String.valueOf(chat.getId())).delete()
+        mAppDB.getRefFS().collection("chat").document(chat.getId()).delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

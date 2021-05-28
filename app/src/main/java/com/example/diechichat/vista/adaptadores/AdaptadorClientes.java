@@ -112,14 +112,14 @@ public class AdaptadorClientes extends RecyclerView.Adapter<AdaptadorClientes.Cl
         }
         private void setItem(Cliente cli) {
             binding.tvNombreCli.setText(cli.getNombreCompleto());
-            if(cli.getFoto() != null) {
-                mostrarImagenStorage(cli);
-            } else {
+            mostrarImagenStorage(cli);
+            if(!mostrarImagenStorage(cli)) {
                 binding.imagebCamara.setImageResource(R.drawable.perfil_logo_small);
             }
         }
 
-        public void mostrarImagenStorage(Cliente cli) {
+        public Boolean mostrarImagenStorage(Cliente cli) {
+            final boolean[] existeFoto = {false};
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageReference = storage.getReferenceFromUrl("gs://diechichat.appspot.com").child("fotosClientes/" + cli.getId()).child("imagen" + cli.getId() + ".jpeg");
             try {
@@ -129,13 +129,16 @@ public class AdaptadorClientes extends RecyclerView.Adapter<AdaptadorClientes.Cl
                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                         Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
                         binding.imagebCamara.setImageBitmap(bitmap);
+                        existeFoto[0] = true;
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
+                        existeFoto[0] = false;
                     }
                 });
             } catch (IOException e ) {}
+            return existeFoto[0];
         }
     }
 }

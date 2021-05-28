@@ -15,6 +15,7 @@
             app:destination="@id/fragment_alimentos" />
     </fragment>
 
+
     <fragment
         android:id="@+id/fragment_alimentos"
         android:name="com.example.diechichat.vista.fragmentos.DietaFragment"

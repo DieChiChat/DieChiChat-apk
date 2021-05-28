@@ -1,0 +1,139 @@
+package com.example.diechichat.vista.fragmentos;
+
+import android.content.Context;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.diechichat.databinding.FragmentChatBinding;
+import com.example.diechichat.modelo.Chat;
+import com.example.diechichat.modelo.Cliente;
+import com.example.diechichat.vista.adaptadores.AdaptadorChat;
+import com.example.diechichat.vista.adaptadores.AdaptadorClientes;
+import com.example.diechichat.vistamodelo.ChatViewModel;
+import com.example.diechichat.vistamodelo.ClienteViewModel;
+
+import java.util.List;
+
+public class ChatFragment extends Fragment {
+
+    private FragmentChatBinding binding;
+    private NuevoCienteFragment.NuevoCliFragmentInterface mListener;
+    private ChatViewModel chatVM;
+    private AdaptadorChat mAdaptadorChat;
+
+    public ChatFragment() {
+        // Required empty public constructor
+    }
+
+    public interface ChatFragmentInterface {
+        void onAceptarChatFrag(Chat chat);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof ChatFragment.ChatFragmentInterface) {
+            mListener = (NuevoCienteFragment.NuevoCliFragmentInterface) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement ChatFragmentInterface");
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+        }
+
+
+        chatVM = new ViewModelProvider(this).get(ChatViewModel.class);
+
+        ClienteViewModel clisVM = new ViewModelProvider(requireActivity()).get(ClienteViewModel.class);
+        mAdaptadorChat = new AdaptadorChat();
+
+        // Inits Incs Observer
+        chatVM.getChatME().observe(this, new Observer<List<Chat>>() {
+            @Override
+            public void onChanged(List<Chat> chats) {
+                mAdaptadorChat.setDatos(chats);
+                mAdaptadorChat.notifyDataSetChanged();
+                if (mAdaptadorChat.getItemPos() != -1 &&
+                        mAdaptadorChat.getItemPos() < mAdaptadorChat.getItemCount()) {
+                    binding.rvChats.scrollToPosition(mAdaptadorChat.getItemPos());
+                } else if (mAdaptadorChat.getItemCount() > 0) {
+                    binding.rvChats.scrollToPosition(mAdaptadorChat.getItemCount() - 1);
+                }
+                mAdaptadorChat.setItemPos(-1);
+            }
+        });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        binding = FragmentChatBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Init RecyclerView Clientes
+        binding.rvChats.setHasFixedSize(true);
+        binding.rvChats.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        binding.rvChats.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
+        binding.rvChats.setAdapter(mAdaptadorChat);
+        binding.btEnviar.setOnClickListener(btAceptar_onClickListener);
+
+        // Listeners0
+        mAdaptadorChat.setOnClickListener(mAdaptadorChat_OnClickListener);
+
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
+
+    private final View.OnClickListener mAdaptadorChat_OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int pos = mAdaptadorChat.getItemPos();
+        }
+    };
+
+    private final View.OnClickListener btAceptar_onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(binding.tvTexto.getText().toString().equals("")) {
+
+            }
+
+
+        }
+    };
+}
