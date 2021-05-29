@@ -39,8 +39,7 @@ public class MisClientesActivity extends AppCompatActivity implements
         MisClientesFragment.MisClientesFragmentInterface,
         NuevoCienteFragment.NuevoCliFragmentInterface,
         DlgSeleccionFecha.DlgSeleccionFechaListener,
-        DlgConfirmacion.DlgConfirmacionListener,
-        DietaFragment.DietaFragmentInterface {
+        DlgConfirmacion.DlgConfirmacionListener, DietaFragment.DietaFragmentInterface{
 
     private ActivityMisClientesBinding binding;
     private NavController mNavC;
@@ -68,24 +67,22 @@ public class MisClientesActivity extends AppCompatActivity implements
 
     @Override
     public void onVerClienteFrag(Cliente cli) {
-        Bundle bundleCli= new Bundle();
-        bundleCli.putParcelable("clienteVer",cli);
+        Bundle bundleCli = new Bundle();
+        bundleCli.putParcelable("clienteVer", cli);
         bundleCli.putInt("op", NuevoCienteFragment.OP_EDITAR);
-        mNavC.navigate(R.id.action_mis_clientes_to_nuevoCienteFragment,bundleCli);
+        mNavC.navigate(R.id.action_mis_clientes_to_nuevoCienteFragment, bundleCli);
     }
 
     @Override
     public void onAddDietaFrag(Cliente cli) {
-        Bundle bundleCli= new Bundle();
-        bundleCli.putParcelable("clienteAddDieta",cli);
-        mNavC.navigate(R.id.action_fragment_clientes_to_fragment_dieta,bundleCli);
-//        Intent i = new Intent(MisClientesActivity.this, DietaActivity.class);
-//        i.putExtra("clienteAddDieta", bundleCli);
-//        startActivity(i);
-
+        Intent i = new Intent(MisClientesActivity.this, DietaActivity.class);
+        i.putExtra("clienteAddDieta", cli);
+        startActivity(i);
     }
 
-    /**Métodos NuevoClienteFragment***************************************/
+    /**
+     * Métodos NuevoClienteFragment
+     ***************************************/
     @Override
     public void onAceptarNuevoFrag(int op, Cliente c) {
         if (c != null) {
@@ -128,7 +125,7 @@ public class MisClientesActivity extends AppCompatActivity implements
 
     @Override
     public void onEliminarClienteFrag(Cliente c) {
-        if(c != null) {
+        if (c != null) {
             cli = c;
             mostrarDlgEliminar();
         }
@@ -143,6 +140,7 @@ public class MisClientesActivity extends AppCompatActivity implements
     public void onDlgSeleccionFechaClick(DialogFragment dialog, String fecha) {
         cliVM.setmFechaDlg(fecha);
     }
+
     @Override
     public void onDlgSeleccionFechaCancel(DialogFragment dialog) {
         cliVM.setmFechaDlg("");
@@ -220,11 +218,13 @@ public class MisClientesActivity extends AppCompatActivity implements
         });
     }
 
-    /** MÉTODOS DIÁLOGO CONFIRMACIÓN*****************************************/
+    /**
+     * MÉTODOS DIÁLOGO CONFIRMACIÓN
+     *****************************************/
 
     @Override
     public void onDlgConfirmacionPositiveClick(DialogFragment dialog) {
-        if(cli != null) {
+        if (cli != null) {
             cliVM.bajaCliente(cli).observe(this, new Observer<Boolean>() {
                 @Override
                 public void onChanged(Boolean ok) {
@@ -239,8 +239,8 @@ public class MisClientesActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onDlgConfirmacionNegativeClick(DialogFragment dialog) { }
-
+    public void onDlgConfirmacionNegativeClick(DialogFragment dialog) {
+    }
 
     private void mostrarDlgEliminar() {
         //Lanzamos DlgConfirmacion
@@ -251,13 +251,8 @@ public class MisClientesActivity extends AppCompatActivity implements
         mNavC.navigate(R.id.dlgConfirmacionMisClientes, bundle);
     }
 
-
     @Override
     public void onAsignarAlimento(Cliente c, int opcion) {
-        Bundle bundleCli= new Bundle();
-        bundleCli.putParcelable("clienteAddDieta", c);
-        bundleCli.putInt("op", opcion);
-        mNavC=((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.dietaFragCV)).getNavController();
-        mNavC.navigate(R.id.action_fragment_dieta_to_fragment_alimentos, bundleCli);
+        
     }
 }

@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/fragment_alimentos"
-        android:name="com.example.diechichat.vista.fragmentos.DietaFragment"
+        android:name="com.example.diechichat.vista.fragmentos.AlimentosFragment"
         android:label="@string/title_activity_dieta"
         tools:layout="@layout/fragment_alimentos"/>
 

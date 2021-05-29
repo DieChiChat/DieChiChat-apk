@@ -43,7 +43,7 @@ public class DietaFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof NuevoCienteFragment.NuevoCliFragmentInterface) {
+        if (context instanceof DietaFragment.DietaFragmentInterface) {
             mListener = (DietaFragment.DietaFragmentInterface) context;
         } else {
             throw new RuntimeException(context.toString() + " must implement DietaFragmentInterface");

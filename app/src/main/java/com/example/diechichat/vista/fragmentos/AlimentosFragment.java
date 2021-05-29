@@ -32,8 +32,6 @@ import java.util.List;
 
 public class AlimentosFragment extends Fragment {
 
-    private RecyclerView rvAlimentos;
-
     private AdaptadorAlimentos mAdapterAlimentos;
     private FragmentAlimentosBinding binding;
     private AlimentoViewModel alimentoVM;
@@ -42,7 +40,7 @@ public class AlimentosFragment extends Fragment {
     private Cliente cli;
     private List<Alimento> aliSeleccionados;
 
-    private AlimentosFragment.AlimentoFragmentInterface mListener;
+    private AlimentoFragmentInterface mListener;
 
     public AlimentosFragment() {
         // Required empty public constructor
@@ -77,7 +75,7 @@ public class AlimentosFragment extends Fragment {
 
         mAdapterAlimentos = new AdaptadorAlimentos();
         mAdapterAlimentos.setDatos(DatosAlimentos.getInstance().getAlimentos());
-        rvAlimentos.setAdapter(mAdapterAlimentos);
+        binding.rvAlimentos.setAdapter(mAdapterAlimentos);
 
         alimentoVM.getListado().observe(this, new Observer<List<Alimento>>() {
             @Override
