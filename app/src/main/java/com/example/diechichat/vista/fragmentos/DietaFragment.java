@@ -11,9 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.diechichat.R;
 import com.example.diechichat.databinding.FragmentDietaBinding;
-import com.example.diechichat.databinding.FragmentNuevoClienteBinding;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.Nutricionista;
 
@@ -39,7 +37,7 @@ public class DietaFragment extends Fragment {
 
 
     public interface DietaFragmentInterface {
-        void onAsignarDieta(Cliente c, int opcion);
+        void onAsignarAlimento(Cliente c, int opcion);
     }
 
     @Override
@@ -117,13 +115,13 @@ public class DietaFragment extends Fragment {
         @Override
         public void onClick(View v) {
             if(v == binding.btAddDesayuno) {
-                mListener.onAsignarDieta(cli, OP_DESAYUNO);
+                mListener.onAsignarAlimento(cli, OP_DESAYUNO);
             } else if(v == binding.btAddComida) {
-                mListener.onAsignarDieta(cli, OP_COMIDA);
+                mListener.onAsignarAlimento(cli, OP_COMIDA);
             } else if(v == binding.btAddCena) {
-                mListener.onAsignarDieta(cli, OP_CENA);
+                mListener.onAsignarAlimento(cli, OP_CENA);
             } else if(v == binding.btAddOtros) {
-                mListener.onAsignarDieta(cli, OP_OTROS);
+                mListener.onAsignarAlimento(cli, OP_OTROS);
             }
         }
     };

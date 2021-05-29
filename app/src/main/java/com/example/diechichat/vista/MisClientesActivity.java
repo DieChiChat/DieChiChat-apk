@@ -58,7 +58,7 @@ public class MisClientesActivity extends AppCompatActivity implements
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         cliVM = new ViewModelProvider(this).get(ClienteViewModel.class);
-        mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.chatFragCV)).getNavController();
+        mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.misClientesFragCV)).getNavController();
     }
 
     @Override
@@ -78,7 +78,7 @@ public class MisClientesActivity extends AppCompatActivity implements
     public void onAddDietaFrag(Cliente cli) {
         Bundle bundleCli= new Bundle();
         bundleCli.putParcelable("clienteAddDieta",cli);
-        mNavC.navigate(R.id.action_fragment_clientes_to_fragment_dieta);
+        mNavC.navigate(R.id.action_fragment_clientes_to_fragment_dieta,bundleCli);
 //        Intent i = new Intent(MisClientesActivity.this, DietaActivity.class);
 //        i.putExtra("clienteAddDieta", bundleCli);
 //        startActivity(i);
@@ -140,7 +140,9 @@ public class MisClientesActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onDlgSeleccionFechaClick(DialogFragment dialog, String fecha) { cliVM.setmFechaDlg(fecha); }
+    public void onDlgSeleccionFechaClick(DialogFragment dialog, String fecha) {
+        cliVM.setmFechaDlg(fecha);
+    }
     @Override
     public void onDlgSeleccionFechaCancel(DialogFragment dialog) {
         cliVM.setmFechaDlg("");
@@ -251,10 +253,11 @@ public class MisClientesActivity extends AppCompatActivity implements
 
 
     @Override
-    public void onAsignarDieta(Cliente c, int opcion) {
+    public void onAsignarAlimento(Cliente c, int opcion) {
         Bundle bundleCli= new Bundle();
         bundleCli.putParcelable("clienteAddDieta", c);
         bundleCli.putInt("op", opcion);
-        mNavC.navigate(R.id.action_fragment_dieta_to_fragment_alimentos2, bundleCli);
+        mNavC=((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.dietaFragCV)).getNavController();
+        mNavC.navigate(R.id.action_fragment_dieta_to_fragment_alimentos, bundleCli);
     }
 }

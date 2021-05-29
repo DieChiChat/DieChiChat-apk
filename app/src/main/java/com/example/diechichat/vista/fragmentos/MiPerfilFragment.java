@@ -54,9 +54,6 @@ public class MiPerfilFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mainVM = new ViewModelProvider(this).get(MainViewModel.class);
-        if (getArguments() != null) {
-            nutri = getArguments().getParcelable("nutricionista");
-        }
         nutri = (Nutricionista) mainVM.getLogin();
     }
     @Nullable
@@ -72,24 +69,12 @@ public class MiPerfilFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         habilitarCampos(false);
 
-        if(mainVM.getLogin() instanceof Nutricionista) {
-            nutri = (Nutricionista) mainVM.getLogin();
-        }
-
         if(nutri != null) {
             binding.etNombre.setText(nutri.getNombre());
             binding.etApellidos.setText(nutri.getApellidos());
             binding.etUsuario.setText(nutri.getUsuario());
             binding.etContrasena.setText(nutri.getContrasena());
         }
-
-        if(mainVM.getLogin() != null) {
-            binding.etNombre.setText(((Nutricionista)mainVM.getLogin()).getNombre());
-            binding.etApellidos.setText(((Nutricionista)mainVM.getLogin()).getApellidos());
-            binding.etUsuario.setText(((Nutricionista)mainVM.getLogin()).getUsuario());
-            binding.etContrasena.setText(((Nutricionista)mainVM.getLogin()).getContrasena());
-        }
-
         binding.btAceptar.setOnClickListener(btAceptar_onClickListener);
         binding.btCancelar.setOnClickListener(btCancelar_onClickListener);
     }

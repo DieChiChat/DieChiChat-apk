@@ -12,8 +12,10 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.ActivityMiPerfilBinding;
+import com.example.diechichat.modelo.Nutricionista;
 import com.example.diechichat.vista.fragmentos.MiPerfilFragment;
 import com.example.diechichat.vistamodelo.MainViewModel;
+import com.example.diechichat.vistamodelo.NutriViewModel;
 
 public class MiPerfilActivity extends AppCompatActivity implements MiPerfilFragment.PerfilFragInterface {
 
@@ -30,14 +32,12 @@ public class MiPerfilActivity extends AppCompatActivity implements MiPerfilFragm
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
         mainVM = new ViewModelProvider(this).get(MainViewModel.class);
         Intent i = getIntent();
         if(i != null) {
             mainVM.setLogin(i.getExtras().getParcelable("nutricionista"));
         }
         mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.miperfilFragCV)).getNavController();
-
     }
 
     @Override

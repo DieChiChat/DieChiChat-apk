@@ -6,7 +6,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/chatFragCV"
+        android:id="@+id/misClientesFragCV"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

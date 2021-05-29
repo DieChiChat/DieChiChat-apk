@@ -23,7 +23,6 @@ import com.example.diechichat.modelo.Nutricionista;
 import com.example.diechichat.vista.dialogos.DlgConfirmacion;
 import com.example.diechichat.vista.fragmentos.LoginFragment;
 import com.example.diechichat.vista.fragmentos.NuevoCienteFragment;
-import com.example.diechichat.vistamodelo.ClienteViewModel;
 import com.example.diechichat.vistamodelo.MainViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements
         DlgConfirmacion.DlgConfirmacionListener {
 
     private MainViewModel mainVM;
-    private ClienteViewModel cliVM;
 
     private ActivityMainBinding bindingMain;
     private AppBarMainBinding bindingAppBar;
@@ -52,9 +50,8 @@ public class MainActivity extends AppCompatActivity implements
 
         bindingMain.navView.setNavigationItemSelectedListener(navView_OnNavigationItemSelected);
 
-        cliVM = new ViewModelProvider(this).get(ClienteViewModel.class);
         mainVM = new ViewModelProvider(this).get(MainViewModel.class);
-        if (mainVM.getLogin() == null && savedInstanceState == null) {
+        if(mainVM.getLogin() == null && savedInstanceState == null) {
             mNavC.navigate(R.id.action_nav_inicio_to_loginFragment);
         }
     }
@@ -121,17 +118,17 @@ public class MainActivity extends AppCompatActivity implements
 //                }
             } else if (item.getItemId() == R.id.menu_miperfil) {
                 Intent i = null;
-                if (mainVM.getLogin() instanceof Nutricionista) {
+                if(mainVM.getLogin() instanceof Nutricionista) {
                     i = new Intent(MainActivity.this, MiPerfilActivity.class);
-                    Bundle bundleNu = new Bundle();
-                    bundleNu.putParcelable("nutricionista", (Nutricionista) mainVM.getLogin());
-                    bundleNu.putInt("op", NuevoCienteFragment.OP_EDITAR);
-                    i.putExtra("nutricionista", bundleNu);
-                } else if (mainVM.getLogin() instanceof Cliente) {
+                    i.putExtra("nutricionista",(Nutricionista) mainVM.getLogin());
+                    i.putExtra("op",NuevoCienteFragment.OP_EDITAR);
+
+                } else if(mainVM.getLogin() instanceof Cliente) {
                     i = new Intent(MainActivity.this, NuevoClienteActivity.class);
-                    cliVM.setLogin((Cliente) mainVM.getLogin());
+                    i.putExtra("cliente",(Cliente) mainVM.getLogin());
+                    i.putExtra("op",NuevoCienteFragment.OP_EDITAR);
                 }
-                if (i != null) {
+                if(i != null) {
                     startActivity(i);
                 }
             } else if (item.getItemId() == R.id.menu_misclientes) {

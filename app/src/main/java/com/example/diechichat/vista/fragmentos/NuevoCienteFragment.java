@@ -329,7 +329,7 @@ public class NuevoCienteFragment extends Fragment implements
     }
 
 
-    /** MÉTODOS DIÁLOGO SELECCIÓN FECHA*****************************************/
+    /** MÉTODOS DIÁLOGO ELIMINAR*****************************************/
 
     @Override
     public void onDlgConfirmacionPositiveClick(DialogFragment dialog) {

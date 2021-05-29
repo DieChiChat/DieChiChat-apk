@@ -9,7 +9,6 @@ import android.os.Bundle;
 
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.ActivityChatBinding;
-import com.example.diechichat.databinding.ActivityDietaBinding;
 import com.example.diechichat.modelo.Chat;
 import com.example.diechichat.vista.fragmentos.ChatFragment;
 import com.example.diechichat.vistamodelo.ClienteViewModel;
@@ -30,7 +29,7 @@ public class ChatActivity extends AppCompatActivity
         setSupportActionBar(binding.toolbar);
 
         cliVM = new ViewModelProvider(this).get(ClienteViewModel.class);
-        mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.chatFragCV)).getNavController();
+        mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.misClientesFragCV)).getNavController();
 
     }
 

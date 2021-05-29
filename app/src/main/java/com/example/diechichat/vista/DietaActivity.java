@@ -38,7 +38,7 @@ public class DietaActivity extends AppCompatActivity
     }
 
     @Override
-    public void onAsignarDieta(Cliente c, int opcion) {
+    public void onAsignarAlimento(Cliente c, int opcion) {
         Bundle bundleCli= new Bundle();
         bundleCli.putParcelable("clienteAddDieta", c);
         bundleCli.putInt("op", opcion);
