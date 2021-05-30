@@ -121,6 +121,7 @@
     <string name="btEnviarChat">Enviar</string>
 
     <string name="menu_terminar">Finalizar Selección</string>
+    <string name="cargando">Cargando...</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragmentContacto">Contacto</string>
 </resources>

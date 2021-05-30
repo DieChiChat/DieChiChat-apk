@@ -25,7 +25,12 @@ public class Cliente implements Parcelable {
     private String nombre;
     private String apellidos;
     private Bitmap foto;
-    private List<Alimento> tAlimentos;
+    private List<Alimento> tDesayuno;
+    private List<Alimento> tComida;
+    private List<Alimento> tCena;
+    private List<Alimento> tOtros;
+
+
 
     /* Constructor ********************************************************************************/
     public Cliente() {

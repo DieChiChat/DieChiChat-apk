@@ -3,6 +3,9 @@ package com.example.diechichat.modelo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -12,19 +15,19 @@ public class Chat implements Parcelable {
 
     private String id;
     private String tMensajes;
-    private long horaMensaje;
+    private String horaMensaje;
     private int pos;
 
     /* Constructor ********************************************************************************/
 
     public Chat() {
-        this.horaMensaje = new Date().getTime();
+       asignarHora();
     }
 
     protected Chat(Parcel in) {
         id = in.readString();
         tMensajes = in.readString();
-        horaMensaje = in.readLong();
+        horaMensaje = in.readString();
         pos = in.readInt();
     }
 
@@ -32,7 +35,7 @@ public class Chat implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(tMensajes);
-        dest.writeLong(horaMensaje);
+        dest.writeString(horaMensaje);
         dest.writeInt(pos);
     }
 
@@ -63,10 +66,16 @@ public class Chat implements Parcelable {
     public String getMensaje() { return tMensajes; }
     public void setMensaje(String mensajeTexto) { this.tMensajes = mensajeTexto; }
 
-    public Long getHoraMensaje() { return horaMensaje; }
-    public void setHoraMensaje(Long horaMensaje) { this.horaMensaje = horaMensaje; }
+    public String getHoraMensaje() { return horaMensaje; }
+    public void setHoraMensaje(String horaMensaje) { this.horaMensaje = horaMensaje; }
 
     public int getPos() { return pos; }
     public void setPos(int pos) { this.pos = pos; }
+
+    public void asignarHora() {
+        Calendar calendario = Calendar.getInstance();
+        String hora = String.valueOf(calendario.get(Calendar.HOUR_OF_DAY)) + ":" + String.valueOf(calendario.get(Calendar.MINUTE)) + ":" + String.valueOf(calendario.get(Calendar.SECOND));
+        this.horaMensaje = hora;
+    }
 
 }

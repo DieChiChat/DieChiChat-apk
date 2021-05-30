@@ -19,7 +19,10 @@ public class NetworkUtils {
     private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
     // Base URL for Books API.
     private static final String FOOD_BASE_URL = "https://test-es.edamam.com/search";
-    private static final String RUTA_BUSQUEDA = "https://api.edamam.com/search?q={palabra_a_buscar}&app_id=${72781461}&app_key=${a22b274c5fbcb98413cdbb392927e2e3}";
+    private static final String RUTA_BUSQUEDA = "https://api.edamam.com/search?q={}&app_id=${72781461}&app_key=${a22b274c5fbcb98413cdbb392927e2e3}";
+    private static final String id = "16995ded71c442538d9ec8a9137fb3db";
+    private static final String key = "16995ded71c442538d9ec8a9137fb3db";
+    private static final String fatSecret = "http://platform.fatsecret.com/rest/server.api";
     // Parameter for the search string.
     private static final String QUERY_PARAM = "q";
     // Parameter that limits search results.
@@ -27,13 +30,15 @@ public class NetworkUtils {
     // Parameter to filter by print type.
     private static final String PRINT_TYPE = "printType";
 
-    public static String getBookInfo(String queryString) {
+    public static String getFoodInfo(String queryString) {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         String bookJSONString = null;
+        String ruta =  "https://api.edamam.com/search?q={"+ queryString +"}&app_id=${72781461}&app_key=${a22b274c5fbcb98413cdbb392927e2e3}";
+        String s = "http://data.streetfoodapp.com/1.1/";
 
         try {
-            Uri builtURI = Uri.parse(RUTA_BUSQUEDA).buildUpon()
+            Uri builtURI = Uri.parse(ruta).buildUpon()
                     .appendQueryParameter(QUERY_PARAM, queryString)
                     .appendQueryParameter(MAX_RESULTS, "20")
                     .appendQueryParameter(PRINT_TYPE, "foods")
@@ -77,7 +82,6 @@ public class NetworkUtils {
                 }
             }
         }
-        Log.d(LOG_TAG, bookJSONString);
         return bookJSONString;
     }
 
@@ -85,11 +89,12 @@ public class NetworkUtils {
         Alimento alimento;
         ArrayList<Alimento> tAlimentos = null;
         try {
+
             tAlimentos = new ArrayList<Alimento>();
             // Convert the response into a JSON object.
             JSONObject jsonObject = new JSONObject(s);
             // Get the JSONArray of book items.
-            JSONArray itemsArray = jsonObject.getJSONArray("items");
+            JSONArray itemsArray = jsonObject.getJSONArray("json");
 
             // Initialize iterator and results fields.
             int i = 0;
@@ -112,8 +117,8 @@ public class NetworkUtils {
             // are found or when all items have been checked.
             while (i < itemsArray.length()) {
                 // Get the current item information.
-                JSONObject book = itemsArray.getJSONObject(i);
-                JSONObject volumeInfo = book.getJSONObject("volumeInfo");
+                JSONObject food = itemsArray.getJSONObject(i);
+                JSONObject volumeInfo = food.getJSONObject("volumeInfo");
 
                 // Try to get the author and title from the current item,
                 // catch if either field is empty and move on.

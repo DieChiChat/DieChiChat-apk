@@ -98,7 +98,7 @@ public class ChatRepository {
     /* Métodos Lógica Clientes ***********************************************************************/
 
     public LiveData<List<Chat>> recuperarChatSE() {
-        return new ChatRepository.FirebaseLiveDataSE();
+        return new ChatRepository.FirebaseLiveDataME();
     }
 
 //    public LiveData<List<Chat>> recuperarChatME(FiltroChat filtro) {
@@ -108,7 +108,7 @@ public class ChatRepository {
 
     public LiveData<Boolean> altaChat(@NonNull Chat chat) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
-        mAppDB.getRefFS().collection("chat").document(chat.getId()).set(chat)
+        mAppDB.getRefFS().collection("chats").document(chat.getId()).set(chat)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

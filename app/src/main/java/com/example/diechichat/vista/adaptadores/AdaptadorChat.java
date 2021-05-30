@@ -1,11 +1,16 @@
 package com.example.diechichat.vista.adaptadores;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStore;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diechichat.R;
@@ -13,6 +18,8 @@ import com.example.diechichat.databinding.ContentRvChatBinding;
 import com.example.diechichat.databinding.ContentRvClientesBinding;
 import com.example.diechichat.modelo.Chat;
 import com.example.diechichat.modelo.Cliente;
+import com.example.diechichat.modelo.Nutricionista;
+import com.example.diechichat.vistamodelo.ChatViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -26,6 +33,9 @@ public class AdaptadorChat extends RecyclerView.Adapter<AdaptadorChat.ChatVH> {
     private List<Chat> mDatos;
     private int mItemPos;
     private View.OnClickListener mListener;
+
+    private Cliente mLoginCliente;
+    private Nutricionista mLoginNutricionista;
 
     public AdaptadorChat() {
         mDatos = null;
@@ -54,13 +64,14 @@ public class AdaptadorChat extends RecyclerView.Adapter<AdaptadorChat.ChatVH> {
         return mDatos.get(pos);
     }
 
+    public void setmLoginCliente(Cliente mLoginCliente) { this.mLoginCliente = mLoginCliente; }
+    public void setmLoginNutricionista(Nutricionista mLoginNutricionista) { this.mLoginNutricionista = mLoginNutricionista; }
+
     @NonNull
     @Override
     public AdaptadorChat.ChatVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_rv_nutris, parent, false);
-//        return new NutriVH(v);
-        //TODO: retornar vista listado
-        return null;
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_rv_chat, parent, false);
+        return new ChatVH(v);
     }
 
     @Override
@@ -84,15 +95,20 @@ public class AdaptadorChat extends RecyclerView.Adapter<AdaptadorChat.ChatVH> {
 
         private final ContentRvChatBinding binding;
 
-        public ChatVH(@NonNull View itemView, ContentRvChatBinding binding) {
+        public ChatVH(@NonNull View itemView) {
             super(itemView);
             this.binding = ContentRvChatBinding.bind(itemView);
             itemView.setOnClickListener(this);
         }
 
+        @SuppressLint("SetTextI18n")
         private void setItem(Chat chat) {
-            binding.tvMensaje.setText(chat.getMensaje());
-            binding.tvHora.setText(chat.getHoraMensaje().toString());
+            if(mLoginCliente != null) {
+                if(chat.getId().equals(mLoginCliente.getId())) {
+                    binding.tvMensaje.setText(chat.getMensaje());
+                    binding.tvHora.setText(chat.getHoraMensaje().toString());
+                }
+            }
 //
 //            TODO: buscar comparador para ordenar mensajes a través de su fecha o su posición
 //            Collections.sort(chat, new Comparator<Chat>() {

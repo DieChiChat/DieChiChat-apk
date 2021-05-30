@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.diechichat.modelo.Chat;
 import com.example.diechichat.modelo.Cliente;
+import com.example.diechichat.modelo.Nutricionista;
 import com.example.diechichat.repositorio.ChatRepository;
 import com.example.diechichat.repositorio.ClientesRepository;
 
@@ -21,18 +22,20 @@ public class ChatViewModel extends AndroidViewModel {
 
     private final ChatRepository mChatRep;
     private LiveData<List<Chat>> mChat;
+    private Cliente mLoginCliente;
+    private Nutricionista mLoginNutricionista;
 
     private MutableLiveData<String> mFechaDlg;
     private final MutableLiveData<Bitmap> foto;
 
-    private Cliente mLogin;
     private Chat mChatAEliminar;
 
     public ChatViewModel(@NonNull Application application) {
         super(application);
         this.mChatRep = new ChatRepository(application);
         this.mChat = null;
-        this.mLogin = null;
+        this.mLoginNutricionista = null;
+        this.mLoginCliente = null;
         this.mChatAEliminar = null;
         this.mFechaDlg= new MutableLiveData<>();
         this.foto = new MutableLiveData<>();
@@ -57,13 +60,17 @@ public class ChatViewModel extends AndroidViewModel {
 
     /* Getters & Setters Objetos Persistentes *****************************************************/
 
-    public Cliente getLogin() {
-        return mLogin;
+    public Cliente getLoginCliente() {
+        return mLoginCliente;
+    }
+    public void setLoginCliente(Cliente mLoginCliente) {
+        this.mLoginCliente = mLoginCliente;
     }
 
-    public void setLogin(Cliente login) {
-        mLogin = login;
+    public Nutricionista getLoginNutricionista() {
+        return mLoginNutricionista;
     }
+    public void setLoginNutricionista(Nutricionista mLoginNutricionista) { this.mLoginNutricionista = mLoginNutricionista; }
 
     public Chat getChatAEliminar() {
         return mChatAEliminar;

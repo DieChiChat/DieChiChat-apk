@@ -23,6 +23,7 @@ import com.example.diechichat.modelo.Nutricionista;
 import com.example.diechichat.vista.dialogos.DlgConfirmacion;
 import com.example.diechichat.vista.fragmentos.LoginFragment;
 import com.example.diechichat.vista.fragmentos.NuevoCienteFragment;
+import com.example.diechichat.vistamodelo.ChatViewModel;
 import com.example.diechichat.vistamodelo.MainViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements
         DlgConfirmacion.DlgConfirmacionListener {
 
     private MainViewModel mainVM;
+    private ChatViewModel chatVM;
 
     private ActivityMainBinding bindingMain;
     private AppBarMainBinding bindingAppBar;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(bindingMain.getRoot());
 
         mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.mainFragCV)).getNavController();
+        chatVM = new ViewModelProvider(this).get(ChatViewModel.class);
 
         bindingMain.navView.setNavigationItemSelectedListener(navView_OnNavigationItemSelected);
 
@@ -139,6 +142,11 @@ public class MainActivity extends AppCompatActivity implements
                 i.putExtra("login", ((Nutricionista) mainVM.getLogin()).getId());
                 startActivity(i);
             } else if (item.getItemId() == R.id.menu_chat) {
+                if(mainVM.getLogin() instanceof Nutricionista) {
+                    chatVM.setLoginNutricionista((Nutricionista) mainVM.getLogin());
+                } else if(mainVM.getLogin() instanceof Cliente) {
+                    chatVM.setLoginCliente((Cliente) mainVM.getLogin());
+                }
                 Intent i = new Intent(MainActivity.this, ChatActivity.class);
                 startActivity(i);
 //                Snackbar.make(bindingMain.getRoot(), R.string.msg_mantenimiento, Snackbar.LENGTH_SHORT).show();

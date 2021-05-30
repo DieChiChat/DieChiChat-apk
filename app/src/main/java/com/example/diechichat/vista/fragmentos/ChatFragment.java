@@ -23,6 +23,7 @@ import com.example.diechichat.vista.adaptadores.AdaptadorClientes;
 import com.example.diechichat.vistamodelo.ChatViewModel;
 import com.example.diechichat.vistamodelo.ClienteViewModel;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class ChatFragment extends Fragment {
@@ -59,8 +60,12 @@ public class ChatFragment extends Fragment {
 
         chatVM = new ViewModelProvider(this).get(ChatViewModel.class);
 
-        ClienteViewModel clisVM = new ViewModelProvider(requireActivity()).get(ClienteViewModel.class);
         mAdaptadorChat = new AdaptadorChat();
+        if(chatVM.getLoginCliente() != null) {
+            mAdaptadorChat.setmLoginCliente(chatVM.getLoginCliente());
+        } else if(chatVM.getLoginNutricionista() != null) {
+            mAdaptadorChat.setmLoginNutricionista(chatVM.getLoginNutricionista());
+        }
 
         // Inits Incs Observer
         chatVM.getChatME().observe(this, new Observer<List<Chat>>() {
@@ -98,10 +103,9 @@ public class ChatFragment extends Fragment {
 
         // Listeners0
         mAdaptadorChat.setOnClickListener(mAdaptadorChat_OnClickListener);
-        binding.btEnviar.setOnClickListener(btAceptar_onClickListener);
+        binding.btEnviar.setOnClickListener(btEnviar_onClickListener);
 
     }
-
 
     @Override
     public void onDestroyView() {
@@ -126,11 +130,15 @@ public class ChatFragment extends Fragment {
         }
     };
 
-    private final View.OnClickListener btAceptar_onClickListener = new View.OnClickListener() {
+    private final View.OnClickListener btEnviar_onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(binding.tvTexto.getText().toString().equals("")) {
-                mListener.onAceptarChatFrag(new Chat());
+            if(!binding.etTexto.getText().toString().equals("")) {
+                Chat chat = new Chat();
+                String id = (chatVM.getLoginCliente() != null) ? chatVM.getLoginCliente().getId() : (chatVM.getLoginNutricionista() != null) ? String.valueOf(chatVM.getLoginNutricionista().getId()) : "";
+                chat.setId(id);
+                chat.setMensaje(binding.etTexto.getText().toString());
+                mListener.onAceptarChatFrag(chat);
             }
 
 

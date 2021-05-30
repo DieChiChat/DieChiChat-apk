@@ -4,49 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".vista.fragmentos.ChatFragment" >
+    tools:context=".vista.fragmentos.ChatFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvChats"
         style="@style/Theme.DieChiChat"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvTexto"
+        app:layout_constraintBottom_toTopOf="@+id/etTexto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/tvTexto"
-        android:layout_width="271dp"
+        android:id="@+id/etTexto"
+        style="@style/Theme.DieChiChat"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:autofillHints="@string/etEscribeTexto"
         android:hint="@string/etEscribeTexto"
-        style="@style/Theme.DieChiChat"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btEnviar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvChats" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btEnviar"
-        android:layout_width="100dp"
+        android:layout_width="95dp"
         android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         android:text="@string/btEnviarChat"
-        app:layout_constraintBottom_toBottomOf="@+id/tvTexto"
+        app:layout_constraintBottom_toBottomOf="@+id/etTexto"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvTexto"
-        app:layout_constraintTop_toTopOf="@+id/tvTexto" />
+        app:layout_constraintTop_toTopOf="@+id/etTexto" />
 </androidx.constraintlayout.widget.ConstraintLayout>

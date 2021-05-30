@@ -20,8 +20,16 @@ public class Runable implements java.lang.Runnable {
     //lo que se pone dentro es lo del doInBackground
     @Override
     public void run() {
-        String respuestaJson = NetworkUtils.getBookInfo(mquery);
-        ArrayList<Alimento> tAlimentos = NetworkUtils.interpretarJson(respuestaJson);
+//        String respuestaJson = NetworkUtils.getFoodInfo(mquery);
+        FatSecretSearch fatSecretSearch = new FatSecretSearch();
+        fatSecretSearch.searchFood(mquery, 1);
+
+        FatSecretGet fatSecretGet = new FatSecretGet();
+        fatSecretGet.getFood(mquery);
+
+        ArrayList<Alimento> tAlimentos = (ArrayList<Alimento>) fatSecretGet.getFood(mquery);
+
+//        ArrayList<Alimento> tAlimentos = NetworkUtils.interpretarJson(respuestaJson);
         DatosAlimentos.getInstance().getAlimentos().addAll(tAlimentos);
         //No es necesario pasar el intent, ya lo coge con el singleton
         //Lo paso para comprobar si está lleno o no

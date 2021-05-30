@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.diechichat">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -14,11 +15,6 @@
         android:theme="@style/Theme.DieChiChat">
         <activity android:name=".vista.ChatActivity"
             android:label="@string/hello_blank_fragmentContacto"
-            android:parentActivityName=".vista.MainActivity"
-            android:theme="@style/Theme.DieChiChat.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
-        <activity android:name=".vista.AlimentosActivity"
-            android:label="@string/title_activity_alimentos"
             android:parentActivityName=".vista.MainActivity"
             android:theme="@style/Theme.DieChiChat.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
@@ -48,8 +44,10 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".vista.MainActivity"
+            android:usesCleartextTraffic="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.DieChiChat.NoActionBar">
+            android:theme="@style/Theme.DieChiChat.NoActionBar"
+            tools:targetApi="m">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

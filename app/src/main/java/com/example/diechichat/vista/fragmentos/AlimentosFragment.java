@@ -75,7 +75,6 @@ public class AlimentosFragment extends Fragment {
 
         mAdapterAlimentos = new AdaptadorAlimentos();
         mAdapterAlimentos.setDatos(DatosAlimentos.getInstance().getAlimentos());
-        binding.rvAlimentos.setAdapter(mAdapterAlimentos);
 
         alimentoVM.getListado().observe(this, new Observer<List<Alimento>>() {
             @Override
@@ -98,6 +97,7 @@ public class AlimentosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAlimentosBinding.inflate(inflater, container, false);
 
+        binding.rvAlimentos.setAdapter(mAdapterAlimentos);
         return binding.getRoot();
     }
 
@@ -147,10 +147,6 @@ public class AlimentosFragment extends Fragment {
         return super.onOptionsItemSelected(item);
 
     }
-
-//    if (mListener != null) {
-//        mListener.onVerClienteFrag(mAdaptadorClis.getItem(posRecicler));
-//    }
 
     /***************************************/
     View.OnClickListener btBuscarAlimento_onClickListener = new View.OnClickListener() {
