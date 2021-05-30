@@ -1,9 +1,6 @@
 package com.example.diechichat.modelo;
 
 import android.net.Uri;
-import android.util.Log;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,11 +15,9 @@ import java.util.ArrayList;
 public class NetworkUtils {
     private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
     // Base URL for Books API.
-    private static final String FOOD_BASE_URL = "https://test-es.edamam.com/search";
-    private static final String RUTA_BUSQUEDA = "https://api.edamam.com/search?q={}&app_id=${72781461}&app_key=${a22b274c5fbcb98413cdbb392927e2e3}";
-    private static final String id = "16995ded71c442538d9ec8a9137fb3db";
-    private static final String key = "16995ded71c442538d9ec8a9137fb3db";
-    private static final String fatSecret = "http://platform.fatsecret.com/rest/server.api";
+    private static final String RUTA_BUSQUEDA = "https://api.edamam.com/search?q=palabra_a_buscar&app_id=57eaa490&app_key=47f6530c4dda609ba6dc58fb4e62bfad";
+    private static final String FOOD_ID = "72781461";
+    private static final String FOOD_KEY = "a22b274c5fbcb98413cdbb392927e2e3";
     // Parameter for the search string.
     private static final String QUERY_PARAM = "q";
     // Parameter that limits search results.
@@ -34,14 +29,12 @@ public class NetworkUtils {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         String bookJSONString = null;
-        String ruta =  "https://api.edamam.com/search?q={"+ queryString +"}&app_id=${72781461}&app_key=${a22b274c5fbcb98413cdbb392927e2e3}";
-        String s = "http://data.streetfoodapp.com/1.1/";
-
+        String rutaDefinitiva = "https://api.edamam.com/api/food-database/v2/parser?ingr=" + queryString +"&app_id=72781461&app_key=a22b274c5fbcb98413cdbb392927e2e3";
         try {
-            Uri builtURI = Uri.parse(ruta).buildUpon()
-                    .appendQueryParameter(QUERY_PARAM, queryString)
+            Uri builtURI = Uri.parse(rutaDefinitiva).buildUpon()
+//                    .appendQueryParameter(QUERY_PARAM, queryString)
                     .appendQueryParameter(MAX_RESULTS, "20")
-                    .appendQueryParameter(PRINT_TYPE, "foods")
+//                    .appendQueryParameter(PRINT_TYPE, "foods")
                     .build();
             URL requestURL = new URL(builtURI.toString());
 
@@ -86,7 +79,7 @@ public class NetworkUtils {
     }
 
     public static ArrayList<Alimento> interpretarJson(String s) {
-        Alimento alimento;
+        Alimento alimento = null;
         ArrayList<Alimento> tAlimentos = null;
         try {
 
@@ -94,67 +87,43 @@ public class NetworkUtils {
             // Convert the response into a JSON object.
             JSONObject jsonObject = new JSONObject(s);
             // Get the JSONArray of book items.
-            JSONArray itemsArray = jsonObject.getJSONArray("json");
-
-            // Initialize iterator and results fields.
+//            JSONArray itemsArray = jsonObject.getJSONArray("json");
+//            for (int i = 0; i < jsonObject.length(); i++) {
+//                String value = jsonObject.getString("text");
+//                Log.e("json", i+"="+value);
+//            }
             int i = 0;
-            double calorias = 0;
-            String nombre = "";
-            double grasaSaturada = 0;
-            double colesterol = 0;
-            double sodio = 0;
-            double fibra = 0;
-            double azucares = 0;
-            double proteinas = 0;
-            double calcio = 0;
-            double hierro = 0;
-            double potasio = 0;
-            double vitaminaA = 0;
-            double vitaminaC = 0;
-
-            // Look for results in the items array, exiting
-            // when both the title and author
-            // are found or when all items have been checked.
-            while (i < itemsArray.length()) {
+            while (i < jsonObject.length()) {
                 // Get the current item information.
-                JSONObject food = itemsArray.getJSONObject(i);
-                JSONObject volumeInfo = food.getJSONObject("volumeInfo");
 
                 // Try to get the author and title from the current item,
                 // catch if either field is empty and move on.
                 try {
-                    nombre = volumeInfo.getString("name");
-                    calorias = volumeInfo.getDouble("calories");
-                    grasaSaturada = volumeInfo.getDouble("saturated");
-                    colesterol = volumeInfo.getDouble("cholesterol");
-                    sodio = volumeInfo.getDouble("sodium");
-                    fibra = volumeInfo.getDouble("fiber");
-                    azucares = volumeInfo.getDouble("sugars");
-                    proteinas = volumeInfo.getDouble("protein");
-                    calcio = volumeInfo.getDouble("calcium");
-                    hierro = volumeInfo.getDouble("iron");
-                    potasio = volumeInfo.getDouble("potassium");
-                    vitaminaA = volumeInfo.getDouble("vitamin a");
-                    vitaminaC = volumeInfo.getDouble("vitamin c");
+//                    double valor = jsonObject.getJSONArray("hints").getJSONObject(0).getJSONObject("food").getJSONObject("nutrients").getDouble("ENERC_KCAL");
+//                    String nombre = jsonObject.getJSONArray("hints").getJSONObject(0).getJSONObject("food").getString("label");
+                    alimento = new Alimento();
+                    alimento.setNombre(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getString("label"));
+                    alimento.setKcal(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("ENERC_KCAL"));
+                    alimento.setProteinas(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("PROCNT"));
+                    alimento.setGrasa(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("FAT"));
+                    alimento.setCarbohidratos(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("CHOCDF"));
+                    alimento.setFibra(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("FIBTG"));
+                    alimento.setVitaminaA(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("VITA_RAE"));
+                    alimento.setVitaminaC(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("VITC"));
+                    alimento.setCalcio(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("CA"));
+                    alimento.setColesterol(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("COLE"));
+                    alimento.setGrasasSaturadas(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("FASAT"));
+                    alimento.setSodio(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("NA"));
+                    alimento.setHierro(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("FE"));
+                    alimento.setPotasio(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("K"));
+                    alimento.setAzucares(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("SUGAR"));
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                alimento = new Alimento();
-                alimento.setCalorias(calorias);
-                alimento.setNombre(nombre);
-                alimento.setAzucares(azucares);
-                alimento.setCalcio(calcio);
-                alimento.setColesterol(colesterol);
-                alimento.setFibra(fibra);
-                alimento.setGrasaSaturada(grasaSaturada);
-                alimento.setSodio(sodio);
-                alimento.setProteinas(proteinas);
-                alimento.setHierro(hierro);
-                alimento.setPotasio(potasio);
-                alimento.setVitaminaA(vitaminaA);
-                alimento.setVitaminaC(vitaminaC);
 
                 DatosAlimentos.getInstance().getAlimentos().add(alimento);
+                tAlimentos.add(alimento);
                 // Move to the next item.
                 i++;
             }

@@ -145,14 +145,25 @@ public class AlimentosFragment extends Fragment {
             }
         }
         return super.onOptionsItemSelected(item);
-
     }
 
     /***************************************/
     View.OnClickListener btBuscarAlimento_onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            mListener.onBuscarAlimentoFrag(binding.etAlimento.getText().toString(), v);
+            String query = "";
+            String palabraBusqueda = binding.etAlimento.getText().toString();
+            for (int i = 0; i < palabraBusqueda.length(); i++) {
+                char letra = palabraBusqueda.charAt(i);
+                if(String.valueOf(letra).equals(" ")) {
+                    query = query + "%20";
+                } else {
+                    query = query + letra;
+                }
+            }
+            mListener.onBuscarAlimentoFrag(query, v);
+            List<Alimento> tAlimentos = DatosAlimentos.getInstance().getAlimentos();
+            mAdapterAlimentos.notifyDataSetChanged();
         }
     };
 

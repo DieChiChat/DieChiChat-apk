@@ -6,7 +6,10 @@ import android.os.Parcelable;
 public class Alimento implements Parcelable {
     /* Atributos **********************************************************************************/
     private int id;
-    private double grasaSaturada;
+    private double kcal;
+    private double carbohidratos;
+    private double grasa;
+    private double grasasSaturadas;
     private double colesterol;
     private double sodio;
     private double fibra;
@@ -18,7 +21,6 @@ public class Alimento implements Parcelable {
     private double vitaminaA;
     private double vitaminaC;
     private String nombre;
-    private double calorias;
 
     /* Constructor ********************************************************************************/
 
@@ -29,7 +31,9 @@ public class Alimento implements Parcelable {
 
     protected Alimento(Parcel in) {
         id = in.readInt();
-        grasaSaturada = in.readDouble();
+        carbohidratos = in.readDouble();
+        grasa = in.readDouble();
+        grasasSaturadas = in.readDouble();
         colesterol = in.readDouble();
         sodio = in.readDouble();
         fibra = in.readDouble();
@@ -41,13 +45,15 @@ public class Alimento implements Parcelable {
         vitaminaA = in.readDouble();
         vitaminaC = in.readDouble();
         nombre = in.readString();
-        calorias = in.readDouble();
+        kcal = in.readDouble();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
-        dest.writeDouble(grasaSaturada);
+        dest.writeDouble(carbohidratos);
+        dest.writeDouble(grasa);
+        dest.writeDouble(grasasSaturadas);
         dest.writeDouble(colesterol);
         dest.writeDouble(sodio);
         dest.writeDouble(fibra);
@@ -59,7 +65,7 @@ public class Alimento implements Parcelable {
         dest.writeDouble(vitaminaA);
         dest.writeDouble(vitaminaC);
         dest.writeString(nombre);
-        dest.writeDouble(calorias);
+        dest.writeDouble(kcal);
     }
 
     @Override
@@ -84,8 +90,11 @@ public class Alimento implements Parcelable {
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public double getGrasaSaturada() { return grasaSaturada; }
-    public void setGrasaSaturada(double grasaSaturada) { this.grasaSaturada = grasaSaturada; }
+    public double getGrasa() { return grasa; }
+    public void setGrasa(double grasa) { this.grasa = grasa; }
+
+    public double getGrasasSaturadas() { return grasasSaturadas; }
+    public void setGrasasSaturadas(double grasasSaturadas) { this.grasasSaturadas = grasasSaturadas; }
 
     public double getColesterol() { return colesterol; }
     public void setColesterol(double colesterol) { this.colesterol = colesterol; }
@@ -120,6 +129,9 @@ public class Alimento implements Parcelable {
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public double getCalorias() { return calorias; }
-    public void setCalorias(double calorias) { this.calorias = calorias; }
+    public double getCarbohidratos() { return carbohidratos; }
+    public void setCarbohidratos(double carbohidratos) { this.carbohidratos = carbohidratos; }
+
+    public double getKcal() { return kcal; }
+    public void setKcal(double kcal) { this.kcal = kcal; }
 }

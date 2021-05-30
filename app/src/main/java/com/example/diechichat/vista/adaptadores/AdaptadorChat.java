@@ -106,7 +106,8 @@ public class AdaptadorChat extends RecyclerView.Adapter<AdaptadorChat.ChatVH> {
             if(mLoginCliente != null) {
                 String s = "";
                 for(int i = 0; i < mLoginCliente.getId().length(); i++) {
-                    if(mLoginCliente.getId().substring(i).equals("-")) {
+                    char tope = mLoginCliente.getId().charAt(i);
+                    if(String.valueOf(tope).equals("-")) {
                         s = mLoginCliente.getId().substring(0, i);
                     }
                 }

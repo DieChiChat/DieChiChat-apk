@@ -2,7 +2,7 @@
     <string name="app_name">DieChiChat</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_title">DieChiChat</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
@@ -119,9 +119,11 @@
     <string name="msg_mantenimiento">Sección en mantenimiento, intentelo más tarde.</string>
     <string name="no_results">No hay resultados</string>
     <string name="btEnviarChat">Enviar</string>
+    <string name="no_search_term">Por favor, introduce un alimento</string>
+    <string name="no_network">Por favor, conecta el dispositivo a internet y vuelve a intentarlo.</string>
 
     <string name="menu_terminar">Finalizar Selección</string>
-    <string name="cargando">Cargando...</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="cargando">Cargando…</string>
+
     <string name="hello_blank_fragmentContacto">Contacto</string>
 </resources>

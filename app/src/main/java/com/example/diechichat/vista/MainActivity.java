@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -53,6 +55,9 @@ public class MainActivity extends AppCompatActivity implements
 
         bindingMain.navView.setNavigationItemSelectedListener(navView_OnNavigationItemSelected);
 
+        //BLOQUEAR NAVIGATION DRAWER PARA QUE NO SE MUESTRE ANTES DE INICIAR SESIÓN
+        bindingMain.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
         mainVM = new ViewModelProvider(this).get(MainViewModel.class);
         if(mainVM.getLogin() == null && savedInstanceState == null) {
             mNavC.navigate(R.id.action_nav_inicio_to_loginFragment);
@@ -63,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
         return true;
     }
 
@@ -178,19 +184,25 @@ public class MainActivity extends AppCompatActivity implements
     public void onEntrarLoginFrag(Object obj) {
         if (obj != null) {
             mainVM.setLogin(obj);
-//            if (obj instanceof Nutricionista) {
-//                Snackbar.make(bindingMain.getRoot(), (R.string.msg_bienvenida + " " + ((Nutricionista) obj).getNombreCompleto()), Snackbar.LENGTH_SHORT).show();
-//
-//            } else if (obj instanceof Cliente) {
-//                Snackbar.make(bindingMain.getRoot(), (R.string.msg_bienvenida + " " + ((Cliente) obj).getNombreCompleto()), Snackbar.LENGTH_SHORT).show();
-//            }
-
             bindingAppBar = bindingMain.appBarMain;
             setSupportActionBar(bindingAppBar.mainToolbar);
             mAppBarConfiguration = new AppBarConfiguration.Builder(mNavC.getGraph()).setOpenableLayout(bindingMain.drawerLayout).build();
             NavigationUI.setupActionBarWithNavController(this, mNavC, mAppBarConfiguration);
 
+            //DESBLOQUEAR NAVIGATION DRAWER
+            bindingMain.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+
+//            OCULTAR OPCIONES MENÚ EN CASO DE CLIENTE
+            if(mainVM.getLogin() instanceof Cliente) {
+                bindingMain.drawerLayout.findViewById(R.id.menu_nuevocliente).setVisibility(View.INVISIBLE);
+                bindingMain.drawerLayout.findViewById(R.id.menu_misclientes).setVisibility(View.INVISIBLE);
+
+                //TODO: cambiar posición de items del menú drawer
+            }
+
             mNavC.navigateUp();
+            if(mainVM.getLogin() instanceof Nutricionista) {
+            }
         } else {
             Snackbar.make(bindingMain.getRoot(), "Introduce usuario y contraseña", Snackbar.LENGTH_SHORT).show();
         }
