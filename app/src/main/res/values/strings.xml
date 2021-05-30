@@ -122,8 +122,9 @@
     <string name="no_search_term">Por favor, introduce un alimento</string>
     <string name="no_network">Por favor, conecta el dispositivo a internet y vuelve a intentarlo.</string>
 
-    <string name="menu_terminar">Finalizar Selección</string>
+    <string name="menu_terminar">Finalizar</string>
     <string name="cargando">Cargando…</string>
+    <string name="ok">ok</string>
 
     <string name="hello_blank_fragmentContacto">Contacto</string>
 </resources>

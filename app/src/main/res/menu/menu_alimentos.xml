@@ -13,6 +13,6 @@
         android:id="@+id/menuOk"
         android:icon="@drawable/checkbox_selector_foreground"
         android:orderInCategory="200"
-        android:title="@string/menu_misclientes"
+        android:title="@string/ok"
         app:showAsAction="ifRoom" />
 </menu>

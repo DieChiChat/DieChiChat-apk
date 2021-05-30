@@ -43,4 +43,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/etTexto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/etTexto" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

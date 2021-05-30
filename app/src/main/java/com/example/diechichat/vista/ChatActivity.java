@@ -20,13 +20,15 @@ import com.example.diechichat.modelo.Chat;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.Nutricionista;
 import com.example.diechichat.vista.fragmentos.ChatFragment;
+import com.example.diechichat.vista.fragmentos.ChatListadoFragment;
 import com.example.diechichat.vistamodelo.ChatViewModel;
 import com.example.diechichat.vistamodelo.ClienteViewModel;
 
 import java.util.Calendar;
 
-public class ChatActivity extends AppCompatActivity
-        implements ChatFragment.ChatFragmentInterface {
+public class ChatActivity extends AppCompatActivity implements
+        ChatFragment.ChatFragmentInterface,
+        ChatListadoFragment.ChatListadoFragmentInterface {
 
     private ActivityChatBinding binding;
     private NavController mNavC;
@@ -44,14 +46,15 @@ public class ChatActivity extends AppCompatActivity
 
         Intent i = getIntent();
         if(i != null) {
-            if(i.getParcelableExtra("login") instanceof Nutricionista) {
-                chatVM.setLoginNutricionista(i.getParcelableExtra("login"));
-            } else if(i.getParcelableExtra("login") instanceof Cliente) {
-                chatVM.setLoginCliente(i.getParcelableExtra("login"));
-            }
+//            if(i.getParcelableExtra("login") instanceof Nutricionista) {
+//                chatVM.setLoginNutricionista(i.getParcelableExtra("login"));
+//                mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.listadoClientesChatCV)).getNavController();
+//            } else if(i.getParcelableExtra("login") instanceof Cliente) {
+//                chatVM.setLoginCliente(i.getParcelableExtra("login"));
+//                mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.misClientesFragCV)).getNavController();
+//            }
         }
 
-        mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.misClientesFragCV)).getNavController();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -94,4 +97,11 @@ public class ChatActivity extends AppCompatActivity
         return s + "-" + fecha + "-" + hora;
     }
 
+    @Override
+    public void onSeleccionarClienteFrag(Cliente c) {
+        Bundle b = new Bundle();
+        b.putParcelable("cliente", c);
+        mNavC.navigate(R.id.action_ChatListadoFragment_to_ChatFragment, b);
+
+    }
 }

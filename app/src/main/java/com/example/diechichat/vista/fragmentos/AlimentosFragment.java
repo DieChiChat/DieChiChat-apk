@@ -69,6 +69,7 @@ public class AlimentosFragment extends Fragment {
             mOp = getArguments().getInt("opcion");
             cli = getArguments().getParcelable("clienteAddDieta");
         }
+        setHasOptionsMenu(true);
 
         alimentoVM = new ViewModelProvider(this).get(AlimentoViewModel.class);
         aliSeleccionados = new ArrayList<>();
