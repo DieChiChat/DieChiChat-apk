@@ -19,6 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.FragmentPerfilBinding;
+import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.Nutricionista;
 import com.example.diechichat.vistamodelo.MainViewModel;
 
@@ -54,6 +55,13 @@ public class MiPerfilFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mainVM = new ViewModelProvider(this).get(MainViewModel.class);
+        if(getArguments() != null) {
+            Object o = getArguments().getParcelable("nutricionista");
+            if(o instanceof Nutricionista) {
+                nutri = (Nutricionista) o;
+                getArguments().getParcelable("nutricionista");
+            }
+        }
         nutri = (Nutricionista) mainVM.getLogin();
     }
     @Nullable

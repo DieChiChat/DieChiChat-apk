@@ -104,7 +104,13 @@ public class AdaptadorChat extends RecyclerView.Adapter<AdaptadorChat.ChatVH> {
         @SuppressLint("SetTextI18n")
         private void setItem(Chat chat) {
             if(mLoginCliente != null) {
-                if(chat.getId().equals(mLoginCliente.getId())) {
+                String s = "";
+                for(int i = 0; i < mLoginCliente.getId().length(); i++) {
+                    if(mLoginCliente.getId().substring(i).equals("-")) {
+                        s = mLoginCliente.getId().substring(0, i);
+                    }
+                }
+                if(s.equals(mLoginCliente.getId())) {
                     binding.tvMensaje.setText(chat.getMensaje());
                     binding.tvHora.setText(chat.getHoraMensaje().toString());
                 }

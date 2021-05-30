@@ -33,11 +33,17 @@ public class MiPerfilActivity extends AppCompatActivity implements MiPerfilFragm
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         mainVM = new ViewModelProvider(this).get(MainViewModel.class);
+
         Intent i = getIntent();
+        Bundle b = new Bundle();
         if(i != null) {
             mainVM.setLogin(i.getExtras().getParcelable("nutricionista"));
+            b.putParcelable("nutricionista", (Nutricionista)mainVM.getLogin());
         }
         mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.miperfilFragCV)).getNavController();
+//        if(b != null) {
+//            mNavC.navigate(R.id.dieta_nav_graph, b);
+//        }
     }
 
     @Override

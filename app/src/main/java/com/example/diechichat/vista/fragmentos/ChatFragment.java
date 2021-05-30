@@ -61,9 +61,9 @@ public class ChatFragment extends Fragment {
         chatVM = new ViewModelProvider(this).get(ChatViewModel.class);
 
         mAdaptadorChat = new AdaptadorChat();
-        if(chatVM.getLoginCliente() != null) {
+        if (chatVM.getLoginCliente() != null) {
             mAdaptadorChat.setmLoginCliente(chatVM.getLoginCliente());
-        } else if(chatVM.getLoginNutricionista() != null) {
+        } else if (chatVM.getLoginNutricionista() != null) {
             mAdaptadorChat.setmLoginNutricionista(chatVM.getLoginNutricionista());
         }
 
@@ -73,8 +73,7 @@ public class ChatFragment extends Fragment {
             public void onChanged(List<Chat> chats) {
                 mAdaptadorChat.setDatos(chats);
                 mAdaptadorChat.notifyDataSetChanged();
-                if (mAdaptadorChat.getItemPos() != -1 &&
-                        mAdaptadorChat.getItemPos() < mAdaptadorChat.getItemCount()) {
+                if (mAdaptadorChat.getItemPos() != -1 && mAdaptadorChat.getItemPos() < mAdaptadorChat.getItemCount()) {
                     binding.rvChats.scrollToPosition(mAdaptadorChat.getItemPos());
                 } else if (mAdaptadorChat.getItemCount() > 0) {
                     binding.rvChats.scrollToPosition(mAdaptadorChat.getItemCount() - 1);
@@ -135,13 +134,13 @@ public class ChatFragment extends Fragment {
         public void onClick(View v) {
             if(!binding.etTexto.getText().toString().equals("")) {
                 Chat chat = new Chat();
-                String id = (chatVM.getLoginCliente() != null) ? chatVM.getLoginCliente().getId() : (chatVM.getLoginNutricionista() != null) ? String.valueOf(chatVM.getLoginNutricionista().getId()) : "";
-                chat.setId(id);
+//                String id = (chatVM.getLoginCliente() != null) ? chatVM.getLoginCliente().getId() : (chatVM.getLoginNutricionista() != null) ? String.valueOf(chatVM.getLoginNutricionista().getId()) : "";
+//                chat.setId(id);
                 chat.setMensaje(binding.etTexto.getText().toString());
                 mListener.onAceptarChatFrag(chat);
+                mAdaptadorChat.notifyDataSetChanged();
+                binding.etTexto.setText("");
             }
-
-
         }
     };
 }
