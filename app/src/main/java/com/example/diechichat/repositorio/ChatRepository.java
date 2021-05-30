@@ -79,7 +79,9 @@ public class ChatRepository {
         @Override
         protected void onInactive() {
             super.onInactive();
-            reg.remove();
+            if(reg != null) {
+                reg.remove();
+            }
         }
 
         private final EventListener<QuerySnapshot> chatME_EventListener = new EventListener<QuerySnapshot>() {

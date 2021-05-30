@@ -41,11 +41,18 @@ public class MiPerfilActivity extends AppCompatActivity implements MiPerfilFragm
             b.putParcelable("nutricionista", (Nutricionista)mainVM.getLogin());
         }
         mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.miperfilFragCV)).getNavController();
-//        if(b != null) {
-//            mNavC.navigate(R.id.dieta_nav_graph, b);
-//        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
