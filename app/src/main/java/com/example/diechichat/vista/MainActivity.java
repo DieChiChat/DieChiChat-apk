@@ -1,10 +1,14 @@
 package com.example.diechichat.vista;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,7 +64,8 @@ public class MainActivity extends AppCompatActivity implements
 
         mainVM = new ViewModelProvider(this).get(MainViewModel.class);
         if(mainVM.getLogin() == null && savedInstanceState == null) {
-            mNavC.navigate(R.id.action_nav_inicio_to_loginFragment);
+
+                        mNavC.navigate(R.id.action_nav_inicio_to_loginFragment);
         }
     }
 
@@ -172,7 +177,8 @@ public class MainActivity extends AppCompatActivity implements
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.salir) {
+            mostrarDlgSalir();
             return true;
         }
         return super.onOptionsItemSelected(item);

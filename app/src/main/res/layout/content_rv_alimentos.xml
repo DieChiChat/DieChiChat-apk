@@ -13,24 +13,16 @@
         android:id="@+id/tv_nombreAlimento"
         style="@style/Theme.DieChiChat"
         android:layout_width="0dp"
-        android:layout_height="34dp"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/npCantidad"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <NumberPicker
-        android:id="@+id/npCantidad"
-        style="@style/Theme.DieChiChat"
-        android:layout_width="125dp"
-        android:layout_height="50dp"
-        android:layout_margin="5dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_nombreAlimento"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_nombreAlimento" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

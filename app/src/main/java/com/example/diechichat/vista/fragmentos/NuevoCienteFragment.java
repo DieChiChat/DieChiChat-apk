@@ -227,7 +227,6 @@ public class NuevoCienteFragment extends Fragment implements
             }
         } else if(item.getItemId() == R.id.menuEliminar) {
             mListener.onEliminarClienteFrag(c);
-//            mostrarDlgSalir();
         }
         return super.onOptionsItemSelected(item);
     }

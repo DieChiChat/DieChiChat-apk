@@ -125,6 +125,19 @@
     <string name="menu_terminar">Finalizar</string>
     <string name="cargando">Cargando…</string>
     <string name="ok">ok</string>
+    <string name="salir">Salir</string>
+    <string name="msg_bienvenida2">¿Preparado para el cambio?</string>
+    <string name="splashApp_key">splashApp_key</string>
+    <string name="category_Interfaz">Interfaz</string>
+    <string name="splashApp_title">Duración Splash (3sg)</string>
+
+    <string name="tvNombreAlimento">Nombre:</string>
+    <string name="tvCantidad">Cantidad:</string>
+    <string name="tvKcal">Kcal:</string>
+    <string name="tvProteinas">Proteínas:</string>
+    <string name="tvGrasa">Grasa:</string>
+    <string name="tvCarbohidratos">Carbohidratos:</string>
+    <string name="tvFibra">Fibra:</string>
 
     <string name="hello_blank_fragmentContacto">Contacto</string>
 </resources>

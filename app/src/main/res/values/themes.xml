@@ -19,6 +19,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.DieChiChat.NoActionBar">
+        <item name="android:windowBackground">@drawable/logo_small_icon_only_inverted_apk</item>
+    </style>
+
     <style name="Theme.DieChiChat.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.DieChiChat.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

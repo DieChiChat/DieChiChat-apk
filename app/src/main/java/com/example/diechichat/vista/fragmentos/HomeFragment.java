@@ -27,6 +27,8 @@ import com.example.diechichat.vistamodelo.MainViewModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -41,6 +43,26 @@ public class HomeFragment extends Fragment {
 
         mainVM = new ViewModelProvider(this).get(MainViewModel.class);
 
+        Calendar calendario = Calendar.getInstance();
+        String hora = String.valueOf(calendario.get(Calendar.HOUR_OF_DAY)) + String.valueOf(calendario.get(Calendar.MINUTE)) + String.valueOf(calendario.get(Calendar.SECOND));
+
+    }
+
+    public void doWork() {
+//        runOnUiThread(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                try {
+//                    Date date = new Date();
+//                    int hora = date.getHours();
+//                    int minutos = date.getMinutes();
+//                    int segundos = date.getSeconds();
+//                    binding.tvHoraHome.setText(hora + "" + minutos + "" + segundos);
+//                } catch(Exception ignore) {
+//                }
+//            }
+//        });
     }
 
     @Override

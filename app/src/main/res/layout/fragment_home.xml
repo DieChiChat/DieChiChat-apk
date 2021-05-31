@@ -4,18 +4,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".vista.fragmentos.HomeFragment">
+
 
     <TextView
         android:id="@+id/etTextoHome"
         style="@style/Theme.DieChiChat"
-        android:layout_width="0dp"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:text="@string/welcome"
+        android:layout_marginTop="100dp"
+        android:fontFamily="serif-monospace"
+        android:text="@string/msg_bienvenida2"
         android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/darkBlue"
+        android:textSize="34sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <AnalogClock
+        android:id="@+id/relojAnalogico"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:background="@drawable/redondo_blue"
+        android:textAlignment="textEnd"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/ivCuchillo"
+        app:layout_constraintEnd_toStartOf="@+id/ivCuchillo"
+        app:layout_constraintStart_toEndOf="@+id/ivTenedor" />
+
+    <ImageView
+        android:id="@+id/ivTenedor"
+        android:layout_width="130dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="24dp"
+        android:src="@drawable/logo_tenedor"
+        app:layout_constraintBottom_toBottomOf="@+id/relojAnalogico"
+        app:layout_constraintEnd_toStartOf="@+id/relojAnalogico"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivCuchillo"
+        android:layout_width="130dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="32dp"
+        android:src="@drawable/logo_cuchillo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/relojAnalogico"
+        app:layout_constraintTop_toBottomOf="@+id/etTextoHome" />
 </androidx.constraintlayout.widget.ConstraintLayout>

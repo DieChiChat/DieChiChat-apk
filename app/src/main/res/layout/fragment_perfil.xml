@@ -15,7 +15,6 @@
 
     <TextView
         android:id="@+id/textView2"
-        style="@style/Theme.DieChiChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -26,7 +25,6 @@
 
     <EditText
         android:id="@+id/et_nombre"
-        style="@style/Theme.DieChiChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -38,7 +36,6 @@
 
     <TextView
         android:id="@+id/textView3"
-        style="@style/Theme.DieChiChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
@@ -49,7 +46,6 @@
 
     <EditText
         android:id="@+id/et_apellidos"
-        style="@style/Theme.DieChiChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -61,7 +57,6 @@
 
     <TextView
         android:id="@+id/textView4"
-        style="@style/Theme.DieChiChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
@@ -72,7 +67,6 @@
 
     <EditText
         android:id="@+id/et_usuario"
-        style="@style/Theme.DieChiChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -84,7 +78,6 @@
 
     <TextView
         android:id="@+id/textView5"
-        style="@style/Theme.DieChiChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
@@ -95,7 +88,6 @@
 
     <EditText
         android:id="@+id/et_contrasena"
-        style="@style/Theme.DieChiChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"

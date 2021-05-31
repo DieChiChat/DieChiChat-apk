@@ -108,15 +108,6 @@ public class NetworkUtils {
                     alimento.setGrasa(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("FAT"));
                     alimento.setCarbohidratos(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("CHOCDF"));
                     alimento.setFibra(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("FIBTG"));
-                    alimento.setVitaminaA(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("VITA_RAE"));
-                    alimento.setVitaminaC(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("VITC"));
-                    alimento.setCalcio(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("CA"));
-                    alimento.setColesterol(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("COLE"));
-                    alimento.setGrasasSaturadas(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("FASAT"));
-                    alimento.setSodio(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("NA"));
-                    alimento.setHierro(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("FE"));
-                    alimento.setPotasio(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("K"));
-                    alimento.setAzucares(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("SUGAR"));
 
                 } catch (Exception e) {
                     e.printStackTrace();
