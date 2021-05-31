@@ -145,6 +145,7 @@ public class AlimentosFragment extends Fragment {
                 }
             }
         }
+        mListener.onSeleccionarAlimentoFrag(null);
         return super.onOptionsItemSelected(item);
     }
 

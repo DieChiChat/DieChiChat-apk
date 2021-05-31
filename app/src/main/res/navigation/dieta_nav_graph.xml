@@ -20,6 +20,16 @@
         android:id="@+id/fragment_alimentos"
         android:name="com.example.diechichat.vista.fragmentos.AlimentosFragment"
         android:label="@string/title_activity_dieta"
-        tools:layout="@layout/fragment_alimentos"/>
+        tools:layout="@layout/fragment_alimentos">
+        <action
+            android:id="@+id/action_fragment_alimentos_to_fragment_alimento_seleccionado"
+            app:destination="@id/fragment_alimento_seleccionado" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_alimento_seleccionado"
+        android:name="com.example.diechichat.vista.fragmentos.AlimentoSeleccionadoFragment"
+        android:label="@string/title_activity_fragmentAlimentoSeleccionado"
+        tools:layout="@layout/fragment_alimento_seleccionado"/>
 
 </navigation>

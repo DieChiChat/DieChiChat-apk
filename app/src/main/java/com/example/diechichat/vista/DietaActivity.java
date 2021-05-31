@@ -15,6 +15,7 @@ import com.example.diechichat.modelo.Alimento;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.DatosAlimentos;
 import com.example.diechichat.modelo.Runable;
+import com.example.diechichat.vista.fragmentos.AlimentoSeleccionadoFragment;
 import com.example.diechichat.vista.fragmentos.AlimentosFragment;
 import com.example.diechichat.vista.fragmentos.DietaFragment;
 import com.example.diechichat.vistamodelo.AlimentoViewModel;
@@ -35,8 +36,10 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
-public class DietaActivity extends AppCompatActivity
-    implements DietaFragment.DietaFragmentInterface, AlimentosFragment.AlimentoFragmentInterface {
+public class DietaActivity extends AppCompatActivity implements
+        DietaFragment.DietaFragmentInterface,
+        AlimentosFragment.AlimentoFragmentInterface,
+        AlimentoSeleccionadoFragment.AlimentoSeleccionadoFragmentInterface {
 
     private ActivityDietaBinding binding;
     private NavController mNavC;
@@ -79,6 +82,16 @@ public class DietaActivity extends AppCompatActivity
         bundleCli.putParcelable("clienteAddDieta", c);
         bundleCli.putInt("op", opcion);
         mNavC.navigate(R.id.action_fragment_dieta_to_fragment_alimentos, bundleCli);
+    }
+
+    @Override
+    public void onAceptarAliSeleccionadoFrag() {
+        
+    }
+
+    @Override
+    public void onCancelarAliSeleccionadoFrag() {
+
     }
 
 
@@ -135,6 +148,6 @@ public class DietaActivity extends AppCompatActivity
 
     @Override
     public void onSeleccionarAlimentoFrag(Alimento a) {
-
+        mNavC.navigate(R.id.action_fragment_alimentos_to_fragment_alimento_seleccionado);
     }
 }
