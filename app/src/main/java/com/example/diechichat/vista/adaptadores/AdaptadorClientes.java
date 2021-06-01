@@ -112,13 +112,13 @@ public class AdaptadorClientes extends RecyclerView.Adapter<AdaptadorClientes.Cl
         }
         private void setItem(Cliente cli) {
             binding.tvNombreCli.setText(cli.getNombreCompleto());
-            mostrarImagenStorage(cli);
-            if(!mostrarImagenStorage(cli)) {
+            boolean hayImagen = mostrarImagenStorage(cli);
+            if(!hayImagen) {
                 binding.imagebCamara.setImageResource(R.drawable.perfil_logo_small);
             }
         }
 
-        public Boolean mostrarImagenStorage(Cliente cli) {
+        public boolean mostrarImagenStorage(Cliente cli) {
             final boolean[] existeFoto = {false};
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageReference = storage.getReferenceFromUrl("gs://diechichat.appspot.com").child("fotosClientes/" + cli.getId()).child("imagen" + cli.getId() + ".jpeg");

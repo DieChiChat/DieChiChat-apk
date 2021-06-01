@@ -64,8 +64,7 @@ public class MainActivity extends AppCompatActivity implements
 
         mainVM = new ViewModelProvider(this).get(MainViewModel.class);
         if(mainVM.getLogin() == null && savedInstanceState == null) {
-
-                        mNavC.navigate(R.id.action_nav_inicio_to_loginFragment);
+            mNavC.navigate(R.id.action_nav_inicio_to_loginFragment);
         }
     }
 
@@ -119,31 +118,33 @@ public class MainActivity extends AppCompatActivity implements
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             if (item.getItemId() == R.id.menu_inicio) {
-//                Bundle bundle = null;
+                Intent i = null;
 //                if(mainVM.getLogin() instanceof Nutricionista) {
 //                    bundle = new Bundle();
 //                    bundle.putParcelable("usuario",(Nutricionista) mainVM.getLogin());
-//                } else if(mainVM.getLogin() instanceof Cliente) {
-//                    bundle = new Bundle();
-//                    bundle.putParcelable("usuario",(Cliente) mainVM.getLogin());
+//                } else
+//                 if(mainVM.getLogin() instanceof Cliente) {
+//                    i = new Intent();
+//                    i.putExtra("usuario",(Cliente) mainVM.getLogin());
 //                }
-//                if(bundle != null) {
-//                    mNavC.navigate(R.id.action_nav_inicio_to_fragment_dieta, bundle);
+//                if(i != null) {
+//                    startActivity(i);
 //                }
             } else if (item.getItemId() == R.id.menu_miperfil) {
-                Intent i = null;
-                if(mainVM.getLogin() instanceof Nutricionista) {
-                    i = new Intent(MainActivity.this, MiPerfilActivity.class);
-                    i.putExtra("nutricionista",(Nutricionista) mainVM.getLogin());
-                    i.putExtra("op",NuevoCienteFragment.OP_EDITAR);
-
-                } else if(mainVM.getLogin() instanceof Cliente) {
-                    i = new Intent(MainActivity.this, NuevoClienteActivity.class);
-                    i.putExtra("cliente",(Cliente) mainVM.getLogin());
-                    i.putExtra("op",NuevoCienteFragment.OP_EDITAR);
-                }
-                if(i != null) {
-                    startActivity(i);
+                if(mainVM.getLogin() != null) {
+                    Intent i = null;
+                    if(mainVM.getLogin() instanceof Nutricionista) {
+                        i = new Intent(MainActivity.this, MiPerfilActivity.class);
+                        i.putExtra("login",(Nutricionista) mainVM.getLogin());
+                        i.putExtra("op",NuevoCienteFragment.OP_EDITAR);
+                    } else if(mainVM.getLogin() instanceof Cliente) {
+                        i = new Intent(MainActivity.this, NuevoClienteActivity.class);
+                        i.putExtra("login",(Cliente) mainVM.getLogin());
+                        i.putExtra("op",NuevoCienteFragment.OP_EDITAR);
+                    }
+                    if(i != null) {
+                        startActivity(i);
+                    }
                 }
             } else if (item.getItemId() == R.id.menu_misclientes) {
                 Intent i = new Intent(MainActivity.this, MisClientesActivity.class);

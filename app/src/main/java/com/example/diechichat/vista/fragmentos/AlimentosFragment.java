@@ -71,11 +71,10 @@ public class AlimentosFragment extends Fragment {
         }
         setHasOptionsMenu(true);
 
-        alimentoVM = new ViewModelProvider(this).get(AlimentoViewModel.class);
+        alimentoVM = new ViewModelProvider(requireActivity()).get(AlimentoViewModel.class);
         aliSeleccionados = new ArrayList<>();
 
         mAdapterAlimentos = new AdaptadorAlimentos();
-        mAdapterAlimentos.setDatos(DatosAlimentos.getInstance().getAlimentos());
 
         alimentoVM.getListado().observe(this, new Observer<List<Alimento>>() {
             @Override
@@ -98,7 +97,6 @@ public class AlimentosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAlimentosBinding.inflate(inflater, container, false);
 
-        binding.rvAlimentos.setAdapter(mAdapterAlimentos);
         return binding.getRoot();
     }
 
@@ -106,6 +104,7 @@ public class AlimentosFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        binding.rvAlimentos.setAdapter(mAdapterAlimentos);
         binding.btBuscarAlimento.setOnClickListener(btBuscarAlimento_onClickListener);
     }
 
@@ -164,7 +163,6 @@ public class AlimentosFragment extends Fragment {
                 }
             }
             mListener.onBuscarAlimentoFrag(query, v);
-            List<Alimento> tAlimentos = DatosAlimentos.getInstance().getAlimentos();
             mAdapterAlimentos.notifyDataSetChanged();
         }
     };

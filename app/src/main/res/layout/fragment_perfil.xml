@@ -14,6 +14,17 @@
         app:layout_constraintGuide_percent="0.3" />
 
     <TextView
+        android:id="@+id/tvIdPerfil"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/et_nombre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,8 +36,9 @@
 
     <EditText
         android:id="@+id/et_nombre"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="@+id/textView2"
@@ -46,8 +58,9 @@
 
     <EditText
         android:id="@+id/et_apellidos"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="@+id/textView3"
@@ -67,8 +80,9 @@
 
     <EditText
         android:id="@+id/et_usuario"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="@+id/textView4"
@@ -88,13 +102,12 @@
 
     <EditText
         android:id="@+id/et_contrasena"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
         android:password="true"
         app:layout_constraintBottom_toBottomOf="@+id/textView5"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toTopOf="@+id/textView5" />
 
@@ -130,4 +143,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btCancelar"
         app:layout_constraintTop_toTopOf="@+id/btCancelar" />
+
+
+    <ImageButton
+        android:id="@+id/btVerContrasena"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@color/white"
+        android:src="@drawable/ver_ojo_round"
+        app:layout_constraintBottom_toBottomOf="@+id/et_contrasena"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/et_contrasena"
+        app:layout_constraintTop_toTopOf="@+id/et_contrasena" />
 </androidx.constraintlayout.widget.ConstraintLayout>

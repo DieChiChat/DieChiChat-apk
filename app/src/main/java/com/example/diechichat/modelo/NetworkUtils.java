@@ -86,12 +86,6 @@ public class NetworkUtils {
             tAlimentos = new ArrayList<Alimento>();
             // Convert the response into a JSON object.
             JSONObject jsonObject = new JSONObject(s);
-            // Get the JSONArray of book items.
-//            JSONArray itemsArray = jsonObject.getJSONArray("json");
-//            for (int i = 0; i < jsonObject.length(); i++) {
-//                String value = jsonObject.getString("text");
-//                Log.e("json", i+"="+value);
-//            }
             int i = 0;
             while (i < jsonObject.length()) {
                 // Get the current item information.
@@ -99,8 +93,6 @@ public class NetworkUtils {
                 // Try to get the author and title from the current item,
                 // catch if either field is empty and move on.
                 try {
-//                    double valor = jsonObject.getJSONArray("hints").getJSONObject(0).getJSONObject("food").getJSONObject("nutrients").getDouble("ENERC_KCAL");
-//                    String nombre = jsonObject.getJSONArray("hints").getJSONObject(0).getJSONObject("food").getString("label");
                     alimento = new Alimento();
                     alimento.setNombre(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getString("label"));
                     alimento.setKcal(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getJSONObject("nutrients").getDouble("ENERC_KCAL"));

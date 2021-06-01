@@ -51,16 +51,21 @@ public class NuevoClienteActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityNuevoClienteBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        setSupportActionBar(binding.toolbar);
 
         cliVM = new ViewModelProvider(this).get(ClienteViewModel.class);
 
+        Intent i = getIntent();
+        if(i != null) {
+            cliVM.setLogin(i.getExtras().getParcelable("login"));
+        }
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        binding = ActivityNuevoClienteBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setSupportActionBar(binding.toolbar);
         mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nuevoClienteFragCV)).getNavController();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

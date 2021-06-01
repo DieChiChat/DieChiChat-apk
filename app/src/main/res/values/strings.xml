@@ -126,7 +126,7 @@
     <string name="cargando">Cargando…</string>
     <string name="ok">ok</string>
     <string name="salir">Salir</string>
-    <string name="msg_bienvenida2">¿Preparado para el cambio?</string>
+    <string name="msg_bienvenida2">¡ Es la hora del cambio !</string>
     <string name="splashApp_key">splashApp_key</string>
     <string name="category_Interfaz">Interfaz</string>
     <string name="splashApp_title">Duración Splash (3sg)</string>

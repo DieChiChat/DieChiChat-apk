@@ -68,7 +68,7 @@ public class LoginFragment extends Fragment {
             ;
         }
         nutriVM = new ViewModelProvider(this).get(NutriViewModel.class);
-        cliVM = new ViewModelProvider(this).get(ClienteViewModel.class);
+        cliVM = new ViewModelProvider(requireActivity()).get(ClienteViewModel.class);
         tNutricionistas = new ArrayList<>();
         tClientes = new ArrayList<>();
         extraerNutricionistas();

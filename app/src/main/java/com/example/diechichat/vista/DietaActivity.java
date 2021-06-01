@@ -50,17 +50,23 @@ public class DietaActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityDietaBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        setSupportActionBar(binding.toolbar);
-
         cliVM = new ViewModelProvider(this).get(ClienteViewModel.class);
         alimentoVM = new ViewModelProvider(this).get(AlimentoViewModel.class);
+
+//        TODO: terminar
+//        Intent i = getIntent();
+//        if(i != null) {
+//
+//        }
 
         DietaActivity.Receptor receptor = new DietaActivity.Receptor();
         IntentFilter filter = new IntentFilter();
         filter.addAction("RESPUESTA_JSON");
         LocalBroadcastManager.getInstance(this).registerReceiver(receptor, filter);
+
+        binding = ActivityDietaBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setSupportActionBar(binding.toolbar);
 
         mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.dietaFragCV)).getNavController();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -70,7 +76,8 @@ public class DietaActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+                mNavC.navigateUp();
+                //onBackPressed();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -86,7 +93,7 @@ public class DietaActivity extends AppCompatActivity implements
 
     @Override
     public void onAceptarAliSeleccionadoFrag() {
-        
+
     }
 
     @Override

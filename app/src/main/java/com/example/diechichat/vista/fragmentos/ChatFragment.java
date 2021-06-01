@@ -60,7 +60,7 @@ public class ChatFragment extends Fragment {
         }
 
 
-        chatVM = new ViewModelProvider(this).get(ChatViewModel.class);
+        chatVM = new ViewModelProvider(requireActivity()).get(ChatViewModel.class);
 
         mAdaptadorChat = new AdaptadorChat();
         if (chatVM.getLoginCliente() != null) {

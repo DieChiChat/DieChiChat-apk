@@ -85,10 +85,13 @@ public class NuevoCienteFragment extends Fragment implements
         if (getArguments() != null) {
             mOp = getArguments().getInt("op");
             c = getArguments().getParcelable("clienteVer");
-            mLogin = getArguments().getInt("login");
         }
 
-        cliVM = new ViewModelProvider(this).get(ClienteViewModel.class);
+        cliVM = new ViewModelProvider(requireActivity()).get(ClienteViewModel.class);
+        if(c == null) {
+            c = cliVM.getLogin();
+            mOp = OP_EDITAR;
+        }
 
         cliVM.getmFechaDlg().observe(this, new Observer<String>() {
             @Override
@@ -137,15 +140,12 @@ public class NuevoCienteFragment extends Fragment implements
         binding.btFecnac.setOnClickListener(btFecnac_OnClickListener);
         binding.btVerContrasena.setOnClickListener(btVerContrasena_OnClickListener);
 
-        if(cliVM.getLogin() != null) {
-            mOp = OP_EDITAR;
-        }
         if (mOp != -1) {
             switch (mOp) {
                 case OP_EDITAR:
                     binding.tvFoto.setText(R.string.tvFotoCambiar);
                     Bundle b = getArguments();
-                    if (b != null) {
+                    if (b != null || c != null) {
                         habilitarCampos(false);
                         if(cliVM.getLogin() != null) {
                             c = cliVM.getLogin();
@@ -171,7 +171,8 @@ public class NuevoCienteFragment extends Fragment implements
                 case OP_CREAR:
                     binding.tvFoto.setText(R.string.tvFotoAsignar);
                     binding.tvId.setVisibility(View.INVISIBLE);
-                    binding.btVerContrasena.setVisibility(View.INVISIBLE);
+//                    binding.btVerContrasena.setVisibility(View.INVISIBLE);
+                    binding.etNuevoContrasena.setTransformationMethod(new PasswordTransformationMethod());
                     habilitarCampos(true);
                     break;
             }
@@ -251,7 +252,7 @@ public class NuevoCienteFragment extends Fragment implements
                             !binding.etNuevoContrasena.getText().toString().equals("") &&
                             !binding.etFecNac.getText().toString().equals("")) {
 
-                        // Creación un nuevo cliente
+                        // Creación nuevo cliente
                         c = new Cliente();
                         c.setNombreCompleto(binding.etNuevoNombre.getText().toString() + " " + binding.etNuevoApellidos.getText().toString());
                         c.setNombre(binding.etNuevoNombre.getText().toString());

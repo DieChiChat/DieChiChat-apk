@@ -41,28 +41,11 @@ public class HomeFragment extends Fragment {
         if (getArguments() != null) {
         }
 
-        mainVM = new ViewModelProvider(this).get(MainViewModel.class);
+        mainVM = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
         Calendar calendario = Calendar.getInstance();
         String hora = String.valueOf(calendario.get(Calendar.HOUR_OF_DAY)) + String.valueOf(calendario.get(Calendar.MINUTE)) + String.valueOf(calendario.get(Calendar.SECOND));
 
-    }
-
-    public void doWork() {
-//        runOnUiThread(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                try {
-//                    Date date = new Date();
-//                    int hora = date.getHours();
-//                    int minutos = date.getMinutes();
-//                    int segundos = date.getSeconds();
-//                    binding.tvHoraHome.setText(hora + "" + minutos + "" + segundos);
-//                } catch(Exception ignore) {
-//                }
-//            }
-//        });
     }
 
     @Override
@@ -75,11 +58,11 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(mainVM.getLogin() instanceof Nutricionista) {
-            binding.etTextoHome.setText("Welcome " + ((Nutricionista)mainVM.getLogin()).getNombreCompleto());
-        } else if(mainVM.getLogin() instanceof Cliente) {
-            binding.etTextoHome.setText("Welcome " + ((Cliente)mainVM.getLogin()).getNombreCompleto());
-        }
+//        if(mainVM.getLogin() instanceof Nutricionista) {
+//            binding.etTextoHome.setText("Welcome " + ((Nutricionista)mainVM.getLogin()).getNombreCompleto());
+//        } else if(mainVM.getLogin() instanceof Cliente) {
+//            binding.etTextoHome.setText("Welcome " + ((Cliente)mainVM.getLogin()).getNombreCompleto());
+//        }
     }
 
     @Override

@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,7 +34,7 @@ public class MiPerfilFragment extends Fragment {
     private MainViewModel mainVM;
 
     public interface PerfilFragInterface{
-        void onAceptarPerfilFrag();
+        void onAceptarPerfilFrag(Nutricionista nutricionista);
         void onCancelarPerfilFrag();
     }
 
@@ -54,14 +55,12 @@ public class MiPerfilFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        mainVM = new ViewModelProvider(this).get(MainViewModel.class);
         if(getArguments() != null) {
-            Object o = getArguments().getParcelable("nutricionista");
-            if(o instanceof Nutricionista) {
-                nutri = (Nutricionista) o;
-                getArguments().getParcelable("nutricionista");
-            }
+//            Bundle b = getArguments();
+//            nutri = getArguments().getParcelable("login") ;
         }
+
+        mainVM = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
         nutri = (Nutricionista) mainVM.getLogin();
     }
     @Nullable
@@ -76,15 +75,19 @@ public class MiPerfilFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         habilitarCampos(false);
+        binding.tvIdPerfil.setVisibility(View.INVISIBLE);
 
         if(nutri != null) {
+            binding.tvIdPerfil.setText(String.valueOf(nutri.getId()));
             binding.etNombre.setText(nutri.getNombre());
             binding.etApellidos.setText(nutri.getApellidos());
             binding.etUsuario.setText(nutri.getUsuario());
             binding.etContrasena.setText(nutri.getContrasena());
+            binding.etContrasena.setTransformationMethod(new PasswordTransformationMethod());
         }
         binding.btAceptar.setOnClickListener(btAceptar_onClickListener);
         binding.btCancelar.setOnClickListener(btCancelar_onClickListener);
+        binding.btVerContrasena.setOnClickListener(btVerContrasena_OnClickListener);
     }
 
     @Override
@@ -124,22 +127,53 @@ public class MiPerfilFragment extends Fragment {
     View.OnClickListener btAceptar_onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            mListener.onAceptarPerfilFrag();
+            esconderTeclado(v);
+
+            if (!binding.etNombre.getText().toString().equals("") &&
+                    !binding.etApellidos.getText().toString().equals("") &&
+                    !binding.etUsuario.getText().toString().equals("") &&
+                    !binding.etContrasena.getText().toString().equals("")) {
+                Nutricionista n = new Nutricionista();
+                n.setId(Integer.parseInt(binding.tvIdPerfil.getText().toString()));
+                n.setNombre(binding.etNombre.getText().toString());
+                n.setApellidos(binding.etApellidos.getText().toString());
+                n.setUsuario(binding.etUsuario.getText().toString());
+                n.setContrasena(binding.etContrasena.getText().toString());
+                mListener.onAceptarPerfilFrag(n);
+            } else {
+                mListener.onAceptarPerfilFrag(null);
+            }
         }
     };
     View.OnClickListener btCancelar_onClickListener= new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //Ocultamos el teclado!
-
-            InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm != null) imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            esconderTeclado(v);
 
             if (mListener != null) {
                 mListener.onCancelarPerfilFrag();
             }
         }
     };
+
+
+    View.OnClickListener btVerContrasena_OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            esconderTeclado(v);
+            if (binding.etContrasena.getTransformationMethod() == null) {
+                binding.etContrasena.setTransformationMethod(new PasswordTransformationMethod());
+            } else {
+                binding.etContrasena.setTransformationMethod(null);
+            }
+        }
+    };
+
+
+    public void esconderTeclado(View v) {
+        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
 
     public void habilitarCampos(boolean habilitado) {
         if(habilitado) {

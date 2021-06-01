@@ -29,8 +29,6 @@ public class AdaptadorAlimentos extends RecyclerView.Adapter<AdaptadorAlimentos.
     }
 
     public void setDatos(List<Alimento> datos) {
-        mDatos = new ArrayList<>();
-
         mDatos = datos;
     }
 
