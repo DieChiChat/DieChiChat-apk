@@ -74,15 +74,15 @@ public class MisClientesActivity extends AppCompatActivity implements
     @Override
     public void onVerClienteFrag(Cliente cli) {
         Bundle bundleCli = new Bundle();
-        bundleCli.putParcelable("clienteVer", cli);
-        bundleCli.putInt("op", NuevoCienteFragment.OP_EDITAR);
+        bundleCli.putParcelable("cliente", cli);
+        bundleCli.putInt("opcion", NuevoCienteFragment.OP_EDITAR);
         mNavC.navigate(R.id.action_mis_clientes_to_nuevoCienteFragment, bundleCli);
     }
 
     @Override
     public void onAddDietaFrag(Cliente cli) {
         Intent i = new Intent(MisClientesActivity.this, DietaActivity.class);
-        i.putExtra("clienteAddDieta", cli);
+        i.putExtra("cliente", cli);
         startActivity(i);
     }
 

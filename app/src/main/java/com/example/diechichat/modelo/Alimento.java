@@ -6,6 +6,7 @@ import android.os.Parcelable;
 public class Alimento implements Parcelable {
     /* Atributos **********************************************************************************/
     private int id;
+    private String cantidad;
     private double kcal;
     private double proteinas;
     private double grasa;
@@ -28,6 +29,7 @@ public class Alimento implements Parcelable {
         proteinas = in.readDouble();
         nombre = in.readString();
         kcal = in.readDouble();
+        cantidad = in.readString();
     }
 
     @Override
@@ -39,6 +41,7 @@ public class Alimento implements Parcelable {
         dest.writeDouble(proteinas);
         dest.writeString(nombre);
         dest.writeDouble(kcal);
+        dest.writeString(cantidad);
     }
 
     @Override
@@ -80,4 +83,9 @@ public class Alimento implements Parcelable {
 
     public double getKcal() { return kcal; }
     public void setKcal(double kcal) { this.kcal = kcal; }
+
+    public void setCantidad(String cantidad) { this.cantidad = cantidad; }
+    public String getCantidad() { return cantidad; }
+
+
 }

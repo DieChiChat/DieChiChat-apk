@@ -141,4 +141,19 @@
 
     <string name="hello_blank_fragmentContacto">Contacto</string>
     <string name="title_activity_fragmentAlimentoSeleccionado">Propiedades Alimento</string>
+    <string name="msg_alimentoGuardado">Alimento guardado</string>
+    <string name="msg_alimentoNoGuardado">Alimento no guardado</string>
+    <string name="msg_alimentoNoValido">Selecciona un alimento válido</string>
+
+    <string-array name="array_tipos">
+        <item></item>
+        <item>l</item>
+        <item>ml</item>
+        <item>kg</item>
+        <item>mg</item>
+        <item>g</item>
+        <item>Cucharada</item>
+        <item>Pieza</item>
+        <item>onza</item>
+    </string-array>
 </resources>

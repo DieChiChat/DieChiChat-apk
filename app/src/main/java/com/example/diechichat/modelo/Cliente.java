@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente implements Parcelable {
@@ -34,6 +35,10 @@ public class Cliente implements Parcelable {
 
     /* Constructor ********************************************************************************/
     public Cliente() {
+        this.tDesayuno = new ArrayList<>();
+        this.tComida = new ArrayList<>();
+        this.tCena = new ArrayList<>();
+        this.tOtros = new ArrayList<>();
     }
 
 
@@ -51,6 +56,10 @@ public class Cliente implements Parcelable {
         nombre = in.readString();
         apellidos = in.readString();
         foto = in.readParcelable(Bitmap.class.getClassLoader());
+        tDesayuno = in.createTypedArrayList(Alimento.CREATOR);
+        tComida = in.createTypedArrayList(Alimento.CREATOR);
+        tCena = in.createTypedArrayList(Alimento.CREATOR);
+        tOtros = in.createTypedArrayList(Alimento.CREATOR);
     }
 
     @Override
@@ -66,6 +75,10 @@ public class Cliente implements Parcelable {
         dest.writeString(nombre);
         dest.writeString(apellidos);
         dest.writeParcelable(foto, flags);
+        dest.writeTypedList(tDesayuno);
+        dest.writeTypedList(tComida);
+        dest.writeTypedList(tCena);
+        dest.writeTypedList(tOtros);
     }
 
     @Override
@@ -147,4 +160,15 @@ public class Cliente implements Parcelable {
     public Bitmap getFoto() { return foto; }
     public void setFoto(Bitmap foto) { this.foto = foto; }
 
+    public List<Alimento> getDesayuno() { return tDesayuno; }
+    public void setDesayuno(List<Alimento> tDesayuno) { this.tDesayuno = tDesayuno; }
+
+    public List<Alimento> getComida() { return tComida; }
+    public void setComida(List<Alimento> tComida) { this.tComida = tComida; }
+
+    public List<Alimento> getCena() { return tCena; }
+    public void setCena(List<Alimento> tCena) { this.tCena = tCena; }
+
+    public List<Alimento> getOtros() { return tOtros; }
+    public void setOtros(List<Alimento> tOtros) { this.tOtros = tOtros; }
 }

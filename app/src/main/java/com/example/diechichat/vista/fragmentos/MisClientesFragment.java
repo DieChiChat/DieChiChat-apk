@@ -63,7 +63,7 @@ public class MisClientesFragment extends Fragment {
         ClienteViewModel clisVM = new ViewModelProvider(requireActivity()).get(ClienteViewModel.class);
         mAdaptadorClis = new AdaptadorClientes();
 
-        // Inits Incs Observer
+        // Inits Observer
         clisVM.getClientesME().observe(this, new Observer<List<Cliente>>() {
             @Override
             public void onChanged(List<Cliente> clis) {
@@ -76,6 +76,7 @@ public class MisClientesFragment extends Fragment {
                     binding.rvClientes.scrollToPosition(mAdaptadorClis.getItemCount() - 1);
                 }
                 mAdaptadorClis.setItemPos(-1);
+                mAdaptadorClis.notifyDataSetChanged();
             }
         });
     }
@@ -140,6 +141,8 @@ public class MisClientesFragment extends Fragment {
                 }
             }
         }
+
+        mAdaptadorClis.notifyDataSetChanged();
         return super.onOptionsItemSelected(item);
 
     }

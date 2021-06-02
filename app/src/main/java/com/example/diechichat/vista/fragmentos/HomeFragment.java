@@ -59,10 +59,10 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 //        if(mainVM.getLogin() instanceof Nutricionista) {
-//            binding.etTextoHome.setText("Welcome " + ((Nutricionista)mainVM.getLogin()).getNombreCompleto());
-//        } else if(mainVM.getLogin() instanceof Cliente) {
-//            binding.etTextoHome.setText("Welcome " + ((Cliente)mainVM.getLogin()).getNombreCompleto());
-//        }
+////            binding.etTextoHome.setText("Welcome " + ((Nutricionista)mainVM.getLogin()).getNombreCompleto());
+////        } else if(mainVM.getLogin() instanceof Cliente) {
+////            binding.etTextoHome.setText("Welcome " + ((Cliente)mainVM.getLogin()).getNombreCompleto());
+////        }
     }
 
     @Override

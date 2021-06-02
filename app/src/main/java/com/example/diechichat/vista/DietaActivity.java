@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.example.diechichat.modelo.Alimento;
 import com.example.diechichat.modelo.Cliente;
@@ -24,6 +25,7 @@ import com.example.diechichat.vistamodelo.ClienteViewModel;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.NavController;
@@ -45,6 +47,7 @@ public class DietaActivity extends AppCompatActivity implements
     private NavController mNavC;
     private ClienteViewModel cliVM;
     private AlimentoViewModel alimentoVM;
+    private int opcion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +56,10 @@ public class DietaActivity extends AppCompatActivity implements
         cliVM = new ViewModelProvider(this).get(ClienteViewModel.class);
         alimentoVM = new ViewModelProvider(this).get(AlimentoViewModel.class);
 
-//        TODO: terminar
-//        Intent i = getIntent();
-//        if(i != null) {
-//
-//        }
+        Intent i = getIntent();
+        if(i != null) {
+            cliVM.setLogin(i.getParcelableExtra("cliente"));
+        }
 
         DietaActivity.Receptor receptor = new DietaActivity.Receptor();
         IntentFilter filter = new IntentFilter();
@@ -83,26 +85,37 @@ public class DietaActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
 
+    /** Métodos DietaFragment **************************************************/
     @Override
     public void onAsignarAlimento(Cliente c, int opcion) {
-        Bundle bundleCli= new Bundle();
-        bundleCli.putParcelable("clienteAddDieta", c);
-        bundleCli.putInt("op", opcion);
-        mNavC.navigate(R.id.action_fragment_dieta_to_fragment_alimentos, bundleCli);
+        if(c != null) {
+            Bundle bundleCli= new Bundle();
+            bundleCli.putParcelable("cliente", c);
+            bundleCli.putInt("opcion", opcion);
+            mNavC.navigate(R.id.action_fragment_dieta_to_fragment_alimentos, bundleCli);
+        }
+    }
+
+
+    /** Métodos AlimentosFragment **************************************************/
+
+    @Override
+    public void onFinalizarSeleccionFrag() {
+        mNavC.navigateUp();
     }
 
     @Override
-    public void onAceptarAliSeleccionadoFrag() {
-
+    public void onSeleccionarAlimentoFrag(Alimento alimento, Cliente cliente, int op) {
+        if(alimento != null && cliente != null && op != -1) {
+            Bundle b = new Bundle();
+            b.putParcelable("alimento", alimento);
+            b.putParcelable("cliente", cliente);
+            b.putInt("opcion", op);
+            mNavC.navigate(R.id.action_fragment_alimentos_to_fragment_alimento_seleccionado, b);
+        }
     }
 
-    @Override
-    public void onCancelarAliSeleccionadoFrag() {
-
-    }
-
-
-    /***************************************/
+    /**Métodos búsqueda de alimentos en API*************************************/
 
     public class Receptor extends BroadcastReceiver {
         @Override
@@ -118,43 +131,57 @@ public class DietaActivity extends AppCompatActivity implements
 
     @Override
     public void onBuscarAlimentoFrag(String alimento, View v) {
-        //Poner el listado a null
-        DatosAlimentos.getInstance().getAlimentos().clear();
-        // Get the search string from the input field.
-        String queryString = alimento;
+        if(!alimento.equals("") && v != null) {
+            //Poner el listado a null
+            DatosAlimentos.getInstance().getAlimentos().clear();
+            // Get the search string from the input field.
+            String queryString = alimento;
 
-        InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        if (inputManager != null) {
-            inputManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
+            if (inputManager != null) {
+                inputManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
             Snackbar.make(binding.getRoot(), R.string.cargando, Snackbar.LENGTH_SHORT).show();
-        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = null;
-        if (connMgr != null) {
-            networkInfo = connMgr.getActiveNetworkInfo();
-        }
+            ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = null;
+            if (connMgr != null) {
+                networkInfo = connMgr.getActiveNetworkInfo();
+            }
 
-        if (networkInfo != null && networkInfo.isConnected() && queryString.length() != 0) {
-            Runable runnable = new Runable(DietaActivity.this, queryString);
-            new Thread(runnable).start();
+            if (networkInfo != null && networkInfo.isConnected() && queryString.length() != 0) {
+                Runable runnable = new Runable(DietaActivity.this, queryString);
+                new Thread(runnable).start();
 
-        } else {
-            if (queryString.length() == 0) {
-                Snackbar.make(binding.getRoot(), R.string.no_results, Snackbar.LENGTH_SHORT).show();
             } else {
-                Snackbar.make(binding.getRoot(), R.string.no_network, Snackbar.LENGTH_SHORT).show();
+                if (queryString.length() == 0) {
+                    Snackbar.make(binding.getRoot(), R.string.no_results, Snackbar.LENGTH_SHORT).show();
+                } else {
+                    Snackbar.make(binding.getRoot(), R.string.no_network, Snackbar.LENGTH_SHORT).show();
+                }
             }
         }
     }
 
-    @Override
-    public void onFinalizarSeleccionFrag(Alimento a, Cliente c) {
 
+    /** Métodos AlimentoSeleccionadoFragment ***************************************/
+
+    @Override
+    public void onAceptarAliSeleccionadoFrag(Cliente c) {
+        if(c != null) {
+            cliVM.editarCliente(c).observe(this, new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean ok) {
+                    Toast.makeText(getApplication(), (ok) ? R.string.msg_alimentoGuardado : R.string.msg_alimentoNoGuardado, Toast.LENGTH_SHORT).show();
+                }
+            });
+            mNavC.navigateUp();
+        }
     }
 
     @Override
-    public void onSeleccionarAlimentoFrag(Alimento a) {
-        mNavC.navigate(R.id.action_fragment_alimentos_to_fragment_alimento_seleccionado);
+    public void onCancelarAliSeleccionadoFrag() {
+
     }
+
 }

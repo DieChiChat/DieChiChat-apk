@@ -1,156 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbarAlwaysDrawHorizontalTrack="true"
-    tools:context=".vista.fragmentos.DietaFragment">
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        tools:context=".vista.fragmentos.DietaFragment">
 
-    <ImageButton
-        android:id="@+id/btAddComida"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@color/white"
-        android:src="@drawable/add_cli_round"
-        app:layout_constraintBottom_toBottomOf="@+id/tvComidaRV"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvComidaRV" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".vista.fragmentos.DietaFragment">
 
-    <ImageButton
-        android:id="@+id/btAddDesayuno"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@color/lightGold"
-        android:src="@drawable/add_cli_round"
-        app:layout_constraintBottom_toBottomOf="@+id/tvDesayunoRV"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvDesayunoRV" />
+            <ImageButton
+                android:id="@+id/btAddComida"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@color/white"
+                android:src="@drawable/add_cli_round"
+                app:layout_constraintBottom_toBottomOf="@+id/tvComidaRV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvComidaRV" />
 
-    <ImageButton
-        android:id="@+id/btAddCena"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@color/white"
-        android:src="@drawable/add_cli_round"
-        app:layout_constraintBottom_toBottomOf="@+id/tvCenaRV"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvCenaRV" />
+            <ImageButton
+                android:id="@+id/btAddDesayuno"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@color/lightGold"
+                android:src="@drawable/add_cli_round"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDesayunoRV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvDesayunoRV" />
 
-    <ImageButton
-        android:id="@+id/btAddOtros"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@color/white"
-        android:src="@drawable/add_cli_round"
-        app:layout_constraintBottom_toBottomOf="@+id/tvOtrosRV"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvOtrosRV" />
+            <ImageButton
+                android:id="@+id/btAddCena"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@color/white"
+                android:src="@drawable/add_cli_round"
+                app:layout_constraintBottom_toBottomOf="@+id/tvCenaRV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvCenaRV" />
 
-    <TextView
-        android:id="@+id/tvDesayunoRV"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:background="@color/darkBlue"
-        android:text="@string/tvDesayuno"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/btAddDesayuno"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageButton
+                android:id="@+id/btAddOtros"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@color/white"
+                android:src="@drawable/add_cli_round"
+                app:layout_constraintBottom_toBottomOf="@+id/tvOtrosRV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvOtrosRV" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvDesayuno"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/lightGold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDesayunoRV">
+            <TextView
+                android:id="@+id/tvDesayunoRV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:background="@color/darkBlue"
+                android:text="@string/tvDesayuno"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/btAddDesayuno"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDesayuno"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/lightGold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDesayunoRV">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvComida"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/lightGold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvComidaRV">
+            </androidx.recyclerview.widget.RecyclerView>
 
-    </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvComida"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/lightGold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvComidaRV">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCena"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/lightGold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCenaRV" />
+            </androidx.recyclerview.widget.RecyclerView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvOtros"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/lightGold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvOtrosRV">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCena"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/lightGold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCenaRV" />
 
-    </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOtros"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/lightGold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvOtrosRV">
 
-    <TextView
-        android:id="@+id/tvComidaRV"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/darkBlue"
-        android:text="@string/tvComida"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/btAddComida"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvDesayuno" />
+            </androidx.recyclerview.widget.RecyclerView>
 
-    <TextView
-        android:id="@+id/tvCenaRV"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/darkBlue"
-        android:text="@string/tvCena"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/btAddCena"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvComida" />
+            <TextView
+                android:id="@+id/tvComidaRV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/darkBlue"
+                android:text="@string/tvComida"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/btAddComida"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvDesayuno" />
 
-    <TextView
-        android:id="@+id/tvOtrosRV"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/darkBlue"
-        android:text="@string/tvOtros"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/btAddOtros"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvCena" />
+            <TextView
+                android:id="@+id/tvCenaRV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/darkBlue"
+                android:text="@string/tvCena"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/btAddCena"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvComida" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tvOtrosRV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/darkBlue"
+                android:text="@string/tvOtros"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/btAddOtros"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvCena" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

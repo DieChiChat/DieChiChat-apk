@@ -28,8 +28,9 @@
     <EditText
         android:id="@+id/etNombreAlimento"
         style="@style/Theme.DieChiChat"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="@+id/tvNombreAlimento"
@@ -51,8 +52,9 @@
     <EditText
         android:id="@+id/etKcal"
         style="@style/Theme.DieChiChat"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="@+id/tvKcal"
@@ -74,8 +76,9 @@
     <EditText
         android:id="@+id/etProteinas"
         style="@style/Theme.DieChiChat"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="@+id/tvProteinas"
@@ -97,8 +100,9 @@
     <EditText
         android:id="@+id/etGrasa"
         style="@style/Theme.DieChiChat"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="@+id/tvGrasa"
@@ -120,8 +124,9 @@
     <EditText
         android:id="@+id/etCarbohidratos"
         style="@style/Theme.DieChiChat"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="@+id/tvCarbohidratos"
@@ -143,8 +148,9 @@
     <EditText
         android:id="@+id/etFibra"
         style="@style/Theme.DieChiChat"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="@+id/tvFibra"
@@ -166,14 +172,26 @@
     <EditText
         android:id="@+id/etCantidad"
         style="@style/Theme.DieChiChat"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="@+id/tvCantidad"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/spTipos"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toTopOf="@+id/tvCantidad" />
+
+    <Spinner
+        android:id="@+id/spTipos"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/etCantidad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/etCantidad"
+        app:layout_constraintTop_toTopOf="@+id/etCantidad" />
 
     <Button
         android:id="@+id/btCancelarAlimentos"
@@ -196,15 +214,15 @@
     <Button
         android:id="@+id/btAceptarAlimentos"
         style="?attr/materialButtonOutlinedStyle"
-        app:background="@drawable/custom_bottom"
-        app:strokeColor="@color/darkBlue"
-
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+
         android:layout_marginEnd="16dp"
         android:text="@string/btn_aceptar"
+        app:background="@drawable/custom_bottom"
         app:layout_constraintBottom_toBottomOf="@+id/btCancelarAlimentos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btCancelarAlimentos"
-        app:layout_constraintTop_toTopOf="@+id/btCancelarAlimentos" />
+        app:layout_constraintTop_toTopOf="@+id/btCancelarAlimentos"
+        app:strokeColor="@color/darkBlue" />
 </androidx.constraintlayout.widget.ConstraintLayout>

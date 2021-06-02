@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +16,15 @@ import android.view.ViewGroup;
 import com.example.diechichat.databinding.FragmentDietaBinding;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.Nutricionista;
+import com.example.diechichat.vista.adaptadores.AdaptadorAlimentos;
+import com.example.diechichat.vista.adaptadores.AdaptadorClientes;
+import com.example.diechichat.vista.adaptadores.AdaptadorDieta;
+import com.example.diechichat.vistamodelo.AlimentoViewModel;
+import com.example.diechichat.vistamodelo.ClienteViewModel;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class DietaFragment extends Fragment {
 
@@ -23,8 +32,9 @@ public class DietaFragment extends Fragment {
     private DietaFragment.DietaFragmentInterface mListener;
     private Cliente cliUsuario;
     private Nutricionista nutriUsuario;
+    private ClienteViewModel cliVM;
 
-    private Cliente cli;
+    private AdaptadorDieta mAdaptadorDieta;
 
     public static final int OP_DESAYUNO = 0;
     public static final int OP_COMIDA = 1;
@@ -54,14 +64,79 @@ public class DietaFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            Object o = getArguments().getParcelable("usuario");
-            if(o instanceof Nutricionista) {
-                nutriUsuario = (Nutricionista) o;
-                getArguments().getParcelable("clienteAddDieta");
-            } else if(o instanceof Cliente) {
-                cliUsuario = (Cliente) o;
-            }
         }
+
+        cliVM = new ViewModelProvider(requireActivity()).get(ClienteViewModel.class);
+
+        mAdaptadorDieta = new AdaptadorDieta();
+        // Inits Observer Dieta Desayuno
+        cliVM.getClientesME().observe(this, new Observer<List<Cliente>>() {
+            @Override
+            public void onChanged(List<Cliente> clis) {
+                mAdaptadorDieta.setDatos(clis);
+                mAdaptadorDieta.notifyDataSetChanged();
+                if (mAdaptadorDieta.getItemPos() != -1 &&
+                        mAdaptadorDieta.getItemPos() < mAdaptadorDieta.getItemCount()) {
+                    binding.rvDesayuno.scrollToPosition(mAdaptadorDieta.getItemPos());
+                } else if (mAdaptadorDieta.getItemCount() > 0) {
+                    binding.rvDesayuno.scrollToPosition(mAdaptadorDieta.getItemCount() - 1);
+                }
+                mAdaptadorDieta.setItemPos(-1);
+                mAdaptadorDieta.notifyDataSetChanged();
+            }
+        });
+
+        // Inits Observer Dieta Comida
+        cliVM.getClientesME().observe(this, new Observer<List<Cliente>>() {
+            @Override
+            public void onChanged(List<Cliente> clis) {
+                mAdaptadorDieta.setDatos(clis);
+                mAdaptadorDieta.notifyDataSetChanged();
+                if (mAdaptadorDieta.getItemPos() != -1 &&
+                        mAdaptadorDieta.getItemPos() < mAdaptadorDieta.getItemCount()) {
+                    binding.rvComida.scrollToPosition(mAdaptadorDieta.getItemPos());
+                } else if (mAdaptadorDieta.getItemCount() > 0) {
+                    binding.rvComida.scrollToPosition(mAdaptadorDieta.getItemCount() - 1);
+                }
+                mAdaptadorDieta.setItemPos(-1);
+                mAdaptadorDieta.notifyDataSetChanged();
+            }
+        });
+
+        // Inits Observer Dieta Cena
+        cliVM.getClientesME().observe(this, new Observer<List<Cliente>>() {
+            @Override
+            public void onChanged(List<Cliente> clis) {
+                mAdaptadorDieta.setDatos(clis);
+                mAdaptadorDieta.notifyDataSetChanged();
+                if (mAdaptadorDieta.getItemPos() != -1 &&
+                        mAdaptadorDieta.getItemPos() < mAdaptadorDieta.getItemCount()) {
+                    binding.rvCena.scrollToPosition(mAdaptadorDieta.getItemPos());
+                } else if (mAdaptadorDieta.getItemCount() > 0) {
+                    binding.rvCena.scrollToPosition(mAdaptadorDieta.getItemCount() - 1);
+                }
+                mAdaptadorDieta.setItemPos(-1);
+                mAdaptadorDieta.notifyDataSetChanged();
+            }
+        });
+
+        // Inits Observer Dieta Otros
+        cliVM.getClientesME().observe(this, new Observer<List<Cliente>>() {
+            @Override
+            public void onChanged(List<Cliente> clis) {
+                mAdaptadorDieta.setDatos(clis);
+                mAdaptadorDieta.notifyDataSetChanged();
+                if (mAdaptadorDieta.getItemPos() != -1 &&
+                        mAdaptadorDieta.getItemPos() < mAdaptadorDieta.getItemCount()) {
+                    binding.rvOtros.scrollToPosition(mAdaptadorDieta.getItemPos());
+                } else if (mAdaptadorDieta.getItemCount() > 0) {
+                    binding.rvOtros.scrollToPosition(mAdaptadorDieta.getItemCount() - 1);
+                }
+                mAdaptadorDieta.setItemPos(-1);
+                mAdaptadorDieta.notifyDataSetChanged();
+            }
+        });
+
     }
 
     @Override
@@ -115,13 +190,13 @@ public class DietaFragment extends Fragment {
         @Override
         public void onClick(View v) {
             if(v == binding.btAddDesayuno) {
-                mListener.onAsignarAlimento(cli, OP_DESAYUNO);
+                mListener.onAsignarAlimento(cliVM.getLogin(), OP_DESAYUNO);
             } else if(v == binding.btAddComida) {
-                mListener.onAsignarAlimento(cli, OP_COMIDA);
+                mListener.onAsignarAlimento(cliVM.getLogin(), OP_COMIDA);
             } else if(v == binding.btAddCena) {
-                mListener.onAsignarAlimento(cli, OP_CENA);
+                mListener.onAsignarAlimento(cliVM.getLogin(), OP_CENA);
             } else if(v == binding.btAddOtros) {
-                mListener.onAsignarAlimento(cli, OP_OTROS);
+                mListener.onAsignarAlimento(cliVM.getLogin(), OP_OTROS);
             }
         }
     };

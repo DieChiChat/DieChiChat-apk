@@ -83,14 +83,14 @@ public class NuevoCienteFragment extends Fragment implements
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mOp = getArguments().getInt("op");
-            c = getArguments().getParcelable("clienteVer");
+            mOp = getArguments().getInt("opcion");
+            c = getArguments().getParcelable("cliente");
         }
 
         cliVM = new ViewModelProvider(requireActivity()).get(ClienteViewModel.class);
         if(c == null) {
             c = cliVM.getLogin();
-            mOp = OP_EDITAR;
+            mOp = OP_CREAR;
         }
 
         cliVM.getmFechaDlg().observe(this, new Observer<String>() {
@@ -150,22 +150,24 @@ public class NuevoCienteFragment extends Fragment implements
                         if(cliVM.getLogin() != null) {
                             c = cliVM.getLogin();
                         } else {
-                            c = b.getParcelable("clienteVer");
+                            c = b.getParcelable("cliente");
                         }
-                        binding.etNuevoNombre.setText(c.getNombre());
-                        binding.etNuevoApellidos.setText(c.getApellidos());
-                        binding.etNuevoUsuario.setText(c.getUsuario());
-                        binding.etNuevoContrasena.setText(c.getContrasena());
-                        binding.etFecNac.setText(c.getFechaFormat());
-                        binding.numPickerPeso.setValue((int) c.getPeso());
-                        binding.numPickerAltura.setValue((int) c.getAltura());
-                        if(c.getFoto() != null) {
-                            mostrarImagenStorage(c);
-                        } else {
-                            binding.ivFoto.setImageResource(R.drawable.foto_camara_icono_round);
+                        if(c != null) {
+                            binding.etNuevoNombre.setText(c.getNombre());
+                            binding.etNuevoApellidos.setText(c.getApellidos());
+                            binding.etNuevoUsuario.setText(c.getUsuario());
+                            binding.etNuevoContrasena.setText(c.getContrasena());
+                            binding.etFecNac.setText(c.getFechaFormat());
+                            binding.numPickerPeso.setValue((int) c.getPeso());
+                            binding.numPickerAltura.setValue((int) c.getAltura());
+                            if(c.getFoto() != null) {
+                                mostrarImagenStorage(c);
+                            } else {
+                                binding.ivFoto.setImageResource(R.drawable.foto_camara_icono_round);
+                            }
+                            binding.tvId.setText(c.getId());
+                            binding.tvId.setVisibility(View.INVISIBLE);
                         }
-                        binding.tvId.setText(c.getId());
-                        binding.tvId.setVisibility(View.INVISIBLE);
                     }
                     break;
                 case OP_CREAR:

@@ -136,11 +136,11 @@ public class MainActivity extends AppCompatActivity implements
                     if(mainVM.getLogin() instanceof Nutricionista) {
                         i = new Intent(MainActivity.this, MiPerfilActivity.class);
                         i.putExtra("login",(Nutricionista) mainVM.getLogin());
-                        i.putExtra("op",NuevoCienteFragment.OP_EDITAR);
+                        i.putExtra("opcion",NuevoCienteFragment.OP_EDITAR);
                     } else if(mainVM.getLogin() instanceof Cliente) {
                         i = new Intent(MainActivity.this, NuevoClienteActivity.class);
                         i.putExtra("login",(Cliente) mainVM.getLogin());
-                        i.putExtra("op",NuevoCienteFragment.OP_EDITAR);
+                        i.putExtra("opcion",NuevoCienteFragment.OP_EDITAR);
                     }
                     if(i != null) {
                         startActivity(i);

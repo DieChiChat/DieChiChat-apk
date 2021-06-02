@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,15 +33,18 @@ import java.util.List;
 public class AlimentoSeleccionadoFragment extends Fragment {
 
     private FragmentAlimentoSeleccionadoBinding binding;
-
     private AlimentoSeleccionadoFragmentInterface mListener;
+
+    private Cliente cliente;
+    private Alimento alimento;
+    private int mOp;
 
     public AlimentoSeleccionadoFragment() {
         // Required empty public constructor
     }
 
     public interface AlimentoSeleccionadoFragmentInterface {
-        void onAceptarAliSeleccionadoFrag();
+        void onAceptarAliSeleccionadoFrag(Cliente c);
         void onCancelarAliSeleccionadoFrag();
     }
 
@@ -58,6 +62,10 @@ public class AlimentoSeleccionadoFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            Bundle b = getArguments();
+            alimento = b.getParcelable("alimento");
+            cliente = b.getParcelable("cliente");
+            mOp = b.getInt("opcion");
         }
 
     }
@@ -72,6 +80,18 @@ public class AlimentoSeleccionadoFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if(alimento != null) {
+            binding.etNombreAlimento.setText(alimento.getNombre());
+            binding.etGrasa.setText(String.valueOf(alimento.getGrasa()));
+            binding.etFibra.setText(String.valueOf(alimento.getFibra()));
+            binding.etCarbohidratos.setText(String.valueOf(alimento.getCarbohidratos()));
+            binding.etKcal.setText(String.valueOf(alimento.getKcal()));
+            binding.etProteinas.setText(String.valueOf(alimento.getProteinas()));
+        }
+
+        ArrayAdapter<CharSequence> adapterS = ArrayAdapter.createFromResource(view.getContext(), R.array.array_tipos, android.R.layout.simple_spinner_item);
+        binding.spTipos.setAdapter(adapterS);
 
         binding.btAceptarAlimentos.setOnClickListener(btAceptarAlimento_onClickListener);
         binding.btCancelarAlimentos.setOnClickListener(btCancelarAlimento_onClickListener);
@@ -98,9 +118,34 @@ public class AlimentoSeleccionadoFragment extends Fragment {
     View.OnClickListener btAceptarAlimento_onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            mListener.onAceptarAliSeleccionadoFrag();
+            Alimento a = new Alimento();
+            a.setId(1);
+            a.setNombre(binding.etNombreAlimento.getText().toString());
+            a.setProteinas(Double.parseDouble(binding.etProteinas.getText().toString()));
+            a.setKcal(Double.parseDouble(binding.etKcal.getText().toString()));
+            a.setCarbohidratos(Double.parseDouble(binding.etCarbohidratos.getText().toString()));
+            a.setFibra(Double.parseDouble(binding.etFibra.getText().toString()));
+            a.setGrasa(Double.parseDouble(binding.etGrasa.getText().toString()));
+            String cantidad = binding.etCantidad.getText().toString() + " " + binding.spTipos.getSelectedItem().toString();
+            a.setCantidad(cantidad);
+            switch (mOp) {
+                case DietaFragment.OP_DESAYUNO:
+                    cliente.getDesayuno().add(a);
+                    break;
+                case DietaFragment.OP_COMIDA:
+                    cliente.getComida().add(a);
+                    break;
+                case DietaFragment.OP_CENA:
+                    cliente.getCena().add(a);
+                    break;
+                case DietaFragment.OP_OTROS:
+                    cliente.getOtros().add(a);
+                    break;
+            }
+            mListener.onAceptarAliSeleccionadoFrag(cliente);
         }
     };
+
 
     View.OnClickListener btCancelarAlimento_onClickListener = new View.OnClickListener() {
         @Override
