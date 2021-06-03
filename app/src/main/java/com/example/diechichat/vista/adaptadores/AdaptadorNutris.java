@@ -73,10 +73,19 @@ public class AdaptadorNutris extends RecyclerView.Adapter<AdaptadorNutris.NutriV
 
     public class NutriVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+//        private final ContentRvNutrisBinding binding;
+
         public NutriVH(@NonNull View itemView) {
             super(itemView);
+//            binding = ContentRvNutrisBinding.bind(itemView);
+//            binding.llrvDptos.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.rv_item_seleccionado));
             itemView.setOnClickListener(this);
         }
+
+//        private void setItem(@NonNull Nutricionista nutri) {
+//            binding.tvDptoRvId.setText(String.format(itemView.getContext().getResources().getString(R.string.msg_Dpto_Id), dpto.getId()));
+//            binding.tvDptoRvNombre.setText(String.format(itemView.getContext().getResources().getString(R.string.msg_Dpto_Nombre), dpto.getNombre()));
+//        }
 
         @Override
         public void onClick(View v) {
