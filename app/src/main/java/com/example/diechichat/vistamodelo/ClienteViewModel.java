@@ -8,7 +8,9 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.diechichat.modelo.Alimento;
 import com.example.diechichat.modelo.Cliente;
+import com.example.diechichat.modelo.FiltroAlimentos;
 import com.example.diechichat.repositorio.ClientesRepository;
 
 import java.text.SimpleDateFormat;
@@ -20,6 +22,7 @@ public class ClienteViewModel extends AndroidViewModel {
 
     private final ClientesRepository mCliRep;
     private LiveData<List<Cliente>> mCliente;
+    private LiveData<List<Alimento>> mAlimento;
 
     private MutableLiveData<String> mFechaDlg;
     private final MutableLiveData<Bitmap> foto;
@@ -50,6 +53,11 @@ public class ClienteViewModel extends AndroidViewModel {
     public LiveData<List<Cliente>> getClientesSE() {      // Single Event
         mCliente = mCliRep.recuperarClienteSE();
         return mCliente;
+    }
+
+    public LiveData<List<Alimento>> getAlimentosME(FiltroAlimentos filtroAlimentos) {      // Multiple Events
+        mAlimento = mCliRep.recuperarAlimentosSE(filtroAlimentos);
+        return mAlimento;
     }
 
     public LiveData<Boolean> altaCliente(Cliente cli) {

@@ -116,7 +116,7 @@
     <string name="etAlimento">Inserta el nombre del alimento</string>
     <string name="btBuscarAlimento">Buscar</string>
     <string name="title_activity_alimentos">Alimentos</string>
-    <string name="msg_mantenimiento">Sección en mantenimiento, intentelo más tarde.</string>
+    <string name="msg_mantenimiento">Sección en mantenimiento para vías futuras, intentelo más tarde.</string>
     <string name="no_results">No hay resultados</string>
     <string name="btEnviarChat">Enviar</string>
     <string name="no_search_term">Por favor, introduce un alimento</string>
@@ -144,6 +144,7 @@
     <string name="msg_alimentoGuardado">Alimento guardado</string>
     <string name="msg_alimentoNoGuardado">Alimento no guardado</string>
     <string name="msg_alimentoNoValido">Selecciona un alimento válido</string>
+    <string name="msg_datos_incompletos">Introduce usuario y contraseña</string>
 
     <string-array name="array_tipos">
         <item></item>

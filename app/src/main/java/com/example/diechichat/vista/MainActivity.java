@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private AppBarConfiguration mAppBarConfiguration;
     private NavController mNavC;
+    private Menu menuCargado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,21 +118,7 @@ public class MainActivity extends AppCompatActivity implements
     private final NavigationView.OnNavigationItemSelectedListener navView_OnNavigationItemSelected = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            if (item.getItemId() == R.id.menu_inicio) {
-                Intent i = null;
-//                if(mainVM.getLogin() instanceof Nutricionista) {
-//                    bundle = new Bundle();
-//                    bundle.putParcelable("usuario",(Nutricionista) mainVM.getLogin());
-//                } else
-                 if(mainVM.getLogin() instanceof Cliente) {
-                    i = new Intent(MainActivity.this, DietaActivity.class);
-                    i.putExtra("clienteInicio",(Cliente) mainVM.getLogin());
-                    i.putExtra("opcion", NuevoCienteFragment.OP_EDITAR);
-                }
-                if(i != null) {
-                    startActivity(i);
-                }
-            } else if (item.getItemId() == R.id.menu_miperfil) {
+            if (item.getItemId() == R.id.menu_miperfil) {
                 if(mainVM.getLogin() != null) {
                     Intent i = null;
                     if(mainVM.getLogin() instanceof Nutricionista) {
@@ -148,23 +135,32 @@ public class MainActivity extends AppCompatActivity implements
                     }
                 }
             } else if (item.getItemId() == R.id.menu_misclientes) {
-                Intent i = new Intent(MainActivity.this, MisClientesActivity.class);
-                startActivity(i);
+                Intent i = null;
+                if(mainVM.getLogin() instanceof Cliente) {
+                    i = new Intent(MainActivity.this, DietaActivity.class);
+                    i.putExtra("clienteInicio",(Cliente) mainVM.getLogin());
+                    i.putExtra("opcion", NuevoCienteFragment.OP_EDITAR);
+                } else if(mainVM.getLogin() instanceof Nutricionista) {
+                    i = new Intent(MainActivity.this, MisClientesActivity.class);
+                }
+                if(i != null) {
+                    startActivity(i);
+                }
             } else if (item.getItemId() == R.id.menu_nuevocliente) {
                 Intent i = new Intent(MainActivity.this, NuevoClienteActivity.class);
                 i.putExtra("login", ((Nutricionista) mainVM.getLogin()).getId());
                 startActivity(i);
             } else if (item.getItemId() == R.id.menu_chat) {
-                Intent i = new Intent(MainActivity.this, ChatActivity.class);
-                if(mainVM.getLogin() instanceof Nutricionista) {
-                    i.putExtra("login", (Nutricionista)mainVM.getLogin());
-                    chatVM.setLoginNutricionista((Nutricionista) mainVM.getLogin());
-                } else if(mainVM.getLogin() instanceof Cliente) {
-                    i.putExtra("login", (Cliente)mainVM.getLogin());
-                    chatVM.setLoginCliente((Cliente) mainVM.getLogin());
-                }
-                startActivity(i);
-//                Snackbar.make(bindingMain.getRoot(), R.string.msg_mantenimiento, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(bindingMain.getRoot(), R.string.msg_mantenimiento, Snackbar.LENGTH_SHORT).show();
+//                Intent i = new Intent(MainActivity.this, ChatActivity.class);
+//                if(mainVM.getLogin() instanceof Nutricionista) {
+//                    i.putExtra("login", (Nutricionista)mainVM.getLogin());
+//                    chatVM.setLoginNutricionista((Nutricionista) mainVM.getLogin());
+//                } else if(mainVM.getLogin() instanceof Cliente) {
+//                    i.putExtra("login", (Cliente)mainVM.getLogin());
+//                    chatVM.setLoginCliente((Cliente) mainVM.getLogin());
+//                }
+//                startActivity(i);
             } else {
                 return false;
             }
@@ -202,17 +198,21 @@ public class MainActivity extends AppCompatActivity implements
 
 //            OCULTAR OPCIONES MENÚ EN CASO DE CLIENTE
             if(mainVM.getLogin() instanceof Cliente) {
-                bindingMain.drawerLayout.findViewById(R.id.menu_nuevocliente).setVisibility(View.INVISIBLE);
                 bindingMain.drawerLayout.findViewById(R.id.menu_misclientes).setVisibility(View.INVISIBLE);
+                bindingMain.drawerLayout.findViewById(R.id.menu_nuevocliente).setVisibility(View.INVISIBLE);
 
-                //TODO: cambiar posición de items del menú drawer
+                NavigationView navigationView = bindingMain.drawerLayout.findViewById(R.id.nav_view);
+                Menu menu = navigationView.getMenu();
+                MenuItem menuItem = menu.findItem(R.id.menu_misclientes);
+                menuItem.setTitle("Mi Dieta");
+                menuItem.setIcon(R.drawable.logo_plato_large);
+                menuItem = menu.findItem(R.id.menu_nuevocliente);
+                menuItem.setVisible(false);
             }
 
             mNavC.navigateUp();
-            if(mainVM.getLogin() instanceof Nutricionista) {
-            }
         } else {
-            Snackbar.make(bindingMain.getRoot(), "Introduce usuario y contraseña", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(bindingMain.getRoot(), R.string.msg_datos_incompletos, Snackbar.LENGTH_SHORT).show();
         }
     }
 

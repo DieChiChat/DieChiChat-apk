@@ -1,5 +1,6 @@
 package com.example.diechichat.vista.adaptadores;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diechichat.R;
-import com.example.diechichat.databinding.ContentAlimentoSeleccionadoBinding;
 import com.example.diechichat.databinding.ContentRvAlimentosAsignadosBinding;
-import com.example.diechichat.databinding.ContentRvAlimentosBinding;
 import com.example.diechichat.modelo.Alimento;
 import com.example.diechichat.modelo.Cliente;
 
@@ -20,7 +19,7 @@ import java.util.List;
 
 public class AdaptadorDieta extends RecyclerView.Adapter<AdaptadorDieta.AlimentoVH> {
 
-    private List<Cliente> mDatos;
+    private List<Alimento> mDatos;
     private int mItemPos;
     private View.OnClickListener mListener;
 
@@ -30,7 +29,7 @@ public class AdaptadorDieta extends RecyclerView.Adapter<AdaptadorDieta.Alimento
         mListener = null;
     }
 
-    public void setDatos(List<Cliente> datos) {
+    public void setDatos(List<Alimento> datos) {
         mDatos = datos;
     }
 
@@ -46,7 +45,7 @@ public class AdaptadorDieta extends RecyclerView.Adapter<AdaptadorDieta.Alimento
         mListener = listener;
     }
 
-    public Cliente getItem(int pos) {
+    public Alimento getItem(int pos) {
         return mDatos.get(pos);
     }
 
@@ -61,7 +60,7 @@ public class AdaptadorDieta extends RecyclerView.Adapter<AdaptadorDieta.Alimento
     @Override
     public void onBindViewHolder(@NonNull AlimentoVH holder, int position) {
         if (mDatos != null) {
-            holder.setItem(mDatos.get(position), position);
+            holder.setItem(mDatos.get(position));
             holder.binding.llrvAliAsignados.setActivated(mItemPos == position);
             holder.itemView.setBackgroundColor((mItemPos == position)
                     ? ContextCompat.getColor(holder.itemView.getContext(), R.color.lightGold)
@@ -101,16 +100,23 @@ public class AdaptadorDieta extends RecyclerView.Adapter<AdaptadorDieta.Alimento
             }
         }
 
-        private void setItem(Cliente cli, int pos) {
-            if(cli.getDesayuno().size() > 0) {
-                binding.tvAlimentoAsignado.setText(cli.getOtros().get(pos).getNombre() + " - " + cli.getOtros().get(pos).getCantidad());
-            } else if(cli.getComida().size() > 0) {
-                binding.tvAlimentoAsignado.setText(cli.getOtros().get(pos).getNombre() + " - " + cli.getOtros().get(pos).getCantidad());
-            } else if(cli.getCena().size() > 0) {
-                binding.tvAlimentoAsignado.setText(cli.getOtros().get(pos).getNombre() + " - " + cli.getOtros().get(pos).getCantidad());
-            } else if(cli.getOtros().size() > 0) {
-                binding.tvAlimentoAsignado.setText(cli.getOtros().get(pos).getNombre() + " - " + cli.getOtros().get(pos).getCantidad());
-            }
+        @SuppressLint("SetTextI18n")
+        private void setItem(Alimento ali) {
+            binding.tvAlimentoAsignado.setText(
+                    ali.getNombre()
+                            + " - "
+                            + ali.getCantidad()
+                            + " - "
+                            + " - Fibra: "
+                            + ali.getFibra()
+                            + " - Grasa: "
+                            + ali.getGrasa()
+                            + "\n - Carbohidratos: "
+                            + ali.getCarbohidratos()
+                            + " - Proteínas: "
+                            + ali.getProteinas()
+                            + " - Kcal: "
+                            + ali.getKcal());
         }
     }
 }

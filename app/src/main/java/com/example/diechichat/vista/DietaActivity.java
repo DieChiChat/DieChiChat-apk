@@ -83,11 +83,20 @@ public class DietaActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()) {
             case android.R.id.home:
-                mNavC.navigateUp();
-                //onBackPressed();
+                if (mNavC.getCurrentDestination() != null && mNavC.getCurrentDestination().getId() == R.id.fragment_dieta) {
+                    onBackPressed();
+                } else {
+                    mNavC.navigateUp();
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     /** Métodos DietaFragment **************************************************/

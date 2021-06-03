@@ -8,18 +8,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.diechichat.databinding.FragmentDietaBinding;
+import com.example.diechichat.modelo.Alimento;
 import com.example.diechichat.modelo.Cliente;
-import com.example.diechichat.modelo.Nutricionista;
-import com.example.diechichat.vista.adaptadores.AdaptadorAlimentos;
-import com.example.diechichat.vista.adaptadores.AdaptadorClientes;
+import com.example.diechichat.modelo.FiltroAlimentos;
 import com.example.diechichat.vista.adaptadores.AdaptadorDieta;
-import com.example.diechichat.vistamodelo.AlimentoViewModel;
 import com.example.diechichat.vistamodelo.ClienteViewModel;
 
 import org.jetbrains.annotations.NotNull;
@@ -32,7 +32,10 @@ public class DietaFragment extends Fragment {
     private DietaFragment.DietaFragmentInterface mListener;
     private ClienteViewModel cliVM;
 
-    private AdaptadorDieta mAdaptadorDieta;
+    private AdaptadorDieta mAdaptadorDesayuno;
+    private AdaptadorDieta mAdaptadorComida;
+    private AdaptadorDieta mAdaptadorCena;
+    private AdaptadorDieta mAdaptadorOtros;
 
     public static final int OP_DESAYUNO = 0;
     public static final int OP_COMIDA = 1;
@@ -66,72 +69,76 @@ public class DietaFragment extends Fragment {
 
         cliVM = new ViewModelProvider(requireActivity()).get(ClienteViewModel.class);
 
-        mAdaptadorDieta = new AdaptadorDieta();
+        mAdaptadorDesayuno = new AdaptadorDieta();
+        FiltroAlimentos filtroAlimentos = new FiltroAlimentos(OP_DESAYUNO, cliVM.getLogin());
         // Inits Observer Dieta Desayuno
-        cliVM.getClientesME().observe(this, new Observer<List<Cliente>>() {
+        cliVM.getAlimentosME(filtroAlimentos).observe(this, new Observer<List<Alimento>>() {
             @Override
-            public void onChanged(List<Cliente> clis) {
-                mAdaptadorDieta.setDatos(clis);
-                mAdaptadorDieta.notifyDataSetChanged();
-                if (mAdaptadorDieta.getItemPos() != -1 &&
-                        mAdaptadorDieta.getItemPos() < mAdaptadorDieta.getItemCount()) {
-                    binding.rvDesayuno.scrollToPosition(mAdaptadorDieta.getItemPos());
-                } else if (mAdaptadorDieta.getItemCount() > 0) {
-                    binding.rvDesayuno.scrollToPosition(mAdaptadorDieta.getItemCount() - 1);
+            public void onChanged(List<Alimento> alimentos) {
+                mAdaptadorDesayuno.setDatos(alimentos);
+                mAdaptadorDesayuno.notifyDataSetChanged();
+                if (mAdaptadorDesayuno.getItemPos() != -1 &&
+                        mAdaptadorDesayuno.getItemPos() < mAdaptadorDesayuno.getItemCount()) {
+                    binding.rvDesayuno.scrollToPosition(mAdaptadorDesayuno.getItemPos());
+                } else if (mAdaptadorDesayuno.getItemCount() > 0) {
+                    binding.rvDesayuno.scrollToPosition(mAdaptadorDesayuno.getItemCount() - 1);
                 }
-                mAdaptadorDieta.setItemPos(-1);
-                mAdaptadorDieta.notifyDataSetChanged();
+                mAdaptadorDesayuno.setItemPos(-1);
+                mAdaptadorDesayuno.notifyDataSetChanged();
             }
         });
 
         // Inits Observer Dieta Comida
-        cliVM.getClientesME().observe(this, new Observer<List<Cliente>>() {
+        filtroAlimentos.setTipo(OP_COMIDA);
+        cliVM.getAlimentosME(filtroAlimentos).observe(this, new Observer<List<Alimento>>() {
             @Override
-            public void onChanged(List<Cliente> clis) {
-                mAdaptadorDieta.setDatos(clis);
-                mAdaptadorDieta.notifyDataSetChanged();
-                if (mAdaptadorDieta.getItemPos() != -1 &&
-                        mAdaptadorDieta.getItemPos() < mAdaptadorDieta.getItemCount()) {
-                    binding.rvComida.scrollToPosition(mAdaptadorDieta.getItemPos());
-                } else if (mAdaptadorDieta.getItemCount() > 0) {
-                    binding.rvComida.scrollToPosition(mAdaptadorDieta.getItemCount() - 1);
+            public void onChanged(List<Alimento> alimentos) {
+                mAdaptadorComida.setDatos(alimentos);
+                mAdaptadorComida.notifyDataSetChanged();
+                if (mAdaptadorComida.getItemPos() != -1 &&
+                        mAdaptadorComida.getItemPos() < mAdaptadorComida.getItemCount()) {
+                    binding.rvComida.scrollToPosition(mAdaptadorComida.getItemPos());
+                } else if (mAdaptadorComida.getItemCount() > 0) {
+                    binding.rvComida.scrollToPosition(mAdaptadorComida.getItemCount() - 1);
                 }
-                mAdaptadorDieta.setItemPos(-1);
-                mAdaptadorDieta.notifyDataSetChanged();
+                mAdaptadorComida.setItemPos(-1);
+                mAdaptadorComida.notifyDataSetChanged();
             }
         });
 
         // Inits Observer Dieta Cena
-        cliVM.getClientesME().observe(this, new Observer<List<Cliente>>() {
+        filtroAlimentos.setTipo(OP_CENA);
+        cliVM.getAlimentosME(filtroAlimentos).observe(this, new Observer<List<Alimento>>() {
             @Override
-            public void onChanged(List<Cliente> clis) {
-                mAdaptadorDieta.setDatos(clis);
-                mAdaptadorDieta.notifyDataSetChanged();
-                if (mAdaptadorDieta.getItemPos() != -1 &&
-                        mAdaptadorDieta.getItemPos() < mAdaptadorDieta.getItemCount()) {
-                    binding.rvCena.scrollToPosition(mAdaptadorDieta.getItemPos());
-                } else if (mAdaptadorDieta.getItemCount() > 0) {
-                    binding.rvCena.scrollToPosition(mAdaptadorDieta.getItemCount() - 1);
+            public void onChanged(List<Alimento> alimentos) {
+                mAdaptadorCena.setDatos(alimentos);
+                mAdaptadorCena.notifyDataSetChanged();
+                if (mAdaptadorCena.getItemPos() != -1 &&
+                        mAdaptadorCena.getItemPos() < mAdaptadorCena.getItemCount()) {
+                    binding.rvCena.scrollToPosition(mAdaptadorCena.getItemPos());
+                } else if (mAdaptadorCena.getItemCount() > 0) {
+                    binding.rvCena.scrollToPosition(mAdaptadorCena.getItemCount() - 1);
                 }
-                mAdaptadorDieta.setItemPos(-1);
-                mAdaptadorDieta.notifyDataSetChanged();
+                mAdaptadorCena.setItemPos(-1);
+                mAdaptadorCena.notifyDataSetChanged();
             }
         });
 
         // Inits Observer Dieta Otros
-        cliVM.getClientesME().observe(this, new Observer<List<Cliente>>() {
+        filtroAlimentos.setTipo(OP_OTROS);
+        cliVM.getAlimentosME(filtroAlimentos).observe(this, new Observer<List<Alimento>>() {
             @Override
-            public void onChanged(List<Cliente> clis) {
-                mAdaptadorDieta.setDatos(clis);
-                mAdaptadorDieta.notifyDataSetChanged();
-                if (mAdaptadorDieta.getItemPos() != -1 &&
-                        mAdaptadorDieta.getItemPos() < mAdaptadorDieta.getItemCount()) {
-                    binding.rvOtros.scrollToPosition(mAdaptadorDieta.getItemPos());
-                } else if (mAdaptadorDieta.getItemCount() > 0) {
-                    binding.rvOtros.scrollToPosition(mAdaptadorDieta.getItemCount() - 1);
+            public void onChanged(List<Alimento> alimentos) {
+                mAdaptadorOtros.setDatos(alimentos);
+                mAdaptadorOtros.notifyDataSetChanged();
+                if (mAdaptadorOtros.getItemPos() != -1 &&
+                        mAdaptadorOtros.getItemPos() < mAdaptadorOtros.getItemCount()) {
+                    binding.rvOtros.scrollToPosition(mAdaptadorOtros.getItemPos());
+                } else if (mAdaptadorOtros.getItemCount() > 0) {
+                    binding.rvOtros.scrollToPosition(mAdaptadorOtros.getItemCount() - 1);
                 }
-                mAdaptadorDieta.setItemPos(-1);
-                mAdaptadorDieta.notifyDataSetChanged();
+                mAdaptadorOtros.setItemPos(-1);
+                mAdaptadorOtros.notifyDataSetChanged();
             }
         });
 
@@ -159,6 +166,30 @@ public class DietaFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //init adaptador desayuno
+        binding.rvDesayuno.setHasFixedSize(true);
+        binding.rvDesayuno.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        binding.rvDesayuno.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
+        binding.rvDesayuno.setAdapter(mAdaptadorDesayuno);
+
+        //init adaptador comida
+        binding.rvComida.setHasFixedSize(true);
+        binding.rvComida.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        binding.rvComida.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
+        binding.rvComida.setAdapter(mAdaptadorDesayuno);
+
+        //init adaptador cena
+        binding.rvCena.setHasFixedSize(true);
+        binding.rvCena.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        binding.rvCena.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
+        binding.rvCena.setAdapter(mAdaptadorDesayuno);
+
+        //init adaptador otros
+        binding.rvOtros.setHasFixedSize(true);
+        binding.rvOtros.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        binding.rvOtros.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
+        binding.rvOtros.setAdapter(mAdaptadorDesayuno);
 
         binding.btAddDesayuno.setOnClickListener(btAddDieta_onClickListener);
         binding.btAddComida.setOnClickListener(btAddDieta_onClickListener);
