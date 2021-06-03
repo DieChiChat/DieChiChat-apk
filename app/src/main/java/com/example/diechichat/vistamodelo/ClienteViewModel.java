@@ -26,8 +26,8 @@ public class ClienteViewModel extends AndroidViewModel {
 
     private Cliente mLogin;
     private Cliente mClienteAEliminar;
-
-
+    private boolean esCliente;
+    private int opcion;
 
     public ClienteViewModel(@NonNull Application application) {
         super(application);
@@ -37,6 +37,7 @@ public class ClienteViewModel extends AndroidViewModel {
         this.mClienteAEliminar = null;
         this.mFechaDlg= new MutableLiveData<>();
         this.foto = new MutableLiveData<>();
+        this.esCliente = false;
     }
 
     /* Métodos Clientes ********************************************************/
@@ -90,5 +91,9 @@ public class ClienteViewModel extends AndroidViewModel {
     public void setFoto(Bitmap foto) { this.foto.setValue(foto); }
     public LiveData<Bitmap> getFoto() { return foto; }
 
+    public void setEsCliente(boolean esCliente) { this.esCliente = esCliente; }
+    public boolean getEsCliente() { return esCliente; }
 
+    public void setOpcion(int opcion) { this.opcion = opcion; }
+    public int getOpcion() { return opcion; }
 }

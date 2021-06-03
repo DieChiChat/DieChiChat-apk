@@ -30,8 +30,6 @@ public class DietaFragment extends Fragment {
 
     private FragmentDietaBinding binding;
     private DietaFragment.DietaFragmentInterface mListener;
-    private Cliente cliUsuario;
-    private Nutricionista nutriUsuario;
     private ClienteViewModel cliVM;
 
     private AdaptadorDieta mAdaptadorDieta;
@@ -143,18 +141,16 @@ public class DietaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentDietaBinding.inflate(inflater, container, false);
 
-        if(nutriUsuario != null) {
+        if(cliVM.getEsCliente()) {
             binding.btAddDesayuno.setVisibility(View.INVISIBLE);
             binding.btAddComida.setVisibility(View.INVISIBLE);
             binding.btAddCena.setVisibility(View.INVISIBLE);
             binding.btAddOtros.setVisibility(View.INVISIBLE);
-        }
-
-        if(cliUsuario != null) {
-            binding.btAddDesayuno.setVisibility(View.INVISIBLE);
-            binding.btAddComida.setVisibility(View.INVISIBLE);
-            binding.btAddCena.setVisibility(View.INVISIBLE);
-            binding.btAddOtros.setVisibility(View.INVISIBLE);
+        } else {
+            binding.btAddDesayuno.setVisibility(View.VISIBLE);
+            binding.btAddComida.setVisibility(View.VISIBLE);
+            binding.btAddCena.setVisibility(View.VISIBLE);
+            binding.btAddOtros.setVisibility(View.VISIBLE);
         }
 
         return binding.getRoot();

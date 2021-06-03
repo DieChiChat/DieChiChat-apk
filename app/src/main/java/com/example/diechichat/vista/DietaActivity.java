@@ -47,7 +47,6 @@ public class DietaActivity extends AppCompatActivity implements
     private NavController mNavC;
     private ClienteViewModel cliVM;
     private AlimentoViewModel alimentoVM;
-    private int opcion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +57,13 @@ public class DietaActivity extends AppCompatActivity implements
 
         Intent i = getIntent();
         if(i != null) {
-            cliVM.setLogin(i.getParcelableExtra("cliente"));
+            if(i.getParcelableExtra("cliente") != null) {
+                cliVM.setLogin(i.getParcelableExtra("cliente"));
+                cliVM.setEsCliente(false);
+            } else {
+                cliVM.setLogin(i.getParcelableExtra("clienteInicio"));
+                cliVM.setEsCliente(true);
+            }
         }
 
         DietaActivity.Receptor receptor = new DietaActivity.Receptor();
@@ -95,7 +100,6 @@ public class DietaActivity extends AppCompatActivity implements
             mNavC.navigate(R.id.action_fragment_dieta_to_fragment_alimentos, bundleCli);
         }
     }
-
 
     /** Métodos AlimentosFragment **************************************************/
 
@@ -162,7 +166,6 @@ public class DietaActivity extends AppCompatActivity implements
             }
         }
     }
-
 
     /** Métodos AlimentoSeleccionadoFragment ***************************************/
 

@@ -57,6 +57,7 @@ public class NuevoClienteActivity extends AppCompatActivity implements
         Intent i = getIntent();
         if(i != null) {
             cliVM.setLogin(i.getExtras().getParcelable("login"));
+            cliVM.setOpcion(i.getExtras().getInt("opcion"));
         }
 
         if (getSupportActionBar() != null) {

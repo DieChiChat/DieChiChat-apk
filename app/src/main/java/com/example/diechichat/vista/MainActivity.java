@@ -123,13 +123,14 @@ public class MainActivity extends AppCompatActivity implements
 //                    bundle = new Bundle();
 //                    bundle.putParcelable("usuario",(Nutricionista) mainVM.getLogin());
 //                } else
-//                 if(mainVM.getLogin() instanceof Cliente) {
-//                    i = new Intent();
-//                    i.putExtra("usuario",(Cliente) mainVM.getLogin());
-//                }
-//                if(i != null) {
-//                    startActivity(i);
-//                }
+                 if(mainVM.getLogin() instanceof Cliente) {
+                    i = new Intent(MainActivity.this, DietaActivity.class);
+                    i.putExtra("clienteInicio",(Cliente) mainVM.getLogin());
+                    i.putExtra("opcion", NuevoCienteFragment.OP_EDITAR);
+                }
+                if(i != null) {
+                    startActivity(i);
+                }
             } else if (item.getItemId() == R.id.menu_miperfil) {
                 if(mainVM.getLogin() != null) {
                     Intent i = null;

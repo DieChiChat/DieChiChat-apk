@@ -90,7 +90,7 @@ public class NuevoCienteFragment extends Fragment implements
         cliVM = new ViewModelProvider(requireActivity()).get(ClienteViewModel.class);
         if(c == null) {
             c = cliVM.getLogin();
-            mOp = OP_CREAR;
+            mOp = cliVM.getOpcion();
         }
 
         cliVM.getmFechaDlg().observe(this, new Observer<String>() {
