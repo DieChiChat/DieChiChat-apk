@@ -1,5 +1,6 @@
 package com.example.diechichat.vista;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -98,7 +99,6 @@ public class MisClientesActivity extends AppCompatActivity implements
                         @Override
                         public void onChanged(Boolean ok) {
                             Toast.makeText(getApplication(), (ok) ? R.string.msg_altaCorrecta : R.string.msg_altaIncorrecta, Toast.LENGTH_SHORT).show();
-//                            Snackbar.make(binding.getRoot(), (ok) ? R.string.msg_altaCorrecta : R.string.msg_altaIncorrecta, Snackbar.LENGTH_SHORT).show();
                             if (ok) {
                                 subirFotoAStorage(c, cliVM.getFoto());
                             }
@@ -110,7 +110,6 @@ public class MisClientesActivity extends AppCompatActivity implements
                         @Override
                         public void onChanged(Boolean ok) {
                             Toast.makeText(getApplication(), (ok) ? R.string.msg_editarOk : R.string.msg_editarKo, Toast.LENGTH_SHORT).show();
-//                            Snackbar.make(binding.getRoot(), (ok) ? R.string.msg_editarOk : R.string.msg_editarKo, Snackbar.LENGTH_SHORT).show();
                             if (ok) {
                                 subirFotoAStorage(c, cliVM.getFoto());
                             }
@@ -155,6 +154,7 @@ public class MisClientesActivity extends AppCompatActivity implements
     /**
      * Métodos Cámara
      ****************************************/
+    @SuppressLint("QueryPermissionsNeeded")
     @Override
     public void onAbrirCamaraFrag() {
         Intent i = new Intent();

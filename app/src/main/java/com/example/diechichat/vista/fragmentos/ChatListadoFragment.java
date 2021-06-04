@@ -14,9 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.diechichat.databinding.FragmentChatBinding;
 import com.example.diechichat.databinding.FragmentChatListadoBinding;
-import com.example.diechichat.modelo.Chat;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.vista.adaptadores.AdaptadorChat;
 import com.example.diechichat.vista.adaptadores.AdaptadorClientes;

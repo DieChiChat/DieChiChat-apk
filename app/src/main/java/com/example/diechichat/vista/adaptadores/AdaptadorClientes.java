@@ -20,8 +20,6 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -137,7 +135,7 @@ public class AdaptadorClientes extends RecyclerView.Adapter<AdaptadorClientes.Cl
                         existeFoto[0] = false;
                     }
                 });
-            } catch (IOException e ) {}
+            } catch (IOException ignored) {}
             return existeFoto[0];
         }
     }

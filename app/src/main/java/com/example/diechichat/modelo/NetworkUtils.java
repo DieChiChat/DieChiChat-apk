@@ -13,17 +13,12 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class NetworkUtils {
-    private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
     // Base URL for Books API.
     private static final String RUTA_BUSQUEDA = "https://api.edamam.com/search?q=palabra_a_buscar&app_id=57eaa490&app_key=47f6530c4dda609ba6dc58fb4e62bfad";
     private static final String FOOD_ID = "72781461";
     private static final String FOOD_KEY = "a22b274c5fbcb98413cdbb392927e2e3";
-    // Parameter for the search string.
-    private static final String QUERY_PARAM = "q";
     // Parameter that limits search results.
     private static final String MAX_RESULTS = "maxResults";
-    // Parameter to filter by print type.
-    private static final String PRINT_TYPE = "printType";
 
     public static String getFoodInfo(String queryString) {
         HttpURLConnection urlConnection = null;
@@ -32,9 +27,7 @@ public class NetworkUtils {
         String rutaDefinitiva = "https://api.edamam.com/api/food-database/v2/parser?ingr=" + queryString +"&app_id=72781461&app_key=a22b274c5fbcb98413cdbb392927e2e3";
         try {
             Uri builtURI = Uri.parse(rutaDefinitiva).buildUpon()
-//                    .appendQueryParameter(QUERY_PARAM, queryString)
                     .appendQueryParameter(MAX_RESULTS, "20")
-//                    .appendQueryParameter(PRINT_TYPE, "foods")
                     .build();
             URL requestURL = new URL(builtURI.toString());
 

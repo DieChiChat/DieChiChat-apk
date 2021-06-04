@@ -2,6 +2,9 @@ package com.example.diechichat.vista.fragmentos;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,10 +13,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.diechichat.databinding.FragmentDietaBinding;
 import com.example.diechichat.modelo.Alimento;
@@ -70,9 +69,13 @@ public class DietaFragment extends Fragment {
         cliVM = new ViewModelProvider(requireActivity()).get(ClienteViewModel.class);
 
         mAdaptadorDesayuno = new AdaptadorDieta();
-        FiltroAlimentos filtroAlimentos = new FiltroAlimentos(OP_DESAYUNO, cliVM.getLogin());
+        mAdaptadorComida = new AdaptadorDieta();
+        mAdaptadorCena = new AdaptadorDieta();
+        mAdaptadorOtros = new AdaptadorDieta();
+
         // Inits Observer Dieta Desayuno
-        cliVM.getAlimentosME(filtroAlimentos).observe(this, new Observer<List<Alimento>>() {
+        FiltroAlimentos filtroDesayuno = new FiltroAlimentos(OP_DESAYUNO, cliVM.getLogin());
+        cliVM.getAlimentosME(filtroDesayuno).observe(this, new Observer<List<Alimento>>() {
             @Override
             public void onChanged(List<Alimento> alimentos) {
                 mAdaptadorDesayuno.setDatos(alimentos);
@@ -89,8 +92,9 @@ public class DietaFragment extends Fragment {
         });
 
         // Inits Observer Dieta Comida
-        filtroAlimentos.setTipo(OP_COMIDA);
-        cliVM.getAlimentosME(filtroAlimentos).observe(this, new Observer<List<Alimento>>() {
+
+        FiltroAlimentos filtroComida = new FiltroAlimentos(OP_COMIDA, cliVM.getLogin());
+        cliVM.getAlimentosME(filtroComida).observe(this, new Observer<List<Alimento>>() {
             @Override
             public void onChanged(List<Alimento> alimentos) {
                 mAdaptadorComida.setDatos(alimentos);
@@ -107,8 +111,8 @@ public class DietaFragment extends Fragment {
         });
 
         // Inits Observer Dieta Cena
-        filtroAlimentos.setTipo(OP_CENA);
-        cliVM.getAlimentosME(filtroAlimentos).observe(this, new Observer<List<Alimento>>() {
+        FiltroAlimentos filtroCena = new FiltroAlimentos(OP_CENA, cliVM.getLogin());
+        cliVM.getAlimentosME(filtroCena).observe(this, new Observer<List<Alimento>>() {
             @Override
             public void onChanged(List<Alimento> alimentos) {
                 mAdaptadorCena.setDatos(alimentos);
@@ -125,8 +129,8 @@ public class DietaFragment extends Fragment {
         });
 
         // Inits Observer Dieta Otros
-        filtroAlimentos.setTipo(OP_OTROS);
-        cliVM.getAlimentosME(filtroAlimentos).observe(this, new Observer<List<Alimento>>() {
+        FiltroAlimentos filtroOtros = new FiltroAlimentos(OP_OTROS, cliVM.getLogin());
+        cliVM.getAlimentosME(filtroOtros).observe(this, new Observer<List<Alimento>>() {
             @Override
             public void onChanged(List<Alimento> alimentos) {
                 mAdaptadorOtros.setDatos(alimentos);
@@ -141,14 +145,13 @@ public class DietaFragment extends Fragment {
                 mAdaptadorOtros.notifyDataSetChanged();
             }
         });
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentDietaBinding.inflate(inflater, container, false);
 
-        if(cliVM.getEsCliente()) {
+        if (cliVM.getEsCliente()) {
             binding.btAddDesayuno.setVisibility(View.INVISIBLE);
             binding.btAddComida.setVisibility(View.INVISIBLE);
             binding.btAddCena.setVisibility(View.INVISIBLE);
@@ -177,19 +180,19 @@ public class DietaFragment extends Fragment {
         binding.rvComida.setHasFixedSize(true);
         binding.rvComida.setLayoutManager(new LinearLayoutManager(view.getContext()));
         binding.rvComida.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
-        binding.rvComida.setAdapter(mAdaptadorDesayuno);
+        binding.rvComida.setAdapter(mAdaptadorComida);
 
         //init adaptador cena
         binding.rvCena.setHasFixedSize(true);
         binding.rvCena.setLayoutManager(new LinearLayoutManager(view.getContext()));
         binding.rvCena.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
-        binding.rvCena.setAdapter(mAdaptadorDesayuno);
+        binding.rvCena.setAdapter(mAdaptadorCena);
 
         //init adaptador otros
         binding.rvOtros.setHasFixedSize(true);
         binding.rvOtros.setLayoutManager(new LinearLayoutManager(view.getContext()));
         binding.rvOtros.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
-        binding.rvOtros.setAdapter(mAdaptadorDesayuno);
+        binding.rvOtros.setAdapter(mAdaptadorOtros);
 
         binding.btAddDesayuno.setOnClickListener(btAddDieta_onClickListener);
         binding.btAddComida.setOnClickListener(btAddDieta_onClickListener);
@@ -216,13 +219,13 @@ public class DietaFragment extends Fragment {
     View.OnClickListener btAddDieta_onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(v == binding.btAddDesayuno) {
+            if (v == binding.btAddDesayuno) {
                 mListener.onAsignarAlimento(cliVM.getLogin(), OP_DESAYUNO);
-            } else if(v == binding.btAddComida) {
+            } else if (v == binding.btAddComida) {
                 mListener.onAsignarAlimento(cliVM.getLogin(), OP_COMIDA);
-            } else if(v == binding.btAddCena) {
+            } else if (v == binding.btAddCena) {
                 mListener.onAsignarAlimento(cliVM.getLogin(), OP_CENA);
-            } else if(v == binding.btAddOtros) {
+            } else if (v == binding.btAddOtros) {
                 mListener.onAsignarAlimento(cliVM.getLogin(), OP_OTROS);
             }
         }

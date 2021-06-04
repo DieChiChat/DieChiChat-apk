@@ -124,7 +124,7 @@
 
     <string name="menu_terminar">Finalizar</string>
     <string name="cargando">Cargando…</string>
-    <string name="ok">ok</string>
+    <string name="ok">OK</string>
     <string name="salir">Salir</string>
     <string name="msg_bienvenida2">¡ Es la hora del cambio !</string>
     <string name="splashApp_key">splashApp_key</string>
@@ -145,6 +145,10 @@
     <string name="msg_alimentoNoGuardado">Alimento no guardado</string>
     <string name="msg_alimentoNoValido">Selecciona un alimento válido</string>
     <string name="msg_datos_incompletos">Introduce usuario y contraseña</string>
+    <string name="btOk">Ok</string>
+    <string name="titleInformacion">¡Atención!</string>
+    <string name="msgInformacion">Para ver los datos modificados tendrá que iniciar sesión de nuevo.</string>
+    <string name="msg_cantidadMal">Introduzca bien la cantidad</string>
 
     <string-array name="array_tipos">
         <item></item>

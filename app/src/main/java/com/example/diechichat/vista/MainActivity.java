@@ -1,14 +1,10 @@
 package com.example.diechichat.vista;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements
 
     private AppBarConfiguration mAppBarConfiguration;
     private NavController mNavC;
-    private Menu menuCargado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements
         bindingMain.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
         mainVM = new ViewModelProvider(this).get(MainViewModel.class);
-        if(mainVM.getLogin() == null && savedInstanceState == null) {
+        if (mainVM.getLogin() == null && savedInstanceState == null) {
             mNavC.navigate(R.id.action_nav_inicio_to_loginFragment);
         }
     }
@@ -119,31 +114,31 @@ public class MainActivity extends AppCompatActivity implements
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             if (item.getItemId() == R.id.menu_miperfil) {
-                if(mainVM.getLogin() != null) {
+                if (mainVM.getLogin() != null) {
                     Intent i = null;
-                    if(mainVM.getLogin() instanceof Nutricionista) {
+                    if (mainVM.getLogin() instanceof Nutricionista) {
                         i = new Intent(MainActivity.this, MiPerfilActivity.class);
-                        i.putExtra("login",(Nutricionista) mainVM.getLogin());
-                        i.putExtra("opcion",NuevoCienteFragment.OP_EDITAR);
-                    } else if(mainVM.getLogin() instanceof Cliente) {
+                        i.putExtra("login", (Nutricionista) mainVM.getLogin());
+                        i.putExtra("opcion", NuevoCienteFragment.OP_EDITAR);
+                    } else if (mainVM.getLogin() instanceof Cliente) {
                         i = new Intent(MainActivity.this, NuevoClienteActivity.class);
-                        i.putExtra("login",(Cliente) mainVM.getLogin());
-                        i.putExtra("opcion",NuevoCienteFragment.OP_EDITAR);
+                        i.putExtra("login", (Cliente) mainVM.getLogin());
+                        i.putExtra("opcion", NuevoCienteFragment.OP_EDITAR);
                     }
-                    if(i != null) {
+                    if (i != null) {
                         startActivity(i);
                     }
                 }
             } else if (item.getItemId() == R.id.menu_misclientes) {
                 Intent i = null;
-                if(mainVM.getLogin() instanceof Cliente) {
+                if (mainVM.getLogin() instanceof Cliente) {
                     i = new Intent(MainActivity.this, DietaActivity.class);
-                    i.putExtra("clienteInicio",(Cliente) mainVM.getLogin());
+                    i.putExtra("clienteInicio", (Cliente) mainVM.getLogin());
                     i.putExtra("opcion", NuevoCienteFragment.OP_EDITAR);
-                } else if(mainVM.getLogin() instanceof Nutricionista) {
+                } else if (mainVM.getLogin() instanceof Nutricionista) {
                     i = new Intent(MainActivity.this, MisClientesActivity.class);
                 }
-                if(i != null) {
+                if (i != null) {
                     startActivity(i);
                 }
             } else if (item.getItemId() == R.id.menu_nuevocliente) {
@@ -197,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements
             bindingMain.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
 //            OCULTAR OPCIONES MENÚ EN CASO DE CLIENTE
-            if(mainVM.getLogin() instanceof Cliente) {
+            if (mainVM.getLogin() instanceof Cliente) {
                 bindingMain.drawerLayout.findViewById(R.id.menu_misclientes).setVisibility(View.INVISIBLE);
                 bindingMain.drawerLayout.findViewById(R.id.menu_nuevocliente).setVisibility(View.INVISIBLE);
 

@@ -16,10 +16,6 @@ public class FiltroAlimentos {
     public int getTipo() {
         return tipo;
     }
-//    OP_DESAYUNO = 0;
-//    OP_COMIDA = 1;
-//    OP_CENA = 2;
-//    OP_OTROS = 3;
 
     public void setTipo(int tipo) {
         this.tipo = tipo;

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -59,9 +58,13 @@ public class NuevoCienteFragment extends Fragment implements
 
     public interface NuevoCliFragmentInterface {
         void onAceptarNuevoFrag(int op, Cliente c);
+
         void onCancelarNuevoFrag();
+
         void onAbrirCamaraFrag();
+
         void onEliminarClienteFrag(Cliente cliente);
+
         void onEditadoSinHabilitarFrag();
     }
 
@@ -88,7 +91,7 @@ public class NuevoCienteFragment extends Fragment implements
         }
 
         cliVM = new ViewModelProvider(requireActivity()).get(ClienteViewModel.class);
-        if(c == null) {
+        if (c == null) {
             c = cliVM.getLogin();
             mOp = cliVM.getOpcion();
         }
@@ -112,9 +115,9 @@ public class NuevoCienteFragment extends Fragment implements
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(mOp == OP_CREAR) {
+        if (mOp == OP_CREAR) {
             setHasOptionsMenu(false);
-        } else if(mOp == OP_EDITAR) {
+        } else if (mOp == OP_EDITAR) {
             setHasOptionsMenu(true);
         }
         binding = FragmentNuevoClienteBinding.inflate(inflater, container, false);
@@ -147,12 +150,12 @@ public class NuevoCienteFragment extends Fragment implements
                     Bundle b = getArguments();
                     if (b != null || c != null) {
                         habilitarCampos(false);
-                        if(cliVM.getLogin() != null) {
+                        if (cliVM.getLogin() != null) {
                             c = cliVM.getLogin();
                         } else {
                             c = b.getParcelable("cliente");
                         }
-                        if(c != null) {
+                        if (c != null) {
                             binding.etNuevoNombre.setText(c.getNombre());
                             binding.etNuevoApellidos.setText(c.getApellidos());
                             binding.etNuevoUsuario.setText(c.getUsuario());
@@ -160,9 +163,7 @@ public class NuevoCienteFragment extends Fragment implements
                             binding.etFecNac.setText(c.getFechaFormat());
                             binding.numPickerPeso.setValue((int) c.getPeso());
                             binding.numPickerAltura.setValue((int) c.getAltura());
-                            if(c.getFoto() != null) {
-                                mostrarImagenStorage(c);
-                            } else {
+                            if (!mostrarImagenStorage(c)) {
                                 binding.ivFoto.setImageResource(R.drawable.foto_camara_icono_round);
                             }
                             binding.tvId.setText(c.getId());
@@ -217,18 +218,18 @@ public class NuevoCienteFragment extends Fragment implements
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_perfil_cliente,menu);
+        inflater.inflate(R.menu.menu_perfil_cliente, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.menuEditarPerfil){
-            if(binding.etNuevoNombre.isEnabled()) {
+        if (item.getItemId() == R.id.menuEditarPerfil) {
+            if (binding.etNuevoNombre.isEnabled()) {
                 habilitarCampos(false);
             } else {
                 habilitarCampos(true);
             }
-        } else if(item.getItemId() == R.id.menuEliminar) {
+        } else if (item.getItemId() == R.id.menuEliminar) {
             mListener.onEliminarClienteFrag(c);
         }
         return super.onOptionsItemSelected(item);
@@ -247,7 +248,7 @@ public class NuevoCienteFragment extends Fragment implements
         public void onClick(View v) {
             esconderTeclado(v);
             if (mListener != null) {
-                if(binding.etNuevoNombre.isEnabled()) {
+                if (binding.etNuevoNombre.isEnabled()) {
                     if (!binding.etNuevoNombre.getText().toString().equals("") &&
                             !binding.etNuevoApellidos.getText().toString().equals("") &&
                             !binding.etNuevoUsuario.getText().toString().equals("") &&
@@ -268,9 +269,11 @@ public class NuevoCienteFragment extends Fragment implements
                         c.setFechaFormat((binding.etFecNac.getText().toString().equals("") ? "" : binding.etFecNac.getText().toString()));
 
                         mListener.onAceptarNuevoFrag(mOp, c);
-
+                        if(mOp == OP_EDITAR) {
+                            habilitarCampos(false);
+                        }
                     } else {
-                        mListener.onAceptarNuevoFrag(-1,null);  // Faltan Datos Obligatorios
+                        mListener.onAceptarNuevoFrag(-1, null);  // Faltan Datos Obligatorios
                     }
                 } else {
                     mListener.onEditadoSinHabilitarFrag();
@@ -318,7 +321,9 @@ public class NuevoCienteFragment extends Fragment implements
         }
     };
 
-    /** MÉTODOS DIÁLOGO SELECCIÓN FECHA*****************************************/
+    /**
+     * MÉTODOS DIÁLOGO SELECCIÓN FECHA
+     *****************************************/
 
     @Override
     public void onDlgSeleccionFechaClick(DialogFragment dialog, String fecha) {
@@ -331,7 +336,9 @@ public class NuevoCienteFragment extends Fragment implements
     }
 
 
-    /** MÉTODOS DIÁLOGO ELIMINAR*****************************************/
+    /**
+     * MÉTODOS DIÁLOGO ELIMINAR
+     *****************************************/
 
     @Override
     public void onDlgConfirmacionPositiveClick(DialogFragment dialog) {
@@ -360,7 +367,8 @@ public class NuevoCienteFragment extends Fragment implements
         if (imm != null) imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
-    public void mostrarImagenStorage(Cliente cli) {
+    public boolean mostrarImagenStorage(Cliente cli) {
+        final boolean[] hayImagen = {false};
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReferenceFromUrl("gs://diechichat.appspot.com").child("fotosClientes/" + cli.getId()).child("imagen" + cli.getId() + ".jpeg");
         try {
@@ -370,17 +378,21 @@ public class NuevoCienteFragment extends Fragment implements
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
                     binding.ivFoto.setImageBitmap(bitmap);
+                    hayImagen[0] = true;
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
+                    hayImagen[0] = false;
                 }
             });
-        } catch (IOException e ) {}
+        } catch (IOException e) {
+        }
+        return hayImagen[0];
     }
 
     public void habilitarCampos(boolean habilitado) {
-        if(habilitado) {
+        if (habilitado) {
             binding.etNuevoNombre.setEnabled(true);
             binding.etNuevoApellidos.setEnabled(true);
             binding.etNuevoUsuario.setEnabled(true);

@@ -12,7 +12,6 @@ import com.example.diechichat.modelo.Chat;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.Nutricionista;
 import com.example.diechichat.repositorio.ChatRepository;
-import com.example.diechichat.repositorio.ClientesRepository;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class ChatViewModel extends AndroidViewModel {
     private Cliente mLoginCliente;
     private Nutricionista mLoginNutricionista;
 
-    private MutableLiveData<String> mFechaDlg;
+    private final MutableLiveData<String> mFechaDlg;
     private final MutableLiveData<Bitmap> foto;
 
     private Chat mChatAEliminar;

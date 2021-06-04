@@ -7,14 +7,13 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.diechichat.modelo.AppDatabase;
-import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.Nutricionista;
 import com.example.diechichat.repositorio.NutriRepository;
 
 public class MainViewModel extends AndroidViewModel {
 
     private Object mLogin;
-    private NutriRepository nutriRep;
+    private final NutriRepository nutriRep;
 
     /* ViewModel Main *****************************************************************************/
 

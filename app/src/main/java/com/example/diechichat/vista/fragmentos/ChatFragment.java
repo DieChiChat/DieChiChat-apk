@@ -23,6 +23,8 @@ import com.example.diechichat.vista.adaptadores.AdaptadorClientes;
 import com.example.diechichat.vistamodelo.ChatViewModel;
 import com.example.diechichat.vistamodelo.ClienteViewModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -86,7 +88,7 @@ public class ChatFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentChatBinding.inflate(inflater, container, false);
         return binding.getRoot();

@@ -49,9 +49,7 @@ public class AlimentosFragment extends Fragment {
 
     public interface AlimentoFragmentInterface {
         void onBuscarAlimentoFrag(String alimento, View v);
-
         void onFinalizarSeleccionFrag();
-
         void onSeleccionarAlimentoFrag(Alimento alimento, Cliente cliente, int op);
     }
 
@@ -96,7 +94,7 @@ public class AlimentosFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAlimentosBinding.inflate(inflater, container, false);
         bindingAlimentos = ContentRvAlimentosBinding.inflate(inflater, container, false);
         bindingAlimentos.tvNombreAlimento.setText("");
@@ -141,21 +139,17 @@ public class AlimentosFragment extends Fragment {
         int posRecicler = mAdapterAlimentos.getItemPos();
         if (posRecicler >= 0) {
             if (mListener != null) {
-                if (mListener != null) {
-                    if (item.getItemId() == R.id.menuOk) {
-                        if (!bindingAlimentos.tvNombreAlimento.getText().toString().equals("")) {
-                            String sfasdf = bindingAlimentos.tvNombreAlimento.getText().toString();
-                            alimento = new Alimento();
-                            alimento = mAdapterAlimentos.getItem(posRecicler);
-                            mListener.onSeleccionarAlimentoFrag(alimento, cli, mOp);
-                        } else {
-                            mListener.onBuscarAlimentoFrag("", null);
-                        }
-                    } else if (item.getItemId() == R.id.menuFinalizar) {
-                        mListener.onFinalizarSeleccionFrag();
-                    }
+                if (item.getItemId() == R.id.menuOk) {
+                    alimento = mAdapterAlimentos.getItem(posRecicler);
+                    mListener.onSeleccionarAlimentoFrag(alimento, cli, mOp);
+                } else if (item.getItemId() == R.id.menuFinalizar) {
+                    mListener.onFinalizarSeleccionFrag();
                 }
+
             }
+        }
+        if (item.getItemId() == R.id.menuFinalizar) {
+            mListener.onFinalizarSeleccionFrag();
         }
         return super.onOptionsItemSelected(item);
     }

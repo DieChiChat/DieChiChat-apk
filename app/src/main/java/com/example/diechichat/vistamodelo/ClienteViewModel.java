@@ -13,7 +13,6 @@ import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.FiltroAlimentos;
 import com.example.diechichat.repositorio.ClientesRepository;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class ClienteViewModel extends AndroidViewModel {
@@ -24,7 +23,7 @@ public class ClienteViewModel extends AndroidViewModel {
     private LiveData<List<Cliente>> mCliente;
     private LiveData<List<Alimento>> mAlimento;
 
-    private MutableLiveData<String> mFechaDlg;
+    private final MutableLiveData<String> mFechaDlg;
     private final MutableLiveData<Bitmap> foto;
 
     private Cliente mLogin;

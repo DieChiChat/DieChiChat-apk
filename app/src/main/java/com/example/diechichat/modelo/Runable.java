@@ -17,17 +17,8 @@ public class Runable implements java.lang.Runnable {
     }
 
     //devolver un intent con la información de la respuesta del json
-    //lo que se pone dentro es lo del doInBackground
     @Override
     public void run() {
-//        FatSecretSearch fatSecretSearch = new FatSecretSearch();
-//        fatSecretSearch.searchFood(mquery, 1);
-//
-//        FatSecretGet fatSecretGet = new FatSecretGet();
-//        fatSecretGet.getFood(mquery);
-//
-//        ArrayList<Alimento> tAlimentos = (ArrayList<Alimento>) fatSecretGet.getFood(mquery);
-//
         String respuestaJson = NetworkUtils.getFoodInfo(mquery);
         ArrayList<Alimento> tAlimentos = NetworkUtils.interpretarJson(respuestaJson);
         DatosAlimentos.getInstance().getAlimentos().addAll(tAlimentos);

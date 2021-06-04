@@ -8,7 +8,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class AppDatabase {
 
     private static volatile AppDatabase db = null;  // Singleton
-
     public static DocumentReference refFS = null;
 
     private AppDatabase() {
@@ -24,24 +23,16 @@ public class AppDatabase {
             synchronized (AppDatabase.class) {
                 if (db == null) {
                     db = new AppDatabase();
-
                     String nombreBD = "DieChiChat";
-                    if (!nombreBD.equals("")) {
-                        // Se crea Administrador 0 admin
-                        Nutricionista nutri = new Nutricionista();
-                        nutri.setId(0);
-                        nutri.setNombre("admin");
-                        nutri.setContrasena("admin");
-                        nutri.setApellidos("apellidos admin");
-                        nutri.setUsuario("admin");
-                        // Ini FirebaseFireStore
-//                        FirebaseApp.initializeApp(this);
-
-                        FirebaseFirestore dbFS = FirebaseFirestore.getInstance();
-                        refFS = dbFS.document("proyectos/" + nombreBD);
-                        // Se guarda Administrador 0 admin (si no existe ya)
-                        refFS.collection("administrador").document(String.valueOf(nutri.getId())).set(nutri);
-                    }
+//                    Nutricionista n = new Nutricionista();
+//                    n.setNombre("Agustín");
+//                    n.setApellidos("Alarcón Nicolás");
+//                    n.setId(0);
+//                    n.setUsuario("admin");
+//                    n.setContrasena("admin");
+                    FirebaseFirestore dbFS = FirebaseFirestore.getInstance();
+                    refFS = dbFS.document("proyectos/" + nombreBD);
+//                    refFS.collection("administrador").document(String.valueOf(n.getId())).set(n);
 
                 }
             }
@@ -57,5 +48,4 @@ public class AppDatabase {
         }
         return false;
     }
-
 }

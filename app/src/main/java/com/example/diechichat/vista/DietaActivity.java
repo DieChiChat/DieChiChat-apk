@@ -12,6 +12,16 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+
+import com.example.diechichat.R;
+import com.example.diechichat.databinding.ActivityDietaBinding;
 import com.example.diechichat.modelo.Alimento;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.DatosAlimentos;
@@ -21,19 +31,6 @@ import com.example.diechichat.vista.fragmentos.AlimentosFragment;
 import com.example.diechichat.vista.fragmentos.DietaFragment;
 import com.example.diechichat.vistamodelo.AlimentoViewModel;
 import com.example.diechichat.vistamodelo.ClienteViewModel;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
-
-import com.example.diechichat.databinding.ActivityDietaBinding;
-
-import com.example.diechichat.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -56,8 +53,8 @@ public class DietaActivity extends AppCompatActivity implements
         alimentoVM = new ViewModelProvider(this).get(AlimentoViewModel.class);
 
         Intent i = getIntent();
-        if(i != null) {
-            if(i.getParcelableExtra("cliente") != null) {
+        if (i != null) {
+            if (i.getParcelableExtra("cliente") != null) {
                 cliVM.setLogin(i.getParcelableExtra("cliente"));
                 cliVM.setEsCliente(false);
             } else {
@@ -81,7 +78,7 @@ public class DietaActivity extends AppCompatActivity implements
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 if (mNavC.getCurrentDestination() != null && mNavC.getCurrentDestination().getId() == R.id.fragment_dieta) {
                     onBackPressed();
@@ -95,22 +92,31 @@ public class DietaActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finish();
+        //super.onBackPressed();
+        if (mNavC.getCurrentDestination() != null && mNavC.getCurrentDestination().getId() == R.id.fragment_dieta) {
+            finish();
+        } else if(mNavC.getCurrentDestination() != null && mNavC.getCurrentDestination().getId() == R.id.fragment_alimentos
+                || mNavC.getCurrentDestination().getId() == R.id.fragment_alimento_seleccionado) {
+            mNavC.navigateUp();
+        }
     }
 
-    /** Métodos DietaFragment **************************************************/
+    /**
+     * Métodos DietaFragment
+     **************************************************/
     @Override
     public void onAsignarAlimento(Cliente c, int opcion) {
-        if(c != null) {
-            Bundle bundleCli= new Bundle();
+        if (c != null) {
+            Bundle bundleCli = new Bundle();
             bundleCli.putParcelable("cliente", c);
             bundleCli.putInt("opcion", opcion);
             mNavC.navigate(R.id.action_fragment_dieta_to_fragment_alimentos, bundleCli);
         }
     }
 
-    /** Métodos AlimentosFragment **************************************************/
+    /**
+     * Métodos AlimentosFragment
+     **************************************************/
 
     @Override
     public void onFinalizarSeleccionFrag() {
@@ -119,16 +125,20 @@ public class DietaActivity extends AppCompatActivity implements
 
     @Override
     public void onSeleccionarAlimentoFrag(Alimento alimento, Cliente cliente, int op) {
-        if(alimento != null && cliente != null && op != -1) {
+        if (alimento != null && cliente != null && op != -1 && alimento.getNombre() != null) {
             Bundle b = new Bundle();
             b.putParcelable("alimento", alimento);
             b.putParcelable("cliente", cliente);
             b.putInt("opcion", op);
             mNavC.navigate(R.id.action_fragment_alimentos_to_fragment_alimento_seleccionado, b);
+        } else {
+            Snackbar.make(binding.getRoot(), R.string.msg_alimentoNoValido, Snackbar.LENGTH_SHORT).show();
         }
     }
 
-    /**Métodos búsqueda de alimentos en API*************************************/
+    /**
+     * Métodos búsqueda de alimentos en API
+     *************************************/
 
     public class Receptor extends BroadcastReceiver {
         @Override
@@ -144,7 +154,7 @@ public class DietaActivity extends AppCompatActivity implements
 
     @Override
     public void onBuscarAlimentoFrag(String alimento, View v) {
-        if(!alimento.equals("") && v != null) {
+        if (!alimento.equals("") && v != null) {
             //Poner el listado a null
             DatosAlimentos.getInstance().getAlimentos().clear();
             // Get the search string from the input field.
@@ -176,11 +186,13 @@ public class DietaActivity extends AppCompatActivity implements
         }
     }
 
-    /** Métodos AlimentoSeleccionadoFragment ***************************************/
+    /**
+     * Métodos AlimentoSeleccionadoFragment
+     ***************************************/
 
     @Override
     public void onAceptarAliSeleccionadoFrag(Cliente c) {
-        if(c != null) {
+        if (c != null) {
             cliVM.editarCliente(c).observe(this, new Observer<Boolean>() {
                 @Override
                 public void onChanged(Boolean ok) {
@@ -188,6 +200,8 @@ public class DietaActivity extends AppCompatActivity implements
                 }
             });
             mNavC.navigateUp();
+        } else {
+            Snackbar.make(binding.getRoot(), R.string.msg_cantidadMal, Snackbar.LENGTH_SHORT).show();
         }
     }
 

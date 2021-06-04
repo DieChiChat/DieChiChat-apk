@@ -13,7 +13,6 @@ import com.example.diechichat.R;
 import com.example.diechichat.databinding.ContentRvAlimentosBinding;
 import com.example.diechichat.modelo.Alimento;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AdaptadorAlimentos extends RecyclerView.Adapter<AdaptadorAlimentos.AlimentoVH> {
@@ -100,7 +99,11 @@ public class AdaptadorAlimentos extends RecyclerView.Adapter<AdaptadorAlimentos.
         }
 
         private void setItem(Alimento ali) {
-            binding.tvNombreAlimento.setText(ali.getNombre());
+            if(ali.getNombre() != null) {
+                binding.tvNombreAlimento.setText(ali.getNombre());
+            } else {
+                binding.tvNombreAlimento.setText("");
+            }
         }
     }
 }

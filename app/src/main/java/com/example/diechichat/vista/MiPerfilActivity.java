@@ -4,30 +4,30 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.ActivityMiPerfilBinding;
 import com.example.diechichat.modelo.Nutricionista;
+import com.example.diechichat.vista.dialogos.DlgAlerta;
 import com.example.diechichat.vista.fragmentos.MiPerfilFragment;
-import com.example.diechichat.vistamodelo.MainViewModel;
+import com.example.diechichat.vistamodelo.NutriViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 public class MiPerfilActivity extends AppCompatActivity implements MiPerfilFragment.PerfilFragInterface {
 
+    private static final String TAG_ALERTA = "tagAlerta";
+
     private ActivityMiPerfilBinding binding;
     private NavController mNavC;
-    private MainViewModel mainVM;
+    private NutriViewModel nutriVM;
     private Nutricionista nutricionista;
-//    public static Nutricionista nutricionista;
 
     @SuppressLint("ResourceType")
     @Override
@@ -36,14 +36,14 @@ public class MiPerfilActivity extends AppCompatActivity implements MiPerfilFragm
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        mainVM = new ViewModelProvider(this).get(MainViewModel.class);
+        nutriVM = new ViewModelProvider(this).get(NutriViewModel.class);
 
         Intent i = getIntent();
         if (i != null) {
             Bundle b = i.getExtras();
             if (b != null) {
                 nutricionista = (Nutricionista) b.getParcelable("login");
-                mainVM.setLogin(nutricionista);
+                nutriVM.setLogin(nutricionista);
             }
         }
 
@@ -73,13 +73,15 @@ public class MiPerfilActivity extends AppCompatActivity implements MiPerfilFragm
     @Override
     public void onAceptarPerfilFrag(Nutricionista nutricionista) {
         if (nutricionista != null) {
-            mainVM.editarNutricionista(nutricionista).observe(this, new Observer<Boolean>() {
+            nutriVM.editarNutricionista(nutricionista).observe(this, new Observer<Boolean>() {
                 @Override
                 public void onChanged(Boolean ok) {
-                    Toast.makeText(getApplication(), (ok) ? R.string.msg_editarOk : R.string.msg_editarKo, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplication(), (ok) ? R.string.msg_editarOk : R.string.msg_editarKo, Toast.LENGTH_SHORT).show();
+                    if(ok) {
+                        mensajeInformacion(R.string.titleInformacion, R.string.msgInformacion);
+                    }
                 }
             });
-            finish();
         } else {
             Snackbar.make(binding.getRoot(), R.string.msg_datosObligatorios, Snackbar.LENGTH_SHORT).show();
         }
@@ -88,5 +90,12 @@ public class MiPerfilActivity extends AppCompatActivity implements MiPerfilFragm
     @Override
     public void onCancelarPerfilFrag() {
         finish();
+    }
+
+    public void mensajeInformacion(int titulo, int mensaje) {
+        DlgAlerta da = new DlgAlerta();
+        da.setTitulo(titulo);
+        da.setMensaje(mensaje);
+        da.show(getSupportFragmentManager(), TAG_ALERTA);
     }
 }

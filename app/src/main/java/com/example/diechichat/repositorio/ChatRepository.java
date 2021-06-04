@@ -9,7 +9,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.diechichat.modelo.AppDatabase;
 import com.example.diechichat.modelo.Chat;
-import com.example.diechichat.modelo.Cliente;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -19,7 +18,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +77,7 @@ public class ChatRepository {
         @Override
         protected void onInactive() {
             super.onInactive();
-            if(reg != null) {
+            if (reg != null) {
                 reg.remove();
             }
         }

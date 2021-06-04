@@ -20,7 +20,6 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.ActivityNuevoClienteBinding;
 import com.example.diechichat.modelo.Cliente;
-import com.example.diechichat.vista.dialogos.DlgConfirmacion;
 import com.example.diechichat.vista.dialogos.DlgSeleccionFecha;
 import com.example.diechichat.vista.fragmentos.NuevoCienteFragment;
 import com.example.diechichat.vistamodelo.ClienteViewModel;
@@ -32,9 +31,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class NuevoClienteActivity extends AppCompatActivity implements
         NuevoCienteFragment.NuevoCliFragmentInterface,
@@ -45,8 +41,6 @@ public class NuevoClienteActivity extends AppCompatActivity implements
     private ClienteViewModel cliVM;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private Cliente cli;
-    private int opcion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +49,7 @@ public class NuevoClienteActivity extends AppCompatActivity implements
         cliVM = new ViewModelProvider(this).get(ClienteViewModel.class);
 
         Intent i = getIntent();
-        if(i != null) {
+        if (i != null) {
             cliVM.setLogin(i.getExtras().getParcelable("login"));
             cliVM.setOpcion(i.getExtras().getInt("opcion"));
         }
@@ -74,7 +68,7 @@ public class NuevoClienteActivity extends AppCompatActivity implements
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
@@ -97,12 +91,13 @@ public class NuevoClienteActivity extends AppCompatActivity implements
                             }
                         }
                     });
+                    finish();
                     break;
                 case NuevoCienteFragment.OP_EDITAR:
                     cliVM.editarCliente(c).observe(this, new Observer<Boolean>() {
                         @Override
                         public void onChanged(Boolean ok) {
-                            Toast.makeText(getApplication(), (ok) ? R.string.msg_altaCorrecta : R.string.msg_altaIncorrecta, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplication(), (ok) ? R.string.msg_editarOk : R.string.msg_editarKo, Toast.LENGTH_SHORT).show();
 //                            Snackbar.make(binding.getRoot(), (ok) ? R.string.msg_altaCorrecta : R.string.msg_altaIncorrecta, Snackbar.LENGTH_SHORT).show();
                             if (ok) {
                                 subirFotoAStorage(c, cliVM.getFoto());
@@ -111,7 +106,6 @@ public class NuevoClienteActivity extends AppCompatActivity implements
                     });
                     break;
             }
-            finish();
         } else {
             Snackbar.make(binding.getRoot(), R.string.msg_datosObligatorios, Snackbar.LENGTH_SHORT).show();
         }
@@ -136,10 +130,14 @@ public class NuevoClienteActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onEliminarClienteFrag(Cliente c) { ; }
+    public void onEliminarClienteFrag(Cliente c) {
+        ;
+    }
 
     @Override
-    public void onEditadoSinHabilitarFrag() { ; }
+    public void onEditadoSinHabilitarFrag() {
+        ;
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -156,10 +154,6 @@ public class NuevoClienteActivity extends AppCompatActivity implements
     }
 
     public void subirFotoAStorage(Cliente cli, LiveData<Bitmap> fotoLive) {
-        String hora = new SimpleDateFormat("HHmmss", Locale.ENGLISH).format(new Date());
-        ;
-        String nombreFoto = "imagen" + cli.getIdAdmin() + cli.getId();
-
         Bitmap foto = fotoLive.getValue();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReferenceFromUrl("gs://diechichat.appspot.com").child("fotosClientes/" + cli.getId()).child("imagen" + cli.getId() + ".jpeg");

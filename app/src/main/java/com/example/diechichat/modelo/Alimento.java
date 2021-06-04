@@ -67,25 +67,28 @@ public class Alimento implements Parcelable {
     public void setId(int id) { this.id = id; }
 
     public double getGrasa() { return grasa; }
-    public void setGrasa(double grasa) { this.grasa = grasa; }
+    public void setGrasa(double grasa) { this.grasa = redondearNumero(grasa); }
 
     public double getFibra() { return fibra; }
-    public void setFibra(double fibra) { this.fibra = fibra; }
+    public void setFibra(double fibra) { this.fibra = redondearNumero(fibra); }
 
     public double getProteinas() { return proteinas; }
-    public void setProteinas(double proteinas) { this.proteinas = proteinas; }
+    public void setProteinas(double proteinas) { this.proteinas = redondearNumero(proteinas); }
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
     public double getCarbohidratos() { return carbohidratos; }
-    public void setCarbohidratos(double carbohidratos) { this.carbohidratos = carbohidratos; }
+    public void setCarbohidratos(double carbohidratos) { this.carbohidratos = redondearNumero(carbohidratos); }
 
     public double getKcal() { return kcal; }
-    public void setKcal(double kcal) { this.kcal = kcal; }
+    public void setKcal(double kcal) { this.kcal = redondearNumero(grasa); }
 
     public void setCantidad(String cantidad) { this.cantidad = cantidad; }
     public String getCantidad() { return cantidad; }
 
+    private double redondearNumero(double num) {
+        return Math.round(num * 100) / 100;
+    }
 
 }

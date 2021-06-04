@@ -2,6 +2,12 @@ package com.example.diechichat.vista.fragmentos;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,19 +17,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.FragmentMisClientesBinding;
-import com.example.diechichat.databinding.FragmentNuevoClienteBinding;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.vista.adaptadores.AdaptadorClientes;
 import com.example.diechichat.vistamodelo.ClienteViewModel;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -34,6 +34,7 @@ public class MisClientesFragment extends Fragment {
 
     public interface MisClientesFragmentInterface {
         void onVerClienteFrag(Cliente cli);
+
         void onAddDietaFrag(Cliente cli);
     }
 
@@ -82,7 +83,7 @@ public class MisClientesFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentMisClientesBinding.inflate(inflater, container, false);
         return binding.getRoot();

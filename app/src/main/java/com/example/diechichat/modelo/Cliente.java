@@ -5,7 +5,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,6 @@ public class Cliente implements Parcelable {
     private List<Alimento> tOtros;
 
 
-
     /* Constructor ********************************************************************************/
     public Cliente() {
         this.tDesayuno = new ArrayList<>();
@@ -40,7 +38,6 @@ public class Cliente implements Parcelable {
         this.tCena = new ArrayList<>();
         this.tOtros = new ArrayList<>();
     }
-
 
     /* Métodos Parcelable *************************************************************************/
 
@@ -103,6 +100,7 @@ public class Cliente implements Parcelable {
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -110,21 +108,33 @@ public class Cliente implements Parcelable {
     public int getIdAdmin() {
         return idAdmin;
     }
+
     public void setIdAdmin(int idAdmin) {
         this.idAdmin = idAdmin;
     }
 
     @NonNull
-    public String getFechaNacimiento() { return fechaNacimiento; }
-    public void setFechaNacimiento(@NonNull String fechaNacimiento) { this.fechaNacimiento = fechaNacimiento; }
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
 
-    public String getFechaFormat() { return fechaNacimiento.substring(6, 8) + "/" + fechaNacimiento.substring(4, 6) + "/" + fechaNacimiento.substring(0, 4); }
-    public void setFechaFormat(@NonNull String fecha) { this.fechaNacimiento = fecha.substring(6, 10) + fecha.substring(3, 5) + fecha.substring(0, 2); }
+    public void setFechaNacimiento(@NonNull String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public String getFechaFormat() {
+        return fechaNacimiento.substring(6, 8) + "/" + fechaNacimiento.substring(4, 6) + "/" + fechaNacimiento.substring(0, 4);
+    }
+
+    public void setFechaFormat(@NonNull String fecha) {
+        this.fechaNacimiento = fecha.substring(6, 10) + fecha.substring(3, 5) + fecha.substring(0, 2);
+    }
 
     @NonNull
     public String getUsuario() {
         return usuario;
     }
+
     public void setUsuario(@NonNull String usuario) {
         this.usuario = usuario;
     }
@@ -132,6 +142,7 @@ public class Cliente implements Parcelable {
     public String getContrasena() {
         return contrasena;
     }
+
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
@@ -139,36 +150,80 @@ public class Cliente implements Parcelable {
     public String getNombreCompleto() {
         return nombreCompleto;
     }
-    public void setNombreCompleto(String nombre) { this.nombreCompleto = nombre; }
+
+    public void setNombreCompleto(String nombre) {
+        this.nombreCompleto = nombre;
+    }
 
     public String getNombre() {
         return nombre;
     }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
     public String getApellidos() {
         return apellidos;
     }
-    public void setApellidos(String apellidos) { this.apellidos = apellidos; }
 
-    public double getPeso() { return peso; }
-    public void setPeso(double peso) { this.peso = peso; }
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
 
-    public double getAltura() { return altura; }
-    public void setAltura(double altura) { this.altura = altura; }
+    public double getPeso() {
+        return peso;
+    }
 
-    public Bitmap getFoto() { return foto; }
-    public void setFoto(Bitmap foto) { this.foto = foto; }
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
 
-    public List<Alimento> getDesayuno() { return tDesayuno; }
-    public void setDesayuno(List<Alimento> tDesayuno) { this.tDesayuno = tDesayuno; }
+    public double getAltura() {
+        return altura;
+    }
 
-    public List<Alimento> getComida() { return tComida; }
-    public void setComida(List<Alimento> tComida) { this.tComida = tComida; }
+    public void setAltura(double altura) {
+        this.altura = altura;
+    }
 
-    public List<Alimento> getCena() { return tCena; }
-    public void setCena(List<Alimento> tCena) { this.tCena = tCena; }
+    public Bitmap getFoto() {
+        return foto;
+    }
 
-    public List<Alimento> getOtros() { return tOtros; }
-    public void setOtros(List<Alimento> tOtros) { this.tOtros = tOtros; }
+    public void setFoto(Bitmap foto) {
+        this.foto = foto;
+    }
+
+    public List<Alimento> getDesayuno() {
+        return tDesayuno;
+    }
+
+    public void setDesayuno(List<Alimento> tDesayuno) {
+        this.tDesayuno = tDesayuno;
+    }
+
+    public List<Alimento> getComida() {
+        return tComida;
+    }
+
+    public void setComida(List<Alimento> tComida) {
+        this.tComida = tComida;
+    }
+
+    public List<Alimento> getCena() {
+        return tCena;
+    }
+
+    public void setCena(List<Alimento> tCena) {
+        this.tCena = tCena;
+    }
+
+    public List<Alimento> getOtros() {
+        return tOtros;
+    }
+
+    public void setOtros(List<Alimento> tOtros) {
+        this.tOtros = tOtros;
+    }
 }

@@ -1,31 +1,21 @@
 package com.example.diechichat.vista.adaptadores;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStore;
-import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.ContentRvChatBinding;
-import com.example.diechichat.databinding.ContentRvClientesBinding;
 import com.example.diechichat.modelo.Chat;
 import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.Nutricionista;
-import com.example.diechichat.vistamodelo.ChatViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class AdaptadorChat extends RecyclerView.Adapter<AdaptadorChat.ChatVH> {
@@ -47,7 +37,10 @@ public class AdaptadorChat extends RecyclerView.Adapter<AdaptadorChat.ChatVH> {
         mDatos = datos;
     }
 
-    public List<Chat> getItems() { return mDatos; }
+    public List<Chat> getItems() {
+        return mDatos;
+    }
+
     public int getItemPos() {
         return mItemPos;
     }
@@ -64,8 +57,12 @@ public class AdaptadorChat extends RecyclerView.Adapter<AdaptadorChat.ChatVH> {
         return mDatos.get(pos);
     }
 
-    public void setmLoginCliente(Cliente mLoginCliente) { this.mLoginCliente = mLoginCliente; }
-    public void setmLoginNutricionista(Nutricionista mLoginNutricionista) { this.mLoginNutricionista = mLoginNutricionista; }
+    public void setmLoginCliente(Cliente mLoginCliente) {
+        this.mLoginCliente = mLoginCliente;
+    }
+    public void setmLoginNutricionista(Nutricionista mLoginNutricionista) {
+        this.mLoginNutricionista = mLoginNutricionista;
+    }
 
     @NonNull
     @Override
@@ -103,47 +100,19 @@ public class AdaptadorChat extends RecyclerView.Adapter<AdaptadorChat.ChatVH> {
 
         @SuppressLint("SetTextI18n")
         private void setItem(Chat chat) {
-            if(mLoginCliente != null) {
+            if (mLoginCliente != null) {
                 String s = "";
-                for(int i = 0; i < mLoginCliente.getId().length(); i++) {
+                for (int i = 0; i < mLoginCliente.getId().length(); i++) {
                     char tope = mLoginCliente.getId().charAt(i);
-                    if(String.valueOf(tope).equals("-")) {
+                    if (String.valueOf(tope).equals("-")) {
                         s = mLoginCliente.getId().substring(0, i);
                     }
                 }
-                if(s.equals(mLoginCliente.getId())) {
+                if (s.equals(mLoginCliente.getId())) {
                     binding.tvMensaje.setText(chat.getMensaje());
                     binding.tvHora.setText(chat.getHoraMensaje().toString());
                 }
             }
-//
-//            TODO: buscar comparador para ordenar mensajes a través de su fecha o su posición
-//            Collections.sort(chat, new Comparator<Chat>() {
-//                @Override
-//                public int compare(Chat c1, Chat c2) {
-//                    return new Integer(c1.getPos()).compareTo(new Integer(c2.getPos()));
-//                }
-//            });
-//
-//            Comparator<Integer> comparador = Collections.reverseOrder();
-//            Collections.sort(arrayListInt, comparador);
-
-//
-//            List<Chat> tMensajes = new ArrayList<>();
-//            int i = 0;
-//            int size = tMensajes.size();
-//            while(size >= 0) {
-//                for (Chat c: tMensajes) {
-//                    if(c.getPos() > i ) {
-//                        i = c.getPos();
-//                    }
-//                }
-//            }
-//            for (Chat c: tMensajes) {
-//                if() {
-//
-//                }
-//            }
         }
 
         @Override
@@ -156,7 +125,5 @@ public class AdaptadorChat extends RecyclerView.Adapter<AdaptadorChat.ChatVH> {
                 mListener.onClick(v);
             }
         }
-
     }
-
 }

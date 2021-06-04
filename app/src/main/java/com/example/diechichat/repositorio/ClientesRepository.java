@@ -31,7 +31,6 @@ public class ClientesRepository {
     /* Repository Clientes ***************************************************************************/
 
     public final AppDatabase mAppDB;
-    private FiltroAlimentos filtroAlimentos;
 
     public ClientesRepository(Application application) {
         mAppDB = AppDatabase.getAppDatabase(application);
@@ -71,11 +70,6 @@ public class ClientesRepository {
         @Override
         protected void onActive() {
             super.onActive();
-//            if(filtro.getEstado().equals("%")) {
-//                reg = mAppDB.getRefFS().collection("clientes").whereEqualTo("idAdmin", filtro.getIdDpto()).whereGreaterThanOrEqualTo("fecha", filtro.getFecha()).addSnapshotListener(incsME_EventListener);
-//            }else{
-//                reg = mAppDB.getRefFS().collection("incs").whereEqualTo("idDpto", filtro.getIdDpto()).whereGreaterThanOrEqualTo("fecha", filtro.getFecha()).whereEqualTo("estado", filtro.getEstado().equals("1")).addSnapshotListener(incsME_EventListener);
-//            }
         }
 
         @Override
@@ -102,11 +96,6 @@ public class ClientesRepository {
     public LiveData<List<Cliente>> recuperarClienteSE() {
         return new ClientesRepository.FirebaseLiveDataSE();
     }
-
-//    public LiveData<List<Cliente>> recuperarClienteME(FiltroClis filtro) {
-//        this.filtro = filtro;
-//        return new ClientesRepository.FirebaseLiveDataME();
-//    }
 
     public LiveData<Boolean> altaCliente(@NonNull Cliente cli) {
         MutableLiveData<Boolean> result = new MutableLiveData<>();
@@ -162,20 +151,29 @@ public class ClientesRepository {
         return result;
     }
 
-    /**Recuperar Alimentos de Cliente **************************************/
+    /**
+     * Recuperar Alimentos de Cliente
+     **************************************/
     public LiveData<List<Alimento>> recuperarAlimentosSE(FiltroAlimentos filtroAlimentos) {
-        this.filtroAlimentos = filtroAlimentos;
-        return new ClientesRepository.FirebaseLiveDataAlimentoSE();
+        FirebaseLiveDataAlimentoSE fldAlimentosSE = new ClientesRepository.FirebaseLiveDataAlimentoSE();
+        fldAlimentosSE.setFiltroAlimentos(filtroAlimentos);
+        return fldAlimentosSE;
     }
 
     private class FirebaseLiveDataAlimentoSE extends LiveData<List<Alimento>> {
         ListenerRegistration reg;
+        FiltroAlimentos filtroAlimentos;
+
+        public void setFiltroAlimentos(FiltroAlimentos filtroAlimentos) {
+            this.filtroAlimentos = filtroAlimentos;
+        }
+
         @Override
         protected void onActive() {
             super.onActive();
 
             reg = mAppDB.getRefFS().collection("clientes").whereEqualTo("id", filtroAlimentos.getCliente().getId()).addSnapshotListener(alisSE_OnCompleteListener);
-//            mAppDB.getRefFS().collection("clientes").orderBy("id").get().addOnCompleteListener(alisSE_OnCompleteListener);
+
         }
 
         @Override
@@ -189,40 +187,35 @@ public class ClientesRepository {
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error != null) return;
                 List<Alimento> alimentos = new ArrayList<>();
-                for (QueryDocumentSnapshot qds : value) {
-                    if(filtroAlimentos.getCliente() != null) {
-                        if (qds.toObject(Cliente.class).getDesayuno().size() > 0) {
-                            List<Alimento> tLista = qds.toObject(Cliente.class).getDesayuno();
-                            for(Alimento a: tLista) {
-                                alimentos.add(a);
-                            }
-                        } else if (filtroAlimentos.getTipo() == DietaFragment.OP_COMIDA) {
-                            if (qds.toObject(Cliente.class).getComida().size() > 0) {
-                                List<Alimento> tLista = qds.toObject(Cliente.class).getComida();
-                                for (Alimento a : tLista) {
-                                    alimentos.add(a);
+                if(value != null) {
+                    for (QueryDocumentSnapshot qds : value) {
+                        if (filtroAlimentos.getCliente() != null) {
+                            if (filtroAlimentos.getTipo() == DietaFragment.OP_DESAYUNO) {
+                                if (qds.toObject(Cliente.class).getDesayuno().size() > 0) {
+                                    List<Alimento> tLista = qds.toObject(Cliente.class).getDesayuno();
+                                    alimentos.addAll(tLista);
                                 }
-                            }
-                        } else if (filtroAlimentos.getTipo() == DietaFragment.OP_CENA) {
-                            if (qds.toObject(Cliente.class).getCena().size() > 0) {
-                                List<Alimento> tLista = qds.toObject(Cliente.class).getCena();
-                                for (Alimento a : tLista) {
-                                    alimentos.add(a);
+                            } else if (filtroAlimentos.getTipo() == DietaFragment.OP_COMIDA) {
+                                if (qds.toObject(Cliente.class).getComida().size() > 0) {
+                                    List<Alimento> tLista = qds.toObject(Cliente.class).getComida();
+                                    alimentos.addAll(tLista);
                                 }
-                            }
-                        } else if (filtroAlimentos.getTipo() == DietaFragment.OP_OTROS) {
-                            if (qds.toObject(Cliente.class).getOtros().size() > 0) {
-                                List<Alimento> tLista = qds.toObject(Cliente.class).getOtros();
-                                for (Alimento a : tLista) {
-                                    alimentos.add(a);
+                            } else if (filtroAlimentos.getTipo() == DietaFragment.OP_CENA) {
+                                if (qds.toObject(Cliente.class).getCena().size() > 0) {
+                                    List<Alimento> tLista = qds.toObject(Cliente.class).getCena();
+                                    alimentos.addAll(tLista);
+                                }
+                            } else if (filtroAlimentos.getTipo() == DietaFragment.OP_OTROS) {
+                                if (qds.toObject(Cliente.class).getOtros().size() > 0) {
+                                    List<Alimento> tLista = qds.toObject(Cliente.class).getOtros();
+                                    alimentos.addAll(tLista);
                                 }
                             }
                         }
                     }
+                    setValue(alimentos);
                 }
-                setValue(alimentos);
             }
         };
-
     }
 }

@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.ContentRvAlimentosAsignadosBinding;
 import com.example.diechichat.modelo.Alimento;
-import com.example.diechichat.modelo.Cliente;
 
 import java.util.List;
 
@@ -53,7 +52,7 @@ public class AdaptadorDieta extends RecyclerView.Adapter<AdaptadorDieta.Alimento
     @NonNull
     @Override
     public AlimentoVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_rv_alimentos, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_rv_alimentos_asignados, parent, false);
         return new AlimentoVH(v);
     }
 
@@ -106,14 +105,13 @@ public class AdaptadorDieta extends RecyclerView.Adapter<AdaptadorDieta.Alimento
                     ali.getNombre()
                             + " - "
                             + ali.getCantidad()
-                            + " - "
-                            + " - Fibra: "
+                            + "\n - Fibra: "
                             + ali.getFibra()
                             + " - Grasa: "
                             + ali.getGrasa()
-                            + "\n - Carbohidratos: "
+                            + " - Carbohidratos: "
                             + ali.getCarbohidratos()
-                            + " - Proteínas: "
+                            + "\n - Proteínas: "
                             + ali.getProteinas()
                             + " - Kcal: "
                             + ali.getKcal());

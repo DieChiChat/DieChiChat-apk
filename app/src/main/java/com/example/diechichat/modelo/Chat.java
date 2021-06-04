@@ -3,11 +3,7 @@ package com.example.diechichat.modelo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 public class Chat implements Parcelable {
 
@@ -21,7 +17,7 @@ public class Chat implements Parcelable {
     /* Constructor ********************************************************************************/
 
     public Chat() {
-       asignarHora();
+        asignarHora();
     }
 
     protected Chat(Parcel in) {
@@ -60,17 +56,37 @@ public class Chat implements Parcelable {
 
     /* Métodos Getters&Setters ********************************************************************/
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public String getId() {
+        return id;
+    }
 
-    public String getMensaje() { return tMensajes; }
-    public void setMensaje(String mensajeTexto) { this.tMensajes = mensajeTexto; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public String getHoraMensaje() { return horaMensaje; }
-    public void setHoraMensaje(String horaMensaje) { this.horaMensaje = horaMensaje; }
+    public String getMensaje() {
+        return tMensajes;
+    }
 
-    public int getPos() { return pos; }
-    public void setPos(int pos) { this.pos = pos; }
+    public void setMensaje(String mensajeTexto) {
+        this.tMensajes = mensajeTexto;
+    }
+
+    public String getHoraMensaje() {
+        return horaMensaje;
+    }
+
+    public void setHoraMensaje(String horaMensaje) {
+        this.horaMensaje = horaMensaje;
+    }
+
+    public int getPos() {
+        return pos;
+    }
+
+    public void setPos(int pos) {
+        this.pos = pos;
+    }
 
     public void asignarHora() {
         Calendar calendario = Calendar.getInstance();

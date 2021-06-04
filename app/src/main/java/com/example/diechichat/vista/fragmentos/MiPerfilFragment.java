@@ -3,12 +3,6 @@ package com.example.diechichat.vista.fragmentos;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,11 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.FragmentPerfilBinding;
-import com.example.diechichat.modelo.Cliente;
 import com.example.diechichat.modelo.Nutricionista;
-import com.example.diechichat.vistamodelo.MainViewModel;
+import com.example.diechichat.vistamodelo.NutriViewModel;
 
 public class MiPerfilFragment extends Fragment {
 
@@ -31,9 +29,9 @@ public class MiPerfilFragment extends Fragment {
 
     private Nutricionista nutri;
 
-    private MainViewModel mainVM;
+    private NutriViewModel nutriVM;
 
-    public interface PerfilFragInterface{
+    public interface PerfilFragInterface {
         void onAceptarPerfilFrag(Nutricionista nutricionista);
         void onCancelarPerfilFrag();
     }
@@ -45,28 +43,28 @@ public class MiPerfilFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof PerfilFragInterface){
-            mListener= (PerfilFragInterface) context;
-        }else {
+        if (context instanceof PerfilFragInterface) {
+            mListener = (PerfilFragInterface) context;
+        } else {
             throw new RuntimeException(context.toString() + " must implement PerfilFragInterface");
         }
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        if(getArguments() != null) {
-//            Bundle b = getArguments();
-//            nutri = getArguments().getParcelable("login") ;
+        if (getArguments() != null) {
         }
 
-        mainVM = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
-        nutri = (Nutricionista) mainVM.getLogin();
+        nutriVM = new ViewModelProvider(requireActivity()).get(NutriViewModel.class);
+        nutri = (Nutricionista) nutriVM.getLogin();
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding= FragmentPerfilBinding.inflate(inflater, container, false);
+        binding = FragmentPerfilBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -77,7 +75,7 @@ public class MiPerfilFragment extends Fragment {
         habilitarCampos(false);
         binding.tvIdPerfil.setVisibility(View.INVISIBLE);
 
-        if(nutri != null) {
+        if (nutri != null) {
             binding.tvIdPerfil.setText(String.valueOf(nutri.getId()));
             binding.etNombre.setText(nutri.getNombre());
             binding.etApellidos.setText(nutri.getApellidos());
@@ -93,7 +91,7 @@ public class MiPerfilFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding=null;
+        binding = null;
     }
 
     @Override
@@ -109,13 +107,13 @@ public class MiPerfilFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_perfil_nutri,menu);
+        inflater.inflate(R.menu.menu_perfil_nutri, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.menuEditarPerfil){
-            if(binding.etNombre.isEnabled()) {
+        if (item.getItemId() == R.id.menuEditarPerfil) {
+            if (binding.etNombre.isEnabled()) {
                 habilitarCampos(false);
             } else {
                 habilitarCampos(true);
@@ -140,12 +138,13 @@ public class MiPerfilFragment extends Fragment {
                 n.setUsuario(binding.etUsuario.getText().toString());
                 n.setContrasena(binding.etContrasena.getText().toString());
                 mListener.onAceptarPerfilFrag(n);
+                habilitarCampos(false);
             } else {
                 mListener.onAceptarPerfilFrag(null);
             }
         }
     };
-    View.OnClickListener btCancelar_onClickListener= new View.OnClickListener() {
+    View.OnClickListener btCancelar_onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             esconderTeclado(v);
@@ -176,7 +175,7 @@ public class MiPerfilFragment extends Fragment {
     }
 
     public void habilitarCampos(boolean habilitado) {
-        if(habilitado) {
+        if (habilitado) {
             binding.etNombre.setEnabled(true);
             binding.etApellidos.setEnabled(true);
             binding.etUsuario.setEnabled(true);

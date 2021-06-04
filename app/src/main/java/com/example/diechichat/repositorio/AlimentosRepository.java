@@ -66,11 +66,6 @@ public class AlimentosRepository {
         @Override
         protected void onActive() {
             super.onActive();
-//            if(filtro.getEstado().equals("%")) {
-//                reg = mAppDB.getRefFS().collection("clientes").whereEqualTo("idAdmin", filtro.getIdDpto()).whereGreaterThanOrEqualTo("fecha", filtro.getFecha()).addSnapshotListener(incsME_EventListener);
-//            }else{
-//                reg = mAppDB.getRefFS().collection("incs").whereEqualTo("idDpto", filtro.getIdDpto()).whereGreaterThanOrEqualTo("fecha", filtro.getFecha()).whereEqualTo("estado", filtro.getEstado().equals("1")).addSnapshotListener(incsME_EventListener);
-//            }
         }
 
         @Override
