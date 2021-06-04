@@ -24,12 +24,15 @@ public class AppDatabase {
                 if (db == null) {
                     db = new AppDatabase();
                     String nombreBD = "DieChiChat";
+
+//                    En caso de querer crear usuario nutricionista siempre que se accede
 //                    Nutricionista n = new Nutricionista();
 //                    n.setNombre("Agustín");
 //                    n.setApellidos("Alarcón Nicolás");
 //                    n.setId(0);
 //                    n.setUsuario("admin");
 //                    n.setContrasena("admin");
+
                     FirebaseFirestore dbFS = FirebaseFirestore.getInstance();
                     refFS = dbFS.document("proyectos/" + nombreBD);
 //                    refFS.collection("administrador").document(String.valueOf(n.getId())).set(n);
