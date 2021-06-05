@@ -77,6 +77,13 @@ public class AlimentoSeleccionadoFragment extends Fragment {
             binding.etCarbohidratos.setText(String.valueOf(alimento.getCarbohidratos()));
             binding.etKcal.setText(String.valueOf(alimento.getKcal()));
             binding.etProteinas.setText(String.valueOf(alimento.getProteinas()));
+
+            binding.etNombreAlimento.setEnabled(false);
+            binding.etGrasa.setEnabled(false);
+            binding.etFibra.setEnabled(false);
+            binding.etCarbohidratos.setEnabled(false);
+            binding.etKcal.setEnabled(false);
+            binding.etProteinas.setEnabled(false);
         }
 
         ArrayAdapter<CharSequence> adapterS = ArrayAdapter.createFromResource(view.getContext(), R.array.array_tipos, android.R.layout.simple_spinner_item);

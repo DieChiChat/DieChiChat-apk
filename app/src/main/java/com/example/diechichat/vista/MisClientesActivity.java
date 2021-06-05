@@ -241,7 +241,7 @@ public class MisClientesActivity extends AppCompatActivity implements
                 }
             });
         }
-        mNavC.navigateUp();
+        mNavC.navigate(R.id.mis_clientes_nav_graph);
     }
 
     @Override
