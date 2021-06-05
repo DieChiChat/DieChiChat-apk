@@ -95,7 +95,7 @@ public class DietaActivity extends AppCompatActivity implements
         //super.onBackPressed();
         if (mNavC.getCurrentDestination() != null && mNavC.getCurrentDestination().getId() == R.id.fragment_dieta) {
             finish();
-        } else if(mNavC.getCurrentDestination() != null && mNavC.getCurrentDestination().getId() == R.id.fragment_alimentos
+        } else if (mNavC.getCurrentDestination() != null && mNavC.getCurrentDestination().getId() == R.id.fragment_alimentos
                 || mNavC.getCurrentDestination().getId() == R.id.fragment_alimento_seleccionado) {
             mNavC.navigateUp();
         }
@@ -207,7 +207,7 @@ public class DietaActivity extends AppCompatActivity implements
 
     @Override
     public void onCancelarAliSeleccionadoFrag() {
-
+        mNavC.navigateUp();
     }
 
 }

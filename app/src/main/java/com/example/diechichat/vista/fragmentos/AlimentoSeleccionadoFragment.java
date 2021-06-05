@@ -110,13 +110,12 @@ public class AlimentoSeleccionadoFragment extends Fragment {
     }
 
 
-    /***************************************/
+    /*************/
     View.OnClickListener btAceptarAlimento_onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (!binding.etCantidad.getText().toString().equals("") && !binding.spTipos.getSelectedItem().toString().equals("")) {
                 Alimento a = new Alimento();
-                a.setId(1);
                 a.setNombre(binding.etNombreAlimento.getText().toString());
                 a.setProteinas(Double.parseDouble(binding.etProteinas.getText().toString()));
                 a.setKcal(Double.parseDouble(binding.etKcal.getText().toString()));
@@ -127,15 +126,19 @@ public class AlimentoSeleccionadoFragment extends Fragment {
                 a.setCantidad(cantidad);
                 switch (mOp) {
                     case DietaFragment.OP_DESAYUNO:
+                        a.setId(cliente.getDesayuno().size());
                         cliente.getDesayuno().add(a);
                         break;
                     case DietaFragment.OP_COMIDA:
+                        a.setId(cliente.getComida().size());
                         cliente.getComida().add(a);
                         break;
                     case DietaFragment.OP_CENA:
+                        a.setId(cliente.getCena().size());
                         cliente.getCena().add(a);
                         break;
                     case DietaFragment.OP_OTROS:
+                        a.setId(cliente.getOtros().size());
                         cliente.getOtros().add(a);
                         break;
                 }

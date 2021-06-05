@@ -19,7 +19,7 @@
         android:layout_height="75dp"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/ic_launcher_blue_foreground" />
+        app:srcCompat="@drawable/logo_small_icon_only_inverted_apk" />
 
     <TextView
         android:id="@+id/header_nombre"
