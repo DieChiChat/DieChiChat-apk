@@ -71,7 +71,7 @@ public class ChatFragment extends Fragment {
             mAdaptadorChat.setmLoginNutricionista(chatVM.getLoginNutricionista());
         }
 
-        // Inits Incs Observer
+        // Inits Chat Observer
         chatVM.getChatME().observe(this, new Observer<List<Chat>>() {
             @Override
             public void onChanged(List<Chat> chats) {
@@ -104,7 +104,7 @@ public class ChatFragment extends Fragment {
         binding.rvChats.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
         binding.rvChats.setAdapter(mAdaptadorChat);
 
-        // Listeners0
+        // Listeners
         mAdaptadorChat.setOnClickListener(mAdaptadorChat_OnClickListener);
         binding.btEnviar.setOnClickListener(btEnviar_onClickListener);
 
@@ -138,8 +138,6 @@ public class ChatFragment extends Fragment {
         public void onClick(View v) {
             if(!binding.etTexto.getText().toString().equals("")) {
                 Chat chat = new Chat();
-//                String id = (chatVM.getLoginCliente() != null) ? chatVM.getLoginCliente().getId() : (chatVM.getLoginNutricionista() != null) ? String.valueOf(chatVM.getLoginNutricionista().getId()) : "";
-//                chat.setId(id);
                 chat.setMensaje(binding.etTexto.getText().toString());
                 mListener.onAceptarChatFrag(chat);
                 mAdaptadorChat.notifyDataSetChanged();

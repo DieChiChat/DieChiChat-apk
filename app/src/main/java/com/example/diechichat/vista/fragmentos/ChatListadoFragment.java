@@ -103,7 +103,7 @@ public class ChatListadoFragment extends Fragment {
         binding.rvListadoChats.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
         binding.rvListadoChats.setAdapter(mAdaptadorChat);
 
-        // Listeners0
+        // Listeners
         mAdaptadorChat.setOnClickListener(mAdaptadorChat_OnClickListener);
 
     }

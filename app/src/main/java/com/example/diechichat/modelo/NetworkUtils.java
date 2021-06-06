@@ -13,12 +13,12 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class NetworkUtils {
-    // Base URL for Books API.
+    // URL Base para la API Edamam.
     private static final String RUTA_BUSQUEDA = "https://api.edamam.com/search?q=palabra_a_buscar&app_id=57eaa490&app_key=47f6530c4dda609ba6dc58fb4e62bfad";
     private static final String FOOD_ID = "72781461";
-    private static final String FOOD_ID2 = "57eaa490";
     private static final String FOOD_KEY = "a22b274c5fbcb98413cdbb392927e2e3";
-    // Parameter that limits search results.
+
+    // Parámetro que limita el resultado de búsqueda.
     private static final String MAX_RESULTS = "maxResults";
 
     public static String getFoodInfo(String queryString) {
@@ -26,7 +26,6 @@ public class NetworkUtils {
         BufferedReader reader = null;
         String bookJSONString = null;
         String rutaDefinitiva = "https://api.edamam.com/api/food-database/v2/parser?ingr=" + queryString +"&app_id=72781461&app_key=a22b274c5fbcb98413cdbb392927e2e3";
-        String rutaDefinitiva2 = "https://api.edamam.com/search?q=patatas&app_id=57eaa490&app_key=47f6530c4dda609ba6dc58fb4e62bfad";
         try {
             Uri builtURI = Uri.parse(rutaDefinitiva).buildUpon()
                     .appendQueryParameter(MAX_RESULTS, "20")
@@ -37,13 +36,13 @@ public class NetworkUtils {
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
-            // Get the InputStream.
+            // Recoger el InputStream.
             InputStream inputStream = urlConnection.getInputStream();
 
-            // Create a buffered reader from that input stream.
+            // Crear un buffered reader de el anterior InputStream.
             reader = new BufferedReader(new InputStreamReader(inputStream));
 
-            // Use a StringBuilder to hold the incoming response.
+            // Usar un StringBuilder para recoger la respuesta entrante.
             StringBuilder builder = new StringBuilder();
 
             String line;
@@ -79,14 +78,12 @@ public class NetworkUtils {
         try {
 
             tAlimentos = new ArrayList<Alimento>();
-            // Convert the response into a JSON object.
+            //Convertir la respuesta en un objeto JSON.
             JSONObject jsonObject = new JSONObject(s);
             int i = 0;
             while (i < jsonObject.length()) {
-                // Get the current item information.
-
-                // Try to get the author and title from the current item,
-                // catch if either field is empty and move on.
+                //Obtener la información actual del item
+                //Catch si el campo esta vacío y seguir.
                 try {
                     alimento = new Alimento();
                     alimento.setNombre(jsonObject.getJSONArray("hints").getJSONObject(i).getJSONObject("food").getString("label"));
@@ -102,7 +99,7 @@ public class NetworkUtils {
 
                 DatosAlimentos.getInstance().getAlimentos().add(alimento);
                 tAlimentos.add(alimento);
-                // Move to the next item.
+                //Seguir hacia el siguiente item.
                 i++;
             }
             return  tAlimentos;

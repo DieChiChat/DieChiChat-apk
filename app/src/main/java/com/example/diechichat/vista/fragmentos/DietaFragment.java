@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diechichat.databinding.FragmentDietaBinding;
 import com.example.diechichat.modelo.Alimento;
@@ -25,7 +26,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class DietaFragment extends Fragment {
+public class
+DietaFragment extends Fragment {
 
     private FragmentDietaBinding binding;
     private DietaFragment.DietaFragmentInterface mListener;
@@ -63,8 +65,6 @@ public class DietaFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
 
         cliVM = new ViewModelProvider(requireActivity()).get(ClienteViewModel.class);
 
@@ -72,6 +72,7 @@ public class DietaFragment extends Fragment {
         mAdaptadorComida = new AdaptadorDieta();
         mAdaptadorCena = new AdaptadorDieta();
         mAdaptadorOtros = new AdaptadorDieta();
+
 
         // Inits Observer Dieta Desayuno
         FiltroAlimentos filtroDesayuno = new FiltroAlimentos(OP_DESAYUNO, cliVM.getLogin());
@@ -92,7 +93,6 @@ public class DietaFragment extends Fragment {
         });
 
         // Inits Observer Dieta Comida
-
         FiltroAlimentos filtroComida = new FiltroAlimentos(OP_COMIDA, cliVM.getLogin());
         cliVM.getAlimentosME(filtroComida).observe(this, new Observer<List<Alimento>>() {
             @Override
@@ -150,7 +150,7 @@ public class DietaFragment extends Fragment {
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentDietaBinding.inflate(inflater, container, false);
-
+            //En caso de loging Cliente, se oculta el botón de añadir
         if (cliVM.getEsCliente()) {
             binding.btAddDesayuno.setVisibility(View.INVISIBLE);
             binding.btAddComida.setVisibility(View.INVISIBLE);
@@ -171,29 +171,15 @@ public class DietaFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //init adaptador desayuno
-        binding.rvDesayuno.setHasFixedSize(true);
-        binding.rvDesayuno.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        binding.rvDesayuno.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
-        binding.rvDesayuno.setAdapter(mAdaptadorDesayuno);
-
+        inicializarAdaptador(binding.rvDesayuno, mAdaptadorDesayuno, view);
         //init adaptador comida
-        binding.rvComida.setHasFixedSize(true);
-        binding.rvComida.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        binding.rvComida.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
-        binding.rvComida.setAdapter(mAdaptadorComida);
-
+        inicializarAdaptador(binding.rvComida, mAdaptadorComida, view);
         //init adaptador cena
-        binding.rvCena.setHasFixedSize(true);
-        binding.rvCena.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        binding.rvCena.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
-        binding.rvCena.setAdapter(mAdaptadorCena);
-
+        inicializarAdaptador(binding.rvCena, mAdaptadorCena, view);
         //init adaptador otros
-        binding.rvOtros.setHasFixedSize(true);
-        binding.rvOtros.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        binding.rvOtros.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
-        binding.rvOtros.setAdapter(mAdaptadorOtros);
+        inicializarAdaptador(binding.rvOtros, mAdaptadorOtros, view);
 
+        //Listeners*****************************************************************
         binding.btAddDesayuno.setOnClickListener(btAddDieta_onClickListener);
         binding.btAddComida.setOnClickListener(btAddDieta_onClickListener);
         binding.btAddCena.setOnClickListener(btAddDieta_onClickListener);
@@ -216,6 +202,14 @@ public class DietaFragment extends Fragment {
         super.onDetach();
     }
 
+    //metodo para inicializar los adaptadores de comidas:
+    void inicializarAdaptador(RecyclerView recyclerView, AdaptadorDieta adaptadorDieta, View view){
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
+        recyclerView.setAdapter(adaptadorDieta);
+    }
+
     View.OnClickListener btAddDieta_onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -230,6 +224,5 @@ public class DietaFragment extends Fragment {
             }
         }
     };
-
 
 }

@@ -71,13 +71,14 @@ public class AlimentoSeleccionadoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (alimento != null) {
+            //Rellenamos las propiedades del alimento
             binding.etNombreAlimento.setText(alimento.getNombre());
             binding.etGrasa.setText(String.valueOf(alimento.getGrasa()));
             binding.etFibra.setText(String.valueOf(alimento.getFibra()));
             binding.etCarbohidratos.setText(String.valueOf(alimento.getCarbohidratos()));
             binding.etKcal.setText(String.valueOf(alimento.getKcal()));
             binding.etProteinas.setText(String.valueOf(alimento.getProteinas()));
-
+            //Bloqueamos para que no se pueda modificar
             binding.etNombreAlimento.setEnabled(false);
             binding.etGrasa.setEnabled(false);
             binding.etFibra.setEnabled(false);
@@ -85,10 +86,10 @@ public class AlimentoSeleccionadoFragment extends Fragment {
             binding.etKcal.setEnabled(false);
             binding.etProteinas.setEnabled(false);
         }
-
+        //Rellenamos el spiner con las unidades de medida de los alimentos
         ArrayAdapter<CharSequence> adapterS = ArrayAdapter.createFromResource(view.getContext(), R.array.array_tipos, android.R.layout.simple_spinner_item);
         binding.spTipos.setAdapter(adapterS);
-
+        //Listeners
         binding.btAceptarAlimentos.setOnClickListener(btAceptarAlimento_onClickListener);
         binding.btCancelarAlimentos.setOnClickListener(btCancelarAlimento_onClickListener);
     }
@@ -110,11 +111,11 @@ public class AlimentoSeleccionadoFragment extends Fragment {
     }
 
 
-    /*************/
     View.OnClickListener btAceptarAlimento_onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (!binding.etCantidad.getText().toString().equals("") && !binding.spTipos.getSelectedItem().toString().equals("")) {
+                //Relleno un nuevo alimento
                 Alimento a = new Alimento();
                 a.setNombre(binding.etNombreAlimento.getText().toString());
                 a.setProteinas(Double.parseDouble(binding.etProteinas.getText().toString()));
@@ -124,6 +125,7 @@ public class AlimentoSeleccionadoFragment extends Fragment {
                 a.setGrasa(Double.parseDouble(binding.etGrasa.getText().toString()));
                 String cantidad = binding.etCantidad.getText().toString() + " " + binding.spTipos.getSelectedItem().toString();
                 a.setCantidad(cantidad);
+                //Compruebo la lista a la que pertenece y se añade
                 switch (mOp) {
                     case DietaFragment.OP_DESAYUNO:
                         a.setId(cliente.getDesayuno().size());

@@ -90,7 +90,7 @@ public class Chat implements Parcelable {
 
     public void asignarHora() {
         Calendar calendario = Calendar.getInstance();
-        String hora = String.valueOf(calendario.get(Calendar.HOUR_OF_DAY)) + ":" + String.valueOf(calendario.get(Calendar.MINUTE)) + ":" + String.valueOf(calendario.get(Calendar.SECOND));
+        String hora = calendario.get(Calendar.HOUR_OF_DAY) + ":" + calendario.get(Calendar.MINUTE) + ":" + calendario.get(Calendar.SECOND);
         this.horaMensaje = hora;
     }
 

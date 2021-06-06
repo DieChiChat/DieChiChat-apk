@@ -67,6 +67,7 @@ public class AlimentosFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            //Recojo la opción seleccionada y el cliente a asignar
             mOp = getArguments().getInt("opcion");
             cli = getArguments().getParcelable("cliente");
         }
@@ -75,7 +76,7 @@ public class AlimentosFragment extends Fragment {
         alimentoVM = new ViewModelProvider(requireActivity()).get(AlimentoViewModel.class);
 
         mAdapterAlimentos = new AdaptadorAlimentos();
-
+        //Relleno el spiner con los Alimentos recogidos en la búsqueda
         alimentoVM.getListado().observe(this, new Observer<List<Alimento>>() {
             @Override
             public void onChanged(List<Alimento> alimentos) {
@@ -104,11 +105,12 @@ public class AlimentosFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        //Inits
         binding.rvAlimentos.setHasFixedSize(true);
         binding.rvAlimentos.setLayoutManager(new LinearLayoutManager(view.getContext()));
         binding.rvAlimentos.addItemDecoration(new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
         binding.rvAlimentos.setAdapter(mAdapterAlimentos);
+        //Listeners
         binding.btBuscarAlimento.setOnClickListener(btBuscarAlimento_onClickListener);
     }
 
@@ -154,13 +156,14 @@ public class AlimentosFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    /***************************************/
     View.OnClickListener btBuscarAlimento_onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             DatosAlimentos.getInstance().getAlimentos().clear();
             String query = "";
             String palabraBusqueda = binding.etAlimento.getText().toString();
+            //Según la docu de Edamam, si la consulta contiene espacios es necesario incluir en su lugar %20
+            //para realizar la búsqueda
             for (int i = 0; i < palabraBusqueda.length(); i++) {
                 char letra = palabraBusqueda.charAt(i);
                 if (String.valueOf(letra).equals(" ")) {
