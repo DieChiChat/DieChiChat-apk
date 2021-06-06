@@ -181,21 +181,23 @@
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
-    <Button
-        android:id="@+id/bt_cancelar"
-        style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/bt_cancelar"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
 
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
-        android:text="@string/btn_cancelar"
-        app:background="@drawable/custom_bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:strokeColor="@color/darkBlue" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
+            android:text="@string/btn_cancelar"
+            app:background="@drawable/custom_bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/numPicker_altura"
+            app:strokeColor="@color/darkBlue" />
 
     <Button
         android:id="@+id/bt_aceptar"
@@ -286,16 +288,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/btVerContrasena"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:src="@drawable/ver_ojo_round"
-        app:layout_constraintBottom_toBottomOf="@+id/et_nuevo_contrasena"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/et_nuevo_contrasena"
-        app:layout_constraintTop_toTopOf="@+id/et_nuevo_contrasena" />
+        <ImageButton
+            android:id="@+id/btVerContrasena"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@color/white"
+            android:src="@drawable/ver_ojo_round"
+            app:layout_constraintBottom_toBottomOf="@+id/et_nuevo_contrasena"
+            app:layout_constraintStart_toEndOf="@+id/et_nuevo_contrasena"
+            app:layout_constraintTop_toTopOf="@+id/et_nuevo_contrasena" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

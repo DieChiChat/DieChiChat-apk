@@ -21,12 +21,14 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.ActivityMisClientesBinding;
 import com.example.diechichat.modelo.Cliente;
+import com.example.diechichat.modelo.Nutricionista;
 import com.example.diechichat.vista.dialogos.DlgConfirmacion;
 import com.example.diechichat.vista.dialogos.DlgSeleccionFecha;
 import com.example.diechichat.vista.fragmentos.DietaFragment;
 import com.example.diechichat.vista.fragmentos.MisClientesFragment;
 import com.example.diechichat.vista.fragmentos.NuevoCienteFragment;
 import com.example.diechichat.vistamodelo.ClienteViewModel;
+import com.example.diechichat.vistamodelo.NutriViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -45,6 +47,7 @@ public class MisClientesActivity extends AppCompatActivity implements
     private ActivityMisClientesBinding binding;
     private NavController mNavC;
     private ClienteViewModel cliVM;
+    private NutriViewModel nutriVN;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private Cliente cli;
 
@@ -56,6 +59,11 @@ public class MisClientesActivity extends AppCompatActivity implements
         setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        Intent i = getIntent();
+        if(i!= null){
+            nutriVN = new ViewModelProvider(this).get(NutriViewModel.class);
+            nutriVN.setLogin(i.getParcelableExtra("loginNutric"));
         }
         cliVM = new ViewModelProvider(this).get(ClienteViewModel.class);
         mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.misClientesFragCV)).getNavController();
@@ -77,6 +85,7 @@ public class MisClientesActivity extends AppCompatActivity implements
         Bundle bundleCli = new Bundle();
         bundleCli.putParcelable("cliente", cli);
         bundleCli.putInt("opcion", NuevoCienteFragment.OP_EDITAR);
+        bundleCli.putParcelable("loginNutric",nutriVN.getLogin());
         mNavC.navigate(R.id.action_mis_clientes_to_nuevoCienteFragment, bundleCli);
     }
 

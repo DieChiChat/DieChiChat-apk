@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.FragmentNuevoClienteBinding;
 import com.example.diechichat.modelo.Cliente;
+import com.example.diechichat.modelo.Nutricionista;
 import com.example.diechichat.vista.dialogos.DlgConfirmacion;
 import com.example.diechichat.vista.dialogos.DlgSeleccionFecha;
 import com.example.diechichat.vistamodelo.ClienteViewModel;
@@ -46,6 +47,7 @@ public class NuevoCienteFragment extends Fragment implements
     private FragmentNuevoClienteBinding binding;
     private NuevoCliFragmentInterface mListener;
     private Cliente c;
+    private Nutricionista nutri;
     private int mLogin;
     private ClienteViewModel cliVM;
 
@@ -88,6 +90,7 @@ public class NuevoCienteFragment extends Fragment implements
         if (getArguments() != null) {
             mOp = getArguments().getInt("opcion");
             c = getArguments().getParcelable("cliente");
+            nutri= getArguments().getParcelable("loginNutric");
         }
 
         cliVM = new ViewModelProvider(requireActivity()).get(ClienteViewModel.class);
@@ -146,7 +149,7 @@ public class NuevoCienteFragment extends Fragment implements
         if (mOp != -1) {
             switch (mOp) {
                 case OP_EDITAR:
-                    binding.tvFoto.setText(R.string.tvFotoCambiar);
+                    binding.tvFoto.setText(R.string.tvFotoPerfil);
                     Bundle b = getArguments();
                     if (b != null || c != null) {
                         habilitarCampos(false);
@@ -195,7 +198,9 @@ public class NuevoCienteFragment extends Fragment implements
             }
         });
 
-        binding.ivFoto.setOnClickListener(btFoto_OnClickListener);
+        if(nutri==null){
+            binding.ivFoto.setOnClickListener(btFoto_OnClickListener);
+        }
 
     }
 
@@ -392,16 +397,24 @@ public class NuevoCienteFragment extends Fragment implements
     }
 
     public void habilitarCampos(boolean habilitado) {
+
         if (habilitado) {
             binding.etNuevoNombre.setEnabled(true);
             binding.etNuevoApellidos.setEnabled(true);
-            binding.etNuevoUsuario.setEnabled(true);
-            binding.etNuevoContrasena.setEnabled(true);
             binding.etFecNac.setEnabled(true);
             binding.numPickerAltura.setEnabled(true);
             binding.numPickerPeso.setEnabled(true);
             binding.btFecnac.setEnabled(true);
-//            binding.etNuevoContrasena.setTransformationMethod(null);
+            binding.etNuevoUsuario.setEnabled(true);
+            binding.etNuevoContrasena.setEnabled(true);
+            if(nutri == null){
+                if (mOp==OP_CREAR){
+                    binding.tvFoto.setText(R.string.tvFotoAsignar);
+                }else{
+                    binding.tvFoto.setText(R.string.tvFotoCambiar);
+                }
+            }
+
         } else {
             binding.etNuevoNombre.setEnabled(false);
             binding.etNuevoApellidos.setEnabled(false);

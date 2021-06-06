@@ -112,6 +112,7 @@
     <string name="etEscribeTexto">Escribe un mensaje</string>
 
     <string name="tvFotoAsignar">Asignar foto de perfil</string>
+    <string name="tvFotoPerfil">Foto de perfil</string>
     <string name="tvFotoCambiar">Cambiar foto de perfil</string>
     <string name="etAlimento">Inserta el nombre del alimento</string>
     <string name="btBuscarAlimento">Buscar</string>

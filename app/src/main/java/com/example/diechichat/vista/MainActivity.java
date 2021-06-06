@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements
                     i.putExtra("opcion", NuevoCienteFragment.OP_EDITAR);
                 } else if (mainVM.getLogin() instanceof Nutricionista) {
                     i = new Intent(MainActivity.this, MisClientesActivity.class);
+                    i.putExtra("loginNutric", (Nutricionista) mainVM.getLogin());
                 }
                 if (i != null) {
                     startActivity(i);
