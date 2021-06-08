@@ -9,11 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.diechichat.R;
 import com.example.diechichat.databinding.ActivityChatBinding;
 import com.example.diechichat.modelo.Chat;
 import com.example.diechichat.modelo.Cliente;
+import com.example.diechichat.modelo.Nutricionista;
 import com.example.diechichat.vista.fragmentos.ChatFragment;
 import com.example.diechichat.vista.fragmentos.ChatListadoFragment;
 import com.example.diechichat.vistamodelo.ChatViewModel;
@@ -40,13 +42,13 @@ public class ChatActivity extends AppCompatActivity implements
 
         Intent i = getIntent();
         if (i != null) {
-//            if(i.getParcelableExtra("login") instanceof Nutricionista) {
-//                chatVM.setLoginNutricionista(i.getParcelableExtra("login"));
-//                mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.listadoClientesChatCV)).getNavController();
-//            } else if(i.getParcelableExtra("login") instanceof Cliente) {
-//                chatVM.setLoginCliente(i.getParcelableExtra("login"));
-//                mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.misClientesFragCV)).getNavController();
-//            }
+            if(i.getParcelableExtra("login") instanceof Nutricionista) {
+                chatVM.setLoginNutricionista(i.getParcelableExtra("login"));
+                mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.listadoClientesChatCV)).getNavController();
+            } else if(i.getParcelableExtra("login") instanceof Cliente) {
+                chatVM.setLoginCliente(i.getParcelableExtra("login"));
+                mNavC = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.misClientesFragCV)).getNavController();
+            }
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

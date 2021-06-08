@@ -100,12 +100,12 @@ public class AdaptadorChat extends RecyclerView.Adapter<AdaptadorChat.ChatVH> {
 
         @SuppressLint("SetTextI18n")
         private void setItem(Chat chat) {
-            if (mLoginCliente != null) {
+            if (chat != null) {
                 String s = "";
-                for (int i = 0; i < mLoginCliente.getId().length(); i++) {
-                    char tope = mLoginCliente.getId().charAt(i);
+                for (int i = 0; i < chat.getId().length(); i++) {
+                    char tope = chat.getId().charAt(i);
                     if (String.valueOf(tope).equals("-")) {
-                        s = mLoginCliente.getId().substring(0, i);
+                        s = chat.getId().substring(0, i);
                     }
                 }
                 if (s.equals(mLoginCliente.getId())) {

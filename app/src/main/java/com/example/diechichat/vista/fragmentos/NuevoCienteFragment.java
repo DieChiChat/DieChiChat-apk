@@ -97,6 +97,7 @@ public class NuevoCienteFragment extends Fragment implements
         if (c == null) {
             c = cliVM.getLogin();
             mOp = cliVM.getOpcion();
+            cliVM.setEsCliente(true);
         }
 
         cliVM.getmFechaDlg().observe(this, new Observer<String>() {
@@ -224,6 +225,9 @@ public class NuevoCienteFragment extends Fragment implements
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_perfil_cliente, menu);
+        if(cliVM.getEsCliente()) {
+            menu.findItem(R.id.menuEliminar).setVisible(false);
+        }
     }
 
     @Override
